@@ -15,7 +15,11 @@ const stats = [
   { name: "Industry Awards", value: 15, icon: Award },
 ]
 
-const CountUpAnimation = ({ endValue }) => {
+interface CountUpAnimationProps {
+  endValue: number;
+}
+
+const CountUpAnimation = ({ endValue }: CountUpAnimationProps) => {
   const [count, setCount] = useState(0)
   const countRef = useRef(null)
 
@@ -25,7 +29,7 @@ const CountUpAnimation = ({ endValue }) => {
         if (entry.isIntersecting && count === 0) {
           let start = 0
           const duration = 2000 // 2 seconds
-          const step = (timestamp) => {
+          const step = (timestamp: number) => {
             if (!start) start = timestamp
             const progress = Math.min((timestamp - start) / duration, 1)
             setCount(Math.floor(progress * endValue))

@@ -56,25 +56,22 @@ PartnerLogo.displayName = "PartnerLogo"
 
 export function OurPartners() {
   return (
-    <section className="py-16 bg-black relative" aria-labelledby="partners-heading">
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-black via-black to-white"></div>
-      <div className="relative z-10">
-        <div className="container mx-auto px-4">
-          <h2 id="partners-heading" className="text-4xl font-bold text-center text-white mb-12">
-            Our Partners
-          </h2>
-          <div className="w-full overflow-hidden" role="region" aria-label="Partner logos carousel">
-            <ScrollVelocity velocity={3} className="mb-4">
-              {partnerImages.map((partner) => (
-                <PartnerLogo key={partner.name} {...partner} />
-              ))}
-            </ScrollVelocity>
-            <ScrollVelocity velocity={-3}>
-              {[...partnerImages].reverse().map((partner) => (
-                <PartnerLogo key={`reverse-${partner.name}`} {...partner} />
-              ))}
-            </ScrollVelocity>
-          </div>
+    <section className="py-16 bg-black" aria-labelledby="partners-heading">
+      <div className="container mx-auto px-4">
+        <h2 id="partners-heading" className="text-4xl font-bold text-center text-white mb-12">
+          Our Partners
+        </h2>
+        <div className="w-full overflow-hidden" role="region" aria-label="Partner logos carousel">
+          <ScrollVelocity velocity={3} className="mb-4">
+            {partnerImages.map((partner) => (
+              <PartnerLogo key={partner.name} {...partner} />
+            ))}
+          </ScrollVelocity>
+          <ScrollVelocity velocity={-3}>
+            {[...partnerImages].reverse().map((partner) => (
+              <PartnerLogo key={`reverse-${partner.name}`} {...partner} />
+            ))}
+          </ScrollVelocity>
         </div>
       </div>
     </section>

@@ -15,6 +15,21 @@ import { ScrollVelocity } from "@/components/ui/scroll-velocity"
 import { FadeInHeading } from "@/components/ui/fade-in-heading"
 import { Paintbrush, Shield, Truck, FileText } from "lucide-react"
 
+interface Service {
+  label: string;
+  id: string;
+  icon: JSX.Element;
+  description: string;
+  content: string;
+  images: string[];
+}
+
+interface TimelineEntry {
+  title: string;
+  description: string;
+  content: React.ReactNode;
+}
+
 const partnerImages = [
   {
     name: "XPEL",
@@ -46,10 +61,10 @@ const partnerImages = [
   },
 ]
 
-const services = [
+const services: Service[] = [
   {
     label: "Custom Wraps",
-    href: "#custom-wraps",
+    id: "custom-wraps",
     icon: <Paintbrush className="text-white h-5 w-5 flex-shrink-0" />,
     description: "Transform your vehicle with our premium custom wraps.",
     content:
@@ -62,7 +77,7 @@ const services = [
   },
   {
     label: "Paint Protection",
-    href: "#paint-protection",
+    id: "paint-protection",
     icon: <Shield className="text-white h-5 w-5 flex-shrink-0" />,
     description: "Shield your car's paint from scratches and debris.",
     content:
@@ -75,7 +90,7 @@ const services = [
   },
   {
     label: "Commercial Wraps",
-    href: "#commercial-wraps",
+    id: "commercial-wraps",
     icon: <Truck className="text-white h-5 w-5 flex-shrink-0" />,
     description: "Turn your fleet into moving billboards.",
     content:
@@ -88,7 +103,7 @@ const services = [
   },
   {
     label: "Signage",
-    href: "#signage",
+    id: "signage",
     icon: <FileText className="text-white h-5 w-5 flex-shrink-0" />,
     description: "Create impactful business signage.",
     content:
@@ -101,9 +116,10 @@ const services = [
   },
 ]
 
-const eliteProcessData = [
+const eliteProcessData: TimelineEntry[] = [
   {
     title: "Consultation",
+    description: "We start with a detailed consultation to understand your vision and requirements for your vehicle.",
     content: (
       <div>
         <p className="text-black text-xs md:text-sm font-normal mb-8">
@@ -121,6 +137,7 @@ const eliteProcessData = [
   },
   {
     title: "Design",
+    description: "Our expert designers create custom designs tailored to your preferences and vehicle specifications.",
     content: (
       <div>
         <p className="text-black text-xs md:text-sm font-normal mb-8">
@@ -138,6 +155,7 @@ const eliteProcessData = [
   },
   {
     title: "Preparation",
+    description: "We meticulously clean and prepare your vehicle to ensure the best possible application of wraps or treatments.",
     content: (
       <div>
         <p className="text-black text-xs md:text-sm font-normal mb-8">
@@ -155,6 +173,7 @@ const eliteProcessData = [
   },
   {
     title: "Application",
+    description: "Our skilled technicians apply the wrap or treatment with precision, ensuring a flawless finish.",
     content: (
       <div>
         <p className="text-black text-xs md:text-sm font-normal mb-8">
@@ -172,6 +191,7 @@ const eliteProcessData = [
   },
   {
     title: "Quality Check",
+    description: "We perform a thorough quality check to ensure every detail meets our high standards.",
     content: (
       <div>
         <p className="text-black text-xs md:text-sm font-normal mb-8">
@@ -189,6 +209,7 @@ const eliteProcessData = [
   },
   {
     title: "Delivery",
+    description: "We deliver your transformed vehicle, providing care instructions to maintain its new look.",
     content: (
       <div>
         <p className="text-black text-xs md:text-sm font-normal mb-8">
@@ -208,7 +229,7 @@ const eliteProcessData = [
 
 export function Services() {
   const [open, setOpen] = useState(false)
-  const [selectedService, setSelectedService] = useState(services[0])
+  const [selectedService, setSelectedService] = useState<Service>(services[0])
 
   return (
     <>
@@ -234,29 +255,24 @@ export function Services() {
                 "h-[450px] md:h-[500px] lg:h-[550px]",
               )}
             >
-              <Sidebar open={open} setOpen={setOpen} className="bg-neutral-800 text-white border-r border-neutral-700">
-                <SidebarBody className="justify-between gap-10 bg-neutral-800 text-white">
-                  <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-                    <Logo />
-                    <div className="mt-8 flex flex-col gap-2">
-                      {services.map((service, idx) => (
-                        <SidebarLink
-                          key={idx}
-                          link={{
-                            ...service,
-                            icon: React.cloneElement(service.icon, { className: "text-white h-5 w-5 flex-shrink-0" }),
-                          }}
-                          className={cn(
-                            "hover:bg-neutral-700 transition-colors text-white",
-                            selectedService.label === service.label && "bg-neutral-700",
-                          )}
-                          onClick={() => setSelectedService(service)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </SidebarBody>
-              </Sidebar>
+              <div className="w-[300px] bg-neutral-800 border-r border-neutral-700 p-4">
+                <Logo />
+                <div className="mt-8 flex flex-col gap-2">
+                  {services.map((service, idx) => (
+                    <button
+                      key={idx}
+                      className={cn(
+                        "flex items-center gap-2 p-2 rounded hover:bg-neutral-700 transition-colors text-white text-left w-full",
+                        selectedService.label === service.label && "bg-neutral-700"
+                      )}
+                      onClick={() => setSelectedService(service)}
+                    >
+                      {service.icon}
+                      <span>{service.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
               <ServiceContent service={selectedService} />
             </div>
           </div>
@@ -264,7 +280,7 @@ export function Services() {
       </section>
 
       <section className="py-16 bg-black relative">
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white"></div>
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
             <FadeInHeading className="text-4xl font-bold text-center text-white mb-12">Our Partners</FadeInHeading>
@@ -330,7 +346,11 @@ const Logo = () => {
   )
 }
 
-const ServiceContent = ({ service }) => {
+interface ServiceContentProps {
+  service: Service;
+}
+
+const ServiceContent = ({ service }: ServiceContentProps) => {
   return (
     <div className="flex flex-1 bg-neutral-800 text-white">
       <div className="relative p-2 md:p-4 lg:p-6 rounded-tl-2xl border-l border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
@@ -351,7 +371,7 @@ const ServiceContent = ({ service }) => {
           <p className="text-sm md:text-base text-gray-300">{service.description}</p>
           <p className="mt-2 text-sm md:text-base text-white">{service.content}</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-auto">
-            {service.images.map((image, index) => (
+            {service.images.map((image: string, index: number) => (
               <div key={index} className="relative aspect-video">
                 <Image
                   src={image || "/placeholder.svg"}
