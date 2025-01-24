@@ -1,21 +1,12 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { motion } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectGroup,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-} from "@/components/ui/select"
+import { Select } from "@/components/ui/select"
 import { useSearchParams } from "next/navigation"
 
 const serviceTypes = [
@@ -27,8 +18,23 @@ const serviceTypes = [
   "Other",
 ]
 
-export function ContactForm() {
+function FormStateInitializer({ setFormState }: { setFormState: (prev: any) => void }) {
   const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const plan = searchParams.get("plan")
+    if (plan) {
+      setFormState((prev: any) => ({
+        ...prev,
+        jobDescription: `I'm interested in the ${plan} pricing plan.`,
+      }))
+    }
+  }, [searchParams, setFormState])
+
+  return null
+}
+
+export function ContactForm() {
   const [formState, setFormState] = useState({
     name: "",
     phone: "",
@@ -36,16 +42,6 @@ export function ContactForm() {
     serviceType: "",
     jobDescription: "",
   })
-
-  useEffect(() => {
-    const plan = searchParams.get("plan")
-    if (plan) {
-      setFormState((prev) => ({
-        ...prev,
-        jobDescription: `I'm interested in the ${plan} pricing plan.`,
-      }))
-    }
-  }, [searchParams])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -59,6 +55,9 @@ export function ContactForm() {
 
   return (
     <section className="py-24 bg-black text-white">
+      <Suspense fallback={null}>
+        <FormStateInitializer setFormState={setFormState} />
+      </Suspense>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

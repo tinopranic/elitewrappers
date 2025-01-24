@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { WavyBackground } from "@/components/ui/wavy-background"
 import { ScrollVelocity } from "@/components/ui/scroll-velocity"
@@ -163,7 +163,7 @@ const pricingPlans = [
   },
 ]
 
-export default function ServicesPage() {
+function ScrollToSection() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -176,8 +176,15 @@ export default function ServicesPage() {
     }
   }, [searchParams])
 
+  return null
+}
+
+export default function ServicesPage() {
   return (
     <>
+      <Suspense fallback={null}>
+        <ScrollToSection />
+      </Suspense>
       <WavyBackground className="max-w-4xl mx-auto pb-40">
         <div className="container mx-auto px-4 pt-40 pb-24">
           <FadeInHeading as="h1" className="text-5xl md:text-6xl font-bold text-center text-white mb-6">
