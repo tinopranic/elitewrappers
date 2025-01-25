@@ -16,23 +16,30 @@ function ContactFormWithParams() {
   )
 }
 
-export default function ContactPage() {
+function ScrollHandler() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    // If there are form parameters, scroll to the contact form
     if (searchParams.has("service") || searchParams.has("plan")) {
       const contactForm = document.getElementById("contact-form")
       if (contactForm) {
-        const yOffset = -100 // Offset to account for fixed header
+        const yOffset = -100
         const y = contactForm.getBoundingClientRect().top + window.pageYOffset + yOffset
         window.scrollTo({ top: y, behavior: "smooth" })
       }
     }
   }, [searchParams])
 
+  return null
+}
+
+export default function ContactPage() {
   return (
     <>
+      <Suspense fallback={null}>
+        <ScrollHandler />
+      </Suspense>
+
       {/* Hero Section */}
       <WavyBackground
         colors={["#14B8A6", "#EC4899", "#14B8A6", "#EC4899", "#14B8A6"]}
