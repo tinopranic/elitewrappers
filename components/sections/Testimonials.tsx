@@ -2,6 +2,7 @@
 
 import React from "react"
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
+import { SectionHeading } from "@/components/ui/section-heading"
 
 const testimonials = [
   {
@@ -40,7 +41,9 @@ export function Testimonials() {
   return (
     <section className="py-24 bg-black text-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">What Our Customers Say</h2>
+        <SectionHeading>
+          What Our Customers Say
+        </SectionHeading>
         <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
       </div>
     </section>

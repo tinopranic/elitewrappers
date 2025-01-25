@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { SparklesCore } from "@/components/ui/sparkles"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
 import Link from "next/link"
-import { FadeInHeading } from "@/components/ui/fade-in-heading"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { Award, Clock, ThumbsUp } from "lucide-react"
 
 const stats = [
@@ -80,9 +80,9 @@ export function WhyChooseUs() {
         speed={1}
       />
       <div className="container mx-auto px-4 relative z-20">
-        <FadeInHeading className="text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-pink-500 font-air-travellers">
+        <SectionHeading>
           Why Choose Us
-        </FadeInHeading>
+        </SectionHeading>
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
           {stats.map((stat, index) => (
             <motion.div

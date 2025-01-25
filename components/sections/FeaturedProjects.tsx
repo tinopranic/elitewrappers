@@ -3,7 +3,7 @@
 import React from "react"
 import { GridMotion } from "@/components/ui/grid-motion"
 import { SparklesCore } from "@/components/ui/sparkles"
-import { FadeInHeading } from "@/components/ui/fade-in-heading"
+import { SectionHeading } from "@/components/ui/section-heading"
 
 const projects = [
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/luxury-sedan-after.jpg",
@@ -39,10 +39,10 @@ export function FeaturedProjects() {
       />
       <div className="absolute inset-0 bg-noise opacity-50 mix-blend-soft-light"></div>
       <div className="relative z-10 pt-24 pb-12">
-        <FadeInHeading className="text-4xl font-bold text-center text-white mb-4 font-air-travellers">
+        <SectionHeading>
           Featured Projects
-        </FadeInHeading>
-        <p className="text-center text-gray-400 max-w-2xl mx-auto px-4">
+        </SectionHeading>
+        <p className="text-center text-gray-400 max-w-2xl mx-auto px-4 text-lg">
           Discover our portfolio of premium vehicle wraps, paint protection, and commercial fleet branding projects.
         </p>
       </div>

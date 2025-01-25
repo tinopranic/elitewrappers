@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select } from "@/components/ui/select"
 import { useSearchParams } from "next/navigation"
+import { toast } from "sonner"
 
 const serviceTypes = [
   "Full Vehicle Wrap",
@@ -42,15 +43,48 @@ export function ContactForm() {
     serviceType: "",
     jobDescription: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log(formState)
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      // Show success message
+      toast.success('Message sent successfully! We will get back to you soon.')
+      
+      // Reset form
+      setFormState({
+        name: "",
+        phone: "",
+        email: "",
+        serviceType: "",
+        jobDescription: "",
+      })
+    } catch (error) {
+      console.error('Error sending message:', error)
+      toast.error('Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -140,9 +174,12 @@ export function ContactForm() {
             <div>
               <button
                 type="submit"
-                className="w-full py-3 px-6 text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-md hover:from-teal-600 hover:to-pink-600 transition-all duration-300 font-semibold"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-6 text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-md hover:from-teal-600 hover:to-pink-600 transition-all duration-300 font-semibold ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
-                Submit
+                {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
             </div>
           </form>

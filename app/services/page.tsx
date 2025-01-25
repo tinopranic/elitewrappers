@@ -17,49 +17,49 @@ const services = [
   {
     icon: Car,
     title: "Full Vehicle Wraps",
-    description: "Transform your entire vehicle with a custom wrap.",
+    description: "Transform your vehicle's appearance completely with our premium vinyl wrapping solutions.",
     details:
-      "Our full vehicle wraps offer complete transformation, allowing you to change your car's color or add intricate designs across the entire surface.",
+      "Our full vehicle wraps offer a complete transformation of your vehicle's exterior. Using top-quality vinyl from leading manufacturers like 3M, Avery, and XPEL, we can change your car's color, add custom designs, or create a unique textured finish. Our wraps not only enhance aesthetics but also protect your original paint, maintaining your vehicle's resale value. With a durability of 5-7 years and a wide range of finishes including matte, gloss, satin, chrome, and color-shifting options, the possibilities are endless.",
     id: "full-vehicle-wraps",
   },
   {
     icon: Shield,
     title: "Paint Protection Film",
-    description: "Shield your vehicle's paint from scratches and debris.",
+    description: "Preserve your vehicle's pristine appearance with our advanced protection solutions.",
     details:
-      "Our paint protection films provide an invisible shield against road debris, stone chips, and minor scratches, preserving your vehicle's finish and resale value.",
+      "Our paint protection films provide an invisible shield that safeguards your vehicle's paint from road debris, stone chips, scratches, and environmental damage. We use XPEL's industry-leading self-healing film technology, which automatically repairs minor scratches and swirl marks when exposed to heat. The film is virtually invisible once applied and comes with a 10-year warranty. We cover high-impact areas like the hood, fenders, mirrors, and door edges, or can apply full-body protection for maximum preservation of your vehicle's finish.",
     id: "paint-protection-film",
   },
   {
     icon: Paintbrush,
     title: "Custom Designs",
-    description: "Create unique, eye-catching designs for your vehicle.",
+    description: "Stand out from the crowd with personalized vehicle graphics and unique design elements.",
     details:
-      "Our design team works closely with you to create custom graphics, patterns, or branding that make your vehicle truly one-of-a-kind.",
+      "Our custom design service combines artistic creativity with technical expertise to create truly unique vehicle appearances. Our in-house design team works closely with you to develop concepts that match your vision, whether it's subtle accents or bold statements. We utilize advanced digital design tools to create precise mockups, allowing you to visualize the final result before application. From racing stripes and custom graphics to complete artistic wraps, we can transform your ideas into reality while ensuring perfect execution and longevity.",
     id: "custom-designs",
   },
   {
     icon: Truck,
     title: "Commercial Vehicle Wraps",
-    description: "Turn your fleet into moving billboards.",
+    description: "Transform your fleet into powerful mobile advertising platforms that capture attention.",
     details:
-      "Transform your commercial vehicles into powerful marketing tools with high-quality, durable wraps that showcase your brand wherever you go.",
+      "Our commercial wrapping solutions turn your vehicles into effective marketing tools that generate thousands of daily impressions. We handle everything from single vehicles to entire fleets, ensuring consistent branding across all units. Our commercial-grade vinyl materials are specifically chosen for durability and weather resistance, maintaining your professional image in all conditions. We work with your existing branding guidelines or can help develop new designs that maximize visibility and impact. All installations are precisely measured and professionally applied to ensure your message looks perfect from every angle.",
     id: "commercial-vehicle-wraps",
   },
   {
     icon: FileText,
     title: "Signage Solutions",
-    description: "Create impactful business signage.",
+    description: "Create impactful business signage that enhances your brand presence and visibility.",
     details:
-      "From storefront signs to trade show displays, our signage solutions help your business make a lasting impression with durable materials and vibrant printing techniques.",
+      "Our signage solutions extend beyond vehicles to help establish your brand's physical presence. We create high-impact business signs, window graphics, wall wraps, and trade show displays using premium materials and advanced printing technology. Our team handles everything from design and production to professional installation, ensuring your signage not only looks outstanding but also withstands the test of time. Whether you need indoor or outdoor signage, we use weather-resistant materials and UV-protected inks to maintain vibrant colors and clarity for years.",
     id: "signage-solutions",
   },
   {
     icon: Zap,
     title: "Ceramic Coating",
-    description: "Long-lasting protection and shine for your vehicle.",
+    description: "Add an extra layer of protection and brilliant shine to your vehicle's exterior.",
     details:
-      "Our ceramic coating service provides a durable, hydrophobic layer that protects your vehicle's paint from environmental contaminants and makes cleaning easier.",
+      "Our ceramic coating service provides the ultimate in paint protection and aesthetic enhancement. This advanced nano-ceramic technology bonds with your vehicle's paint at a molecular level, creating a permanent protective layer that repels water, dirt, and contaminants. The coating enhances your paint's gloss and depth while making cleaning easier and reducing the need for waxing. With proper maintenance, our ceramic coatings can last up to 5 years, providing long-term protection against environmental damage, UV rays, and chemical contaminants while keeping your vehicle looking showroom-fresh.",
     id: "ceramic-coating",
   },
 ]
@@ -201,23 +201,23 @@ export default function ServicesPage() {
         <section key={index} id={service.id} className={`py-20 ${index % 2 === 0 ? "bg-black" : "bg-gray-900"}`}>
           <div className="container mx-auto px-4">
             <div
-              className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center justify-between`}
+              className={`grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-16`}
+              style={{ direction: index % 2 === 0 ? "ltr" : "rtl" }}
             >
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <service.icon className="w-16 h-16 text-teal-400 mb-6" />
+              <div style={{ direction: "ltr" }}>
                 <FadeInHeading as="h2" className="text-3xl font-bold text-white mb-4">
                   {service.title}
                 </FadeInHeading>
                 <p className="text-xl text-gray-300 mb-6">{service.description}</p>
                 <p className="text-gray-400">{service.details}</p>
               </div>
-              <div className="md:w-1/2">
+              <div style={{ direction: "ltr" }}>
                 <Image
                   src="/placeholder.svg"
                   alt={service.title}
                   width={500}
                   height={300}
-                  className="rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg w-full"
                 />
               </div>
             </div>
@@ -235,7 +235,7 @@ export default function ServicesPage() {
                 description:
                   "We start with a detailed consultation to understand your vision and requirements for your vehicle.",
                 content: (
-                  <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
+                  <div className="h-full w-full flex items-center justify-center text-white">
                     Consultation
                   </div>
                 ),
@@ -245,7 +245,7 @@ export default function ServicesPage() {
                 description:
                   "Our expert designers create custom designs tailored to your preferences and vehicle specifications.",
                 content: (
-                  <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--pink-500),var(--indigo-500))] flex items-center justify-center text-white">
+                  <div className="h-full w-full flex items-center justify-center text-white">
                     Design
                   </div>
                 ),
@@ -255,7 +255,7 @@ export default function ServicesPage() {
                 description:
                   "We meticulously clean and prepare your vehicle to ensure the best possible application of wraps or treatments.",
                 content: (
-                  <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
+                  <div className="h-full w-full flex items-center justify-center text-white">
                     Preparation
                   </div>
                 ),
@@ -265,7 +265,7 @@ export default function ServicesPage() {
                 description:
                   "Our skilled technicians apply the wrap or treatment with precision, ensuring a flawless finish.",
                 content: (
-                  <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
+                  <div className="h-full w-full flex items-center justify-center text-white">
                     Application
                   </div>
                 ),
@@ -274,7 +274,7 @@ export default function ServicesPage() {
                 title: "Quality Check",
                 description: "We perform a thorough quality check to ensure every detail meets our high standards.",
                 content: (
-                  <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--pink-500),var(--indigo-500))] flex items-center justify-center text-white">
+                  <div className="h-full w-full flex items-center justify-center text-white">
                     Quality Check
                   </div>
                 ),
@@ -284,7 +284,7 @@ export default function ServicesPage() {
                 description:
                   "We deliver your transformed vehicle, providing care instructions to maintain its new look.",
                 content: (
-                  <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
+                  <div className="h-full w-full flex items-center justify-center text-white">
                     Delivery
                   </div>
                 ),

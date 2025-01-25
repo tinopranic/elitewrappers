@@ -12,7 +12,7 @@ import { Timeline } from "@/components/ui/timeline"
 import { OurPartners } from "./OurPartners"
 import { SparklesCore } from "@/components/ui/sparkles"
 import { ScrollVelocity } from "@/components/ui/scroll-velocity"
-import { FadeInHeading } from "@/components/ui/fade-in-heading"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { Paintbrush, Shield, Truck, FileText } from "lucide-react"
 
 interface Service {
@@ -246,9 +246,11 @@ export function Services() {
         />
         <div className="relative z-10">
           <div className="container mx-auto px-4">
-            <FadeInHeading className="text-4xl font-bold text-center mb-12 font-air-travellers">
-              Our Services
-            </FadeInHeading>
+            <div className="relative">
+              <SectionHeading>
+                Our Services
+              </SectionHeading>
+            </div>
             <div
               className={cn(
                 "rounded-md flex flex-col md:flex-row bg-neutral-900 text-white w-full flex-1 max-w-7xl mx-auto border border-neutral-700 overflow-hidden",
@@ -265,7 +267,10 @@ export function Services() {
                         "flex items-center gap-2 p-2 rounded hover:bg-neutral-700 transition-colors text-white text-left w-full",
                         selectedService.label === service.label && "bg-neutral-700"
                       )}
-                      onClick={() => setSelectedService(service)}
+                      onClick={() => {
+                        setSelectedService(service)
+                        setOpen(false)
+                      }}
                     >
                       {service.icon}
                       <span>{service.label}</span>
@@ -283,7 +288,11 @@ export function Services() {
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
-            <FadeInHeading className="text-4xl font-bold text-center text-white mb-12">Our Partners</FadeInHeading>
+            <div className="relative">
+              <SectionHeading>
+                Our Partners
+              </SectionHeading>
+            </div>
             <div className="w-full overflow-hidden">
               <ScrollVelocity velocity={3} className="mb-4">
                 {partnerImages.map(({ name, logo }) => (
@@ -318,9 +327,11 @@ export function Services() {
 
       <section className="relative z-10 mt-24">
         <div className="container mx-auto px-4">
-          <FadeInHeading className="text-4xl font-bold text-center mb-12 font-air-travellers">
-            The Elite Process
-          </FadeInHeading>
+          <div className="relative">
+            <SectionHeading textColor="text-gray-900">
+              The Elite Process
+            </SectionHeading>
+          </div>
           <Timeline data={eliteProcessData} />
         </div>
       </section>
