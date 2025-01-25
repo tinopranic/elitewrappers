@@ -12,6 +12,7 @@ import Link from "next/link"
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"
 import { Pricing } from "@/components/blocks/pricing"
 import { FadeInHeading } from "@/components/ui/fade-in-heading"
+import { SectionHeading } from "@/components/ui/section-heading"
 
 const services = [
   {
@@ -201,23 +202,24 @@ export default function ServicesPage() {
         <section key={index} id={service.id} className={`py-20 ${index % 2 === 0 ? "bg-black" : "bg-gray-900"}`}>
           <div className="container mx-auto px-4">
             <div
-              className={`grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-16`}
-              style={{ direction: index % 2 === 0 ? "ltr" : "rtl" }}
+              className={`flex flex-col ${
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              } items-center justify-between gap-16`}
             >
-              <div style={{ direction: "ltr" }}>
+              <div className="md:w-1/2">
                 <FadeInHeading as="h2" className="text-3xl font-bold text-white mb-4">
                   {service.title}
                 </FadeInHeading>
                 <p className="text-xl text-gray-300 mb-6">{service.description}</p>
                 <p className="text-gray-400">{service.details}</p>
               </div>
-              <div style={{ direction: "ltr" }}>
+              <div className="md:w-1/2">
                 <Image
                   src="/placeholder.svg"
                   alt={service.title}
                   width={500}
                   height={300}
-                  className="rounded-lg shadow-lg w-full"
+                  className="rounded-lg shadow-lg"
                 />
               </div>
             </div>
@@ -294,44 +296,36 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <Pricing
-        plans={pricingPlans}
-        title="Our Pricing Plans"
-        description="Choose the perfect package for your vehicle transformation"
-      />
-
-      <section className="py-20 bg-black">
+      <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4">
-          <FadeInHeading className="text-4xl font-bold text-center text-white mb-12">
-            Frequently Asked Questions
-          </FadeInHeading>
-          <Accordion type="single" collapsible className="w-full max-w-2xl mx-auto">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-800">
-                <AccordionTrigger className="text-white hover:text-teal-400">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-gray-400">{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
-        <div className="container mx-auto px-4 text-center">
-          <FadeInHeading className="text-4xl font-bold text-white mb-8">Ready to Transform Your Vehicle?</FadeInHeading>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            Contact us today to discuss your project and get a custom quote for your vehicle transformation.
-          </p>
-          <Button asChild size="lg" className="bg-teal-500 hover:bg-teal-600 text-white">
-            <Link href="/contact">Get a Quote</Link>
-          </Button>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+              <p className="text-lg text-gray-400">Find answers to common questions about our services.</p>
+            </div>
+            <div className="grid gap-6">
+              {faqs.map((faq, index) => (
+                <Accordion key={index} type="single" collapsible>
+                  <AccordionItem value={`item-${index}`}>
+                    <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                    <AccordionContent>{faq.answer}</AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="py-16 bg-black relative">
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
-            <FadeInHeading className="text-4xl font-bold text-center text-white mb-12">Our Partners</FadeInHeading>
+            <div className="relative">
+              <SectionHeading>
+                Our Partners
+              </SectionHeading>
+            </div>
             <div className="w-full overflow-hidden">
               <ScrollVelocity velocity={3} className="mb-4">
                 {partnerImages.map(({ name, logo }) => (
