@@ -19,6 +19,11 @@ const serviceTypes = [
   "Other",
 ]
 
+interface ContactFormProps {
+  defaultService?: string | null;
+  defaultPlan?: string | null;
+}
+
 function FormStateInitializer({ setFormState }: { setFormState: (prev: any) => void }) {
   const searchParams = useSearchParams()
 
@@ -35,7 +40,7 @@ function FormStateInitializer({ setFormState }: { setFormState: (prev: any) => v
   return null
 }
 
-export function ContactForm() {
+export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
   const [formState, setFormState] = useState({
     name: "",
     phone: "",

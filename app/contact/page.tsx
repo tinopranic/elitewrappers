@@ -1,10 +1,20 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useEffect, Suspense } from "react"
 import { WavyBackground } from "@/components/ui/wavy-background"
 import { ContactForm } from "@/components/sections/ContactForm"
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react"
 import { useSearchParams } from "next/navigation"
+
+function ContactFormWithParams() {
+  const searchParams = useSearchParams()
+  const service = searchParams.get("service")
+  const plan = searchParams.get("plan")
+
+  return (
+    <ContactForm defaultService={service} defaultPlan={plan} />
+  )
+}
 
 export default function ContactPage() {
   const searchParams = useSearchParams()
@@ -157,7 +167,9 @@ export default function ContactPage() {
 
       {/* Contact Form Section */}
       <div id="contact-form">
-        <ContactForm />
+        <Suspense fallback={<div>Loading form...</div>}>
+          <ContactFormWithParams />
+        </Suspense>
       </div>
 
       {/* Map Section */}
