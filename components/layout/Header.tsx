@@ -62,6 +62,11 @@ const handleServiceClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string
   }
 }
 
+const handleQuoteClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  // No need to prevent default - let the Link component handle navigation
+  // The ScrollHandler component in contact/page.tsx will handle scrolling to the form
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
@@ -210,8 +215,9 @@ export function Header() {
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
             <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
               <Link
-                href="/contact"
+                href="/contact?scroll=contact-form"
                 className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all cursor-pointer"
+                onClick={handleQuoteClick}
               >
                 Get a Quote
               </Link>
@@ -290,31 +296,44 @@ export function Header() {
                 >
                   About
                 </Link>
-                <Link
-                  href="/contact"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-gray-50/10 cursor-pointer"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contact
-                </Link>
-              </div>
-              <div className="py-6">
-                <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full">
-                  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
-                  <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
-                    <Link
-                      href="/contact"
-                      className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all cursor-pointer"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Get a Quote
-                    </Link>
-                  </div>
-                </span>
+                <div className="py-6">
+                  <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full">
+                    <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+                    <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
+                      <Link
+                        href="/contact?scroll=contact-form"
+                        className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all cursor-pointer"
+                        onClick={(e) => {
+                          setMobileMenuOpen(false)
+                          handleQuoteClick(e)
+                        }}
+                      >
+                        Get a Quote
+                      </Link>
+                    </div>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-zinc-900/30 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
+        style={{
+          mask: 'radial-gradient(circle, transparent, black)',
+          WebkitMask: 'radial-gradient(circle, transparent, black)',
+        }}
+      >
+        <div
+          className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+          style={{
+            opacity: '0.1',
+            filter: 'blur(7px)',
+            background:
+              'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+          }}
+        />
       </div>
     </header>
   )

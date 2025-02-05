@@ -7,6 +7,7 @@ import { BellIcon, CalendarIcon, FileTextIcon, GlobeIcon, InputIcon } from "@rad
 import { Tag, Wand2, Car, Shield } from "lucide-react"
 import { ShineBorder } from "@/components/ui/shine-border"
 import { motion, useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
 
 interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
@@ -121,12 +122,12 @@ export function HeroSection({
               <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
                 <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
                 <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
-                  <a
-                    href={ctaHref}
+                  <Link
+                    href={ctaHref + "?scroll=contact-form"}
                     className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
                   >
                     {ctaText}
-                  </a>
+                  </Link>
                 </div>
               </span>
             </div>
@@ -141,6 +142,15 @@ export function HeroSection({
         </div>
       </section>
       <div className="absolute bottom-0 left-0 right-0 h-64 backdrop-blur-3xl bg-gradient-to-b from-transparent via-black/70 to-black"></div>
+      <div
+        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+        style={{
+          opacity: '0.1',
+          filter: 'blur(7px)',
+          background:
+            'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+        }}
+      />
     </div>
   )
 }

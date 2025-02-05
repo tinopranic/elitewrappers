@@ -94,9 +94,16 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
                     <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl">
                       {typeof content === "string" && content.startsWith("http") ? (
                         <div
-                          className="absolute inset-0 bg-cover bg-center"
+                          className="absolute inset-0 bg-cover bg-center transition-transform duration-300 hover:scale-110"
                           style={{
                             backgroundImage: `url(${content})`,
+                          }}
+                          onError={(e) => {
+                            // If image fails to load, show a fallback background
+                            const target = e.target as HTMLDivElement;
+                            target.style.backgroundColor = '#1f1f1f';
+                            target.style.backgroundImage = 'none';
+                            target.innerHTML = '<div class="text-gray-400">Image unavailable</div>';
                           }}
                         />
                       ) : (

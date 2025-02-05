@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 interface TimelineEntry {
   title: string
   content: React.ReactNode
-  description: string
+  description: React.ReactNode
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {

@@ -69,16 +69,18 @@ export function WhyChooseUs() {
 
   return (
     <section className="py-24 bg-gradient-to-b from-black to-gray-900 text-white relative overflow-hidden">
-      <SparklesCore
-        id="tsparticleswhychooseus"
-        background="transparent"
-        minSize={0.6}
-        maxSize={1.4}
-        particleDensity={100}
-        className="absolute inset-0 w-full h-full"
-        particleColor={["#14B8A6", "#EC4899"]}
-        speed={1}
-      />
+      <div className="absolute inset-0 -z-10">
+        <SparklesCore
+          id="tsparticlesfull"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#00bac5"
+          speed={0.1}
+        />
+      </div>
       <div className="container mx-auto px-4 relative z-20">
         <SectionHeading>
           Why Choose Us
@@ -112,6 +114,15 @@ export function WhyChooseUs() {
           </div>
         </span>
       </div>
+      <div
+        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+        style={{
+          opacity: '0.1',
+          filter: 'blur(7px)',
+          background:
+            'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+        }}
+      />
     </section>
   )
 }

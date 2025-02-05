@@ -5,6 +5,7 @@ import { WavyBackground } from "@/components/ui/wavy-background"
 import { ContactForm } from "@/components/sections/ContactForm"
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react"
 import { useSearchParams } from "next/navigation"
+import { SparklesCore } from "@/components/ui/sparkles"
 
 function ContactFormWithParams() {
   const searchParams = useSearchParams()
@@ -20,7 +21,8 @@ function ScrollHandler() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (searchParams.has("service") || searchParams.has("plan")) {
+    const shouldScroll = searchParams.get("scroll") === "contact-form"
+    if (shouldScroll || searchParams.has("service") || searchParams.has("plan")) {
       const contactForm = document.getElementById("contact-form")
       if (contactForm) {
         const yOffset = -100
@@ -206,6 +208,29 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <div className="absolute inset-0 -z-10">
+        <SparklesCore
+          id="tsparticlesfull"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#00bac5"
+          speed={0.1}
+        />
+      </div>
+
+      <div
+        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+        style={{
+          opacity: '0.1',
+          filter: 'blur(7px)',
+          background:
+            'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+        }}
+      />
     </>
   )
 }

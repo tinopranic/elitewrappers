@@ -13,7 +13,7 @@ import { OurPartners } from "./OurPartners"
 import { SparklesCore } from "@/components/ui/sparkles"
 import { ScrollVelocity } from "@/components/ui/scroll-velocity"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { Paintbrush, Shield, Truck, FileText } from "lucide-react"
+import { Paintbrush, Shield, Truck, FileText, Calendar, Palette, Sparkles, CheckCircle2, ClipboardCheck, Car, MessageSquare, PaintBucket, Settings, BadgeCheck, FileCheck } from "lucide-react"
 
 interface Service {
   label: string;
@@ -26,7 +26,7 @@ interface Service {
 
 interface TimelineEntry {
   title: string;
-  description: string;
+  description: React.ReactNode;
   content: React.ReactNode;
 }
 
@@ -119,12 +119,24 @@ const services: Service[] = [
 const eliteProcessData: TimelineEntry[] = [
   {
     title: "Consultation",
-    description: "We start with a detailed consultation to understand your vision and requirements for your vehicle.",
+    description: (
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <MessageSquare className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>In-depth discussion of your vision, preferences, and requirements</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <Palette className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
+          <span>Explore color options, finishes, and material selections</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <Calendar className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Timeline planning and budget discussion</span>
+        </li>
+      </ul>
+    ),
     content: (
       <div>
-        <p className="text-black text-xs md:text-sm font-normal mb-8">
-          We start with a detailed consultation to understand your vision and requirements for your vehicle.
-        </p>
         <Image
           src="/placeholder.svg?height=300&width=500"
           alt="Consultation process"
@@ -137,12 +149,24 @@ const eliteProcessData: TimelineEntry[] = [
   },
   {
     title: "Design",
-    description: "Our expert designers create custom designs tailored to your preferences and vehicle specifications.",
+    description: (
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <Sparkles className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Creation of precise digital mockups</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <Settings className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
+          <span>Detailed customization of graphics and patterns</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <ClipboardCheck className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Multiple revision rounds until perfect</span>
+        </li>
+      </ul>
+    ),
     content: (
       <div>
-        <p className="text-black text-xs md:text-sm font-normal mb-8">
-          Our expert designers create custom designs tailored to your preferences and vehicle specifications.
-        </p>
         <Image
           src="/placeholder.svg?height=300&width=500"
           alt="Design process"
@@ -155,12 +179,24 @@ const eliteProcessData: TimelineEntry[] = [
   },
   {
     title: "Preparation",
-    description: "We meticulously clean and prepare your vehicle to ensure the best possible application of wraps or treatments.",
+    description: (
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <PaintBucket className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Professional cleaning and surface preparation</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <Shield className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
+          <span>Protection of sensitive areas and components</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <CheckCircle2 className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Surface inspection and imperfection correction</span>
+        </li>
+      </ul>
+    ),
     content: (
       <div>
-        <p className="text-black text-xs md:text-sm font-normal mb-8">
-          We meticulously clean and prepare your vehicle to ensure the best possible application of wraps or treatments.
-        </p>
         <Image
           src="/placeholder.svg?height=300&width=500"
           alt="Vehicle preparation"
@@ -173,12 +209,24 @@ const eliteProcessData: TimelineEntry[] = [
   },
   {
     title: "Application",
-    description: "Our skilled technicians apply the wrap or treatment with precision, ensuring a flawless finish.",
+    description: (
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Premium vinyl application by certified installers</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <Settings className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
+          <span>Precision alignment and panel matching</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <CheckCircle2 className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Careful attention to curves and complex surfaces</span>
+        </li>
+      </ul>
+    ),
     content: (
       <div>
-        <p className="text-black text-xs md:text-sm font-normal mb-8">
-          Our skilled technicians apply the wrap or treatment with precision, ensuring a flawless finish.
-        </p>
         <Image
           src="/placeholder.svg?height=300&width=500"
           alt="Wrap application"
@@ -191,12 +239,24 @@ const eliteProcessData: TimelineEntry[] = [
   },
   {
     title: "Quality Check",
-    description: "We perform a thorough quality check to ensure every detail meets our high standards.",
+    description: (
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <BadgeCheck className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Multi-point inspection under various lighting conditions</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <CheckCircle2 className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
+          <span>Verification of seams, edges, and adhesion</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <FileCheck className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Final assembly check and cleaning</span>
+        </li>
+      </ul>
+    ),
     content: (
       <div>
-        <p className="text-black text-xs md:text-sm font-normal mb-8">
-          We perform a thorough quality check to ensure every detail meets our high standards.
-        </p>
         <Image
           src="/placeholder.svg?height=300&width=500"
           alt="Quality check process"
@@ -209,12 +269,24 @@ const eliteProcessData: TimelineEntry[] = [
   },
   {
     title: "Delivery",
-    description: "We deliver your transformed vehicle, providing care instructions to maintain its new look.",
+    description: (
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Comprehensive vehicle walkthrough</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <FileCheck className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
+          <span>Detailed care instructions and warranty documentation</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <Calendar className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+          <span>Follow-up inspection scheduling</span>
+        </li>
+      </ul>
+    ),
     content: (
       <div>
-        <p className="text-black text-xs md:text-sm font-normal mb-8">
-          We deliver your transformed vehicle, providing care instructions to maintain its new look.
-        </p>
         <Image
           src="/placeholder.svg?height=300&width=500"
           alt="Vehicle delivery"
@@ -234,16 +306,18 @@ export function Services() {
   return (
     <>
       <section className="py-24 bg-black text-white relative">
-        <SparklesCore
-          id="tsparticlesservices"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
-          className="absolute inset-0 w-full h-full"
-          particleColor={["#14B8A6", "#EC4899"]}
-          speed={1}
-        />
+        <div className="absolute inset-0 -z-10">
+          <SparklesCore
+            id="tsparticlesfull"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.4}
+            particleDensity={100}
+            className="w-full h-full"
+            particleColor="#00bac5"
+            speed={0.1}
+          />
+        </div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
             <div className="relative">
@@ -282,6 +356,15 @@ export function Services() {
             </div>
           </div>
         </div>
+        <div
+          className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+          style={{
+            opacity: '0.1',
+            filter: 'blur(7px)',
+            background:
+              'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+          }}
+        />
       </section>
 
       <section className="py-16 bg-black relative">
@@ -325,14 +408,22 @@ export function Services() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-24">
-        <div className="container mx-auto px-4">
-          <div className="relative">
+      <section className="relative z-10 mt-24 bg-white min-h-screen py-24">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-white" />
+        <div className="absolute inset-0 mix-blend-overlay opacity-40">
+          <div className="absolute top-0 -left-4 w-3/4 h-3/4 bg-gradient-to-br from-teal-500/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 -right-4 w-3/4 h-3/4 bg-gradient-to-tl from-pink-500/10 to-transparent rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-4 relative">
+          <div className="relative mb-16">
             <SectionHeading textColor="text-gray-900">
               The Elite Process
             </SectionHeading>
           </div>
-          <Timeline data={eliteProcessData} />
+          <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100">
+            <Timeline data={eliteProcessData} />
+          </div>
         </div>
       </section>
     </>

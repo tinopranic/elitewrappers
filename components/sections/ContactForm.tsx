@@ -93,7 +93,7 @@ export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
   }
 
   return (
-    <section className="py-24 bg-black text-white">
+    <section id="contact-form" className="py-24 bg-black text-white">
       <Suspense fallback={null}>
         <FormStateInitializer setFormState={setFormState} />
       </Suspense>
@@ -179,10 +179,10 @@ export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
             <div>
               <button
                 type="submit"
-                disabled={isSubmitting}
                 className={`w-full py-3 px-6 text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-md hover:from-teal-600 hover:to-pink-600 transition-all duration-300 font-semibold ${
                   isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
+                disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
