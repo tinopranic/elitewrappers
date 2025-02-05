@@ -30,6 +30,25 @@ export const metadata: Metadata = {
     "automotive",
     "car customization",
   ],
+  icons: {
+    icon: [
+      {
+        url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NEW%20Logo%20jpg-6ER5dcL86gISqvgRIepb8CjEGxn8HQ.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NEW%20Logo%20jpg-6ER5dcL86gISqvgRIepb8CjEGxn8HQ.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+    ],
+    apple: {
+      url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NEW%20Logo%20jpg-6ER5dcL86gISqvgRIepb8CjEGxn8HQ.png",
+      sizes: "180x180",
+      type: "image/png",
+    },
+  },
 }
 
 export default function RootLayout({
