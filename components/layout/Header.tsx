@@ -146,14 +146,14 @@ export function Header() {
                     <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-cover bg-center p-6 no-underline outline-none focus:shadow-md relative overflow-hidden"
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-cover bg-center p-6 no-underline outline-none focus:shadow-md relative overflow-hidden group"
                           href="/services"
                           style={{
                             backgroundImage:
                               'url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/_J016683.jpg-gkXuhy9uA0QQzlEV2TT07ngbcGMqqq.jpeg")',
                           }}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80" />
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 transition-opacity group-hover:opacity-75" />
                           <div className="relative z-20">
                             <div className="mb-2 mt-4 text-lg font-medium text-white">Our Services</div>
                             <p className="text-sm leading-tight text-gray-100">
