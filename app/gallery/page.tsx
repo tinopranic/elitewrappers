@@ -9,7 +9,7 @@ import Link from "next/link"
 
 export default function GalleryPage() {
   return (
-    <>
+    <div className="relative">
       <WavyBackground
         colors={["#14B8A6", "#EC4899", "#14B8A6", "#EC4899", "#14B8A6"]}
         waveWidth={100}
@@ -17,9 +17,10 @@ export default function GalleryPage() {
         blur={5}
         speed="slow"
         waveOpacity={0.5}
+        containerClassName="min-h-screen"
         className="w-full"
       >
-        <div className="container mx-auto px-4 pt-40 pb-24">
+        <div className="container mx-auto px-4 pt-40 pb-48">
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Our Gallery</h1>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
@@ -38,13 +39,16 @@ export default function GalleryPage() {
         </div>
       </WavyBackground>
 
-      <section className="py-24 bg-black">
-        <div className="container mx-auto px-4">
+      {/* Simple gradient transition */}
+      <div className="relative h-32 bg-gradient-to-b from-transparent to-black -mt-24"></div>
+
+      <section className="relative z-10 bg-black -mt-16">
+        <div className="container mx-auto px-4 pt-16">
           <SectionHeading>Latest Projects</SectionHeading>
           <InstagramFeed />
         </div>
       </section>
-    </>
+    </div>
   )
 }
 

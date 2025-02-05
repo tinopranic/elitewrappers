@@ -99,8 +99,7 @@ export function Header() {
     <header
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
-        isScrolled ? "bg-black/80 backdrop-blur-md shadow-md" : "bg-transparent",
-        scrollDirection === "down" && isScrolled ? "-top-24" : "top-0",
+        scrollDirection === "down" && isScrolled ? "-top-24" : "top-0"
       )}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-6" aria-label="Global">
@@ -324,10 +323,10 @@ export function Header() {
         </div>
       </div>
       <div
-        className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-zinc-900/30 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
+        className="absolute inset-0 -z-10 h-full w-full bg-black/75 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
         style={{
-          mask: 'radial-gradient(circle, transparent, black)',
-          WebkitMask: 'radial-gradient(circle, transparent, black)',
+          maskImage: 'linear-gradient(to bottom, black, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
         }}
       >
         <div

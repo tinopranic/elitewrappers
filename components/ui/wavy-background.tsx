@@ -43,13 +43,13 @@ export const WavyBackground = ({
   const init = () => {
     canvas = canvasRef.current
     ctx = canvas.getContext("2d")
-    w = ctx.canvas.width = window.innerWidth
-    h = ctx.canvas.height = window.innerHeight
+    w = ctx.canvas.width = window.innerWidth + 20
+    h = ctx.canvas.height = window.innerHeight + 20
     ctx.filter = `blur(${blur}px)`
     nt = 0
     window.onresize = () => {
-      w = ctx.canvas.width = window.innerWidth
-      h = ctx.canvas.height = window.innerHeight
+      w = ctx.canvas.width = window.innerWidth + 20
+      h = ctx.canvas.height = window.innerHeight + 20
       ctx.filter = `blur(${blur}px)`
     }
     render()
@@ -62,9 +62,9 @@ export const WavyBackground = ({
       ctx.beginPath()
       ctx.lineWidth = waveWidth || 50
       ctx.strokeStyle = waveColors[i % waveColors.length]
-      for (x = 0; x < w; x += 5) {
+      for (x = -10; x < w + 10; x += 5) {
         var y = noise(x / 800, 0.3 * i, nt) * 100
-        ctx.lineTo(x, y + h * 0.5) // adjust for height, currently at 50% of the container
+        ctx.lineTo(x, y + h * 0.5)
       }
       ctx.stroke()
       ctx.closePath()
@@ -75,7 +75,7 @@ export const WavyBackground = ({
   const render = () => {
     ctx.fillStyle = backgroundFill || "black"
     ctx.globalAlpha = waveOpacity || 0.5
-    ctx.fillRect(0, 0, w, h)
+    ctx.fillRect(-10, -10, w + 20, h + 20)
     drawWave(5)
     animationId = requestAnimationFrame(render)
   }
@@ -89,7 +89,6 @@ export const WavyBackground = ({
 
   const [isSafari, setIsSafari] = useState(false)
   useEffect(() => {
-    // I'm sorry but i have got to support it on safari.
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&
@@ -98,16 +97,18 @@ export const WavyBackground = ({
   }, [])
 
   return (
-    <div className={cn("h-screen flex flex-col items-center justify-center", containerClassName)}>
+    <div className={cn("relative overflow-hidden", containerClassName)} style={{ margin: '-10px' }}>
       <canvas
         className="absolute inset-0 z-0"
         ref={canvasRef}
         id="canvas"
         style={{
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
+          transform: 'scale(1.1)',
+          margin: '-5px',
         }}
       ></canvas>
-      <div className={cn("relative z-10", className)} {...props}>
+      <div className={cn("relative z-10 mx-[10px]", className)} {...props}>
         {children}
       </div>
     </div>

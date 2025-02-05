@@ -43,136 +43,139 @@ export default function ContactPage() {
       </Suspense>
 
       {/* Hero Section */}
-      <WavyBackground
-        colors={["#14B8A6", "#EC4899", "#14B8A6", "#EC4899", "#14B8A6"]}
-        waveWidth={100}
-        backgroundFill="black"
-        blur={5}
-        speed="slow"
-        waveOpacity={0.5}
-        className="w-full"
-      >
-        <div className="container mx-auto px-4 pt-40 pb-24">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Contact Us</h1>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Get in touch with our team to learn more about how we can transform your vehicle with our premium wrapping
-              services.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {/* Visit Us Card */}
-            <div className="group relative overflow-hidden rounded-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
-              <div className="relative p-8 text-center">
-                <div className="mb-4 inline-block rounded-full bg-teal-500/10 p-3">
-                  <MapPin className="h-6 w-6 text-teal-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Visit Us</h3>
-                <p className="text-gray-300">
-                  <a
-                    href="https://goo.gl/maps/8Z1Z2Z1Z2Z1Z2Z1Z2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-teal-400 transition-colors"
-                  >
-                    Unit 1/16 Hickeys Rd
-                    <br />
-                    Penrith NSW 2750
-                    <br />
-                    Australia
-                  </a>
-                </p>
-              </div>
+      <div className="relative overflow-hidden">
+        <WavyBackground
+          colors={["#14B8A6", "#EC4899", "#14B8A6", "#EC4899", "#14B8A6"]}
+          waveWidth={100}
+          backgroundFill="black"
+          blur={5}
+          speed="slow"
+          waveOpacity={0.5}
+          containerClassName="min-h-screen"
+          className="w-full"
+        >
+          <div className="container mx-auto px-4 pt-40 pb-24">
+            <div className="text-center mb-16">
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Contact Us</h1>
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                Get in touch with our team to learn more about how we can transform your vehicle with our premium wrapping
+                services.
+              </p>
             </div>
 
-            {/* Call Us Card */}
-            <div className="group relative overflow-hidden rounded-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
-              <div className="relative p-8 text-center">
-                <div className="mb-4 inline-block rounded-full bg-pink-500/10 p-3">
-                  <Phone className="h-6 w-6 text-pink-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Call Us</h3>
-                <p className="text-gray-300">
-                  <a href="tel:+61247616929" className="hover:text-teal-400 transition-colors">
-                    Phone: (02) 4761 6929
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            {/* Email Us Card */}
-            <div className="group relative overflow-hidden rounded-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
-              <div className="relative p-8 text-center">
-                <div className="mb-4 inline-block rounded-full bg-teal-500/10 p-3">
-                  <Mail className="h-6 w-6 text-teal-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Email Us</h3>
-                <div className="text-gray-300">
-                  <a 
-                    href="mailto:getwrapped@elitewrappers.com.au" 
-                    className="hover:text-teal-400 transition-colors break-words"
-                  >
-                    getwrapped@
-                    <br />
-                    elitewrappers.com.au
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Visit Our Socials Card */}
-            <div className="group relative overflow-hidden rounded-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
-              <div className="relative p-8 text-center">
-                <div className="mb-4 inline-block rounded-full bg-pink-500/10 p-3">
-                  <Instagram className="h-6 w-6 text-pink-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Visit Our Socials</h3>
-                <div className="flex flex-col space-y-4">
-                  <a
-                    href="https://www.instagram.com/elitewrapperssydney/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-300 hover:text-pink-400 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Instagram className="h-5 w-5" />
-                    <span>@elitewrapperssydney</span>
-                  </a>
-                  <a
-                    href="https://www.facebook.com/elitewrapperssydney/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-300 hover:text-blue-400 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Facebook className="h-5 w-5" />
-                    <span>Elite Wrappers Sydney</span>
-                  </a>
-                  <a
-                    href="https://www.tiktok.com/@elitewrapperssydney"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-300 hover:text-[#00f2ea] transition-colors flex items-center justify-center gap-2"
-                  >
-                    <svg
-                      fill="currentColor"
-                      className="h-5 w-5"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {/* Visit Us Card */}
+              <div className="group relative overflow-hidden rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
+                <div className="relative p-8 text-center">
+                  <div className="mb-4 inline-block rounded-full bg-teal-500/10 p-3">
+                    <MapPin className="h-6 w-6 text-teal-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Visit Us</h3>
+                  <p className="text-gray-300">
+                    <a
+                      href="https://goo.gl/maps/8Z1Z2Z1Z2Z1Z2Z1Z2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-teal-400 transition-colors"
                     >
-                      <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z" />
-                    </svg>
-                    <span>@elitewrapperssydney</span>
-                  </a>
+                      Unit 1/16 Hickeys Rd
+                      <br />
+                      Penrith NSW 2750
+                      <br />
+                      Australia
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              {/* Call Us Card */}
+              <div className="group relative overflow-hidden rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
+                <div className="relative p-8 text-center">
+                  <div className="mb-4 inline-block rounded-full bg-pink-500/10 p-3">
+                    <Phone className="h-6 w-6 text-pink-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Call Us</h3>
+                  <p className="text-gray-300">
+                    <a href="tel:+61247616929" className="hover:text-teal-400 transition-colors">
+                      Phone: (02) 4761 6929
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              {/* Email Us Card */}
+              <div className="group relative overflow-hidden rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
+                <div className="relative p-8 text-center">
+                  <div className="mb-4 inline-block rounded-full bg-teal-500/10 p-3">
+                    <Mail className="h-6 w-6 text-teal-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Email Us</h3>
+                  <div className="text-gray-300">
+                    <a 
+                      href="mailto:getwrapped@elitewrappers.com.au" 
+                      className="hover:text-teal-400 transition-colors break-words"
+                    >
+                      getwrapped@
+                      <br />
+                      elitewrappers.com.au
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Visit Our Socials Card */}
+              <div className="group relative overflow-hidden rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-pink-500/10 backdrop-blur-md border border-white/10" />
+                <div className="relative p-8 text-center">
+                  <div className="mb-4 inline-block rounded-full bg-pink-500/10 p-3">
+                    <Instagram className="h-6 w-6 text-pink-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Visit Our Socials</h3>
+                  <div className="flex flex-col space-y-4">
+                    <a
+                      href="https://www.instagram.com/elitewrapperssydney/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-pink-400 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Instagram className="h-5 w-5" />
+                      <span>@elitewrapperssydney</span>
+                    </a>
+                    <a
+                      href="https://www.facebook.com/elitewrapperssydney/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-blue-400 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Facebook className="h-5 w-5" />
+                      <span>Elite Wrappers Sydney</span>
+                    </a>
+                    <a
+                      href="https://www.tiktok.com/@elitewrapperssydney"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-[#00f2ea] transition-colors flex items-center justify-center gap-2"
+                    >
+                      <svg
+                        fill="currentColor"
+                        className="h-5 w-5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z" />
+                      </svg>
+                      <span>@elitewrapperssydney</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </WavyBackground>
+        </WavyBackground>
+      </div>
 
       {/* Contact Form Section */}
       <div id="contact-form">
