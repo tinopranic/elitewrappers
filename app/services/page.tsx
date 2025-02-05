@@ -24,6 +24,14 @@ const services = [
     id: "full-vehicle-wraps",
   },
   {
+    icon: Truck,
+    title: "Trailer Signage",
+    description: "Professional signage and wrapping solutions for commercial trailers and trucks.",
+    details:
+      "Our trailer signage service is specifically designed for commercial fleet operators and businesses with transport needs. We provide high-quality, durable wraps and signage solutions for trailers of all sizes, from small cargo trailers to full-size semi-trailers. Using commercial-grade materials that withstand harsh weather conditions and frequent use, we ensure your branding remains vibrant and professional. Our solutions include full trailer wraps, partial wraps, DOT compliance lettering, and reflective safety markings. Each project is custom-designed to maximize visibility and impact while meeting all industry regulations.",
+    id: "trailer-signage",
+  },
+  {
     icon: Shield,
     title: "Paint Protection Film",
     description: "Preserve your vehicle's pristine appearance with our advanced protection solutions.",

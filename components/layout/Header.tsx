@@ -39,6 +39,11 @@ const services = [
     description: "Promote your business with eye-catching vehicle graphics.",
   },
   {
+    title: "Trailer Signage",
+    href: "/services?section=trailer-signage",
+    description: "Professional signage and wraps for commercial trailers and trucks.",
+  },
+  {
     title: "Signage Solutions",
     href: "/services?section=signage-solutions",
     description: "Create impactful business signage and displays.",
