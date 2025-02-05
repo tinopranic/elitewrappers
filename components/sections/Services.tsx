@@ -312,13 +312,13 @@ export function Services() {
             background="transparent"
             minSize={0.6}
             maxSize={1.4}
-            particleDensity={100}
+            particleDensity={50}
             className="w-full h-full"
             particleColor="#00bac5"
-            speed={0.1}
+            speed={0.05}
           />
         </div>
-        <div className="relative z-10">
+        <div className="relative z-10 will-change-transform">
           <div className="container mx-auto px-4">
             <div className="relative">
               <SectionHeading>
@@ -357,12 +357,13 @@ export function Services() {
           </div>
         </div>
         <div
-          className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+          className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500 will-change-transform"
           style={{
             opacity: '0.1',
             filter: 'blur(7px)',
             background:
               'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+            transform: 'translateZ(0)',
           }}
         />
       </section>
@@ -376,29 +377,31 @@ export function Services() {
                 Our Partners
               </SectionHeading>
             </div>
-            <div className="w-full overflow-hidden">
-              <ScrollVelocity velocity={3} className="mb-4">
+            <div className="w-full overflow-hidden will-change-transform">
+              <ScrollVelocity velocity={2} className="mb-4">
                 {partnerImages.map(({ name, logo }) => (
-                  <div key={name} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8">
+                  <div key={name} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8 will-change-transform">
                     <Image
                       src={logo || "/placeholder.svg"}
                       alt={`${name} logo`}
                       fill
                       sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
                       className="h-full w-full object-contain object-center"
+                      loading="lazy"
                     />
                   </div>
                 ))}
               </ScrollVelocity>
-              <ScrollVelocity velocity={-3}>
+              <ScrollVelocity velocity={-2}>
                 {[...partnerImages].reverse().map(({ name, logo }) => (
-                  <div key={`reverse-${name}`} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8">
+                  <div key={`reverse-${name}`} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8 will-change-transform">
                     <Image
                       src={logo || "/placeholder.svg"}
                       alt={`${name} logo`}
                       fill
                       sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
                       className="h-full w-full object-contain object-center"
+                      loading="lazy"
                     />
                   </div>
                 ))}
@@ -409,11 +412,11 @@ export function Services() {
       </section>
 
       <section className="relative z-10 mt-24 bg-white min-h-screen py-24">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] will-change-transform" />
         <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-white" />
         <div className="absolute inset-0 mix-blend-overlay opacity-40">
-          <div className="absolute top-0 -left-4 w-3/4 h-3/4 bg-gradient-to-br from-teal-500/10 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 -right-4 w-3/4 h-3/4 bg-gradient-to-tl from-pink-500/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-0 -left-4 w-3/4 h-3/4 bg-gradient-to-br from-teal-500/10 to-transparent rounded-full blur-3xl will-change-transform" style={{ transform: 'translateZ(0)' }} />
+          <div className="absolute bottom-0 -right-4 w-3/4 h-3/4 bg-gradient-to-tl from-pink-500/10 to-transparent rounded-full blur-3xl will-change-transform" style={{ transform: 'translateZ(0)' }} />
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="relative mb-16">
@@ -421,7 +424,7 @@ export function Services() {
               The Elite Process
             </SectionHeading>
           </div>
-          <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100">
+          <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100 will-change-transform">
             <Timeline data={eliteProcessData} />
           </div>
         </div>
