@@ -110,7 +110,7 @@ export function HeroSection({
         {/* Added top padding to account for the header */}
         <div className="max-w-screen-xl mx-auto px-4 py-28 gap-12 md:px-8">
           <div className="space-y-5 max-w-3xl leading-0 lg:leading-5 mx-auto text-center">
-            <h2 className="text-4xl tracking-tighter font-geist text-white md:text-6xl">
+            <h2 className="text-4xl tracking-tighter font-serpentine text-white md:text-7xl">
               {subtitle.regular}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500 dark:from-teal-300 dark:to-pink-300">
                 {subtitle.gradient}

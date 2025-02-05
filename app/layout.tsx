@@ -1,11 +1,18 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import localFont from 'next/font/local'
 import "./globals.css"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 
 const inter = Inter({ subsets: ["latin"] })
+
+const serpentine = localFont({
+  src: '../public/fonts/Serpentine Bold.otf',
+  variable: '--font-serpentine',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`${serpentine.variable}`}>
       <body className={inter.className}>
         <Header />
         <main id="main-content" role="main">

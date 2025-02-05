@@ -21,7 +21,7 @@ export function SectionHeading({
     <FadeInHeading 
       as={as}
       className={cn(
-        "text-5xl font-bold text-center mb-12 font-air-travellers",
+        "text-5xl text-center mb-12 font-serpentine",
         textColor,
         className
       )}
