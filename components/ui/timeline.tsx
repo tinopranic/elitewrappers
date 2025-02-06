@@ -42,7 +42,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-black will-change-transform">{item.title}</h3>
             </div>
 
-            <div className="relative pl-20 md:pl-32 pr-4 w-full">
+            <div className="relative pl-20 pr-4 md:pl-4 w-full">
               <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-black will-change-transform">{item.title}</h3>
               <div className="text-black will-change-transform">{item.content}</div>
               <div className="mt-4 text-sm text-gray-700 will-change-transform">{item.description}</div>

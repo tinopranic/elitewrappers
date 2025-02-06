@@ -4,13 +4,13 @@ import type * as React from "react"
 import { cn } from "@/lib/utils"
 import { BentoGrid, BentoCard } from "@/components/ui/bento-grid"
 import { BellIcon, CalendarIcon, FileTextIcon, GlobeIcon, InputIcon } from "@radix-ui/react-icons"
-import { Tag, Wand2, Car, Shield } from "lucide-react"
+import { Tag, Wand2, Car, Shield, Sparkles } from "lucide-react"
 import { ShineBorder } from "@/components/ui/shine-border"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
 
-interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
-  title?: string
+interface HeroSectionProps {
+  title?: React.ReactNode
   subtitle?: {
     regular: string
     gradient: string
@@ -25,17 +25,26 @@ interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
     lightLineColor?: string
     darkLineColor?: string
   }
+  className?: string
+  children?: React.ReactNode
 }
 
 const features = [
   {
-    Icon: Car,
     name: "Premium Wraps",
-    description: "Transform your vehicle with our high-quality wrapping materials.",
-    href: "/services?section=full-vehicle-wraps",
-    cta: "Learn more",
-    background: <div className="absolute -right-20 -top-20 opacity-60" />,
-    className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
+    Icon: Sparkles,
+    href: "/premium-wraps",
+    description: "Elevate your vehicle with our premium wraps, offering unmatched quality and style.",
+    cta: "View Premium Wraps",
+    className: "lg:row-start-1 lg:row-end-3 lg:col-start-2 lg:col-end-3",
+    background: (
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-1"
+        style={{ 
+          backgroundImage: 'url("/premium.jpg")'
+        }}
+      />
+    ),
   },
   {
     Icon: Wand2,
@@ -43,8 +52,15 @@ const features = [
     description: "Create unique, eye-catching designs for your vehicle.",
     href: "/services?section=custom-designs",
     cta: "Learn more",
-    background: <div className="absolute -right-20 -top-20 opacity-60" />,
-    className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+    background: (
+      <div 
+        className="absolute inset-0 bg-cover bg-left z-1"
+        style={{ 
+          backgroundImage: 'url("/custom2.jpg")'
+        }}
+      />
+    ),
+    className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2",
   },
   {
     Icon: Shield,
@@ -52,8 +68,15 @@ const features = [
     description: "Shield your vehicle's paint from scratches and debris.",
     href: "/services?section=paint-protection-film",
     cta: "Learn more",
-    background: <div className="absolute -right-20 -top-20 opacity-60" />,
-    className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-3",
+    background: (
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-1"
+        style={{ 
+          backgroundImage: 'url("/ppf.jpg")'
+        }}
+      />
+    ),
+    className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2",
   },
   {
     Icon: Tag,
@@ -62,8 +85,15 @@ const features = [
     href: "/contact?service=full-vehicle-wraps",
     cta: "Get Offer",
     specialOffer: true,
-    background: <div className="absolute -right-20 -top-20 opacity-60" />,
-    className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
+    background: (
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-1"
+        style={{ 
+          backgroundImage: 'url("/sale.jpg")'
+        }}
+      />
+    ),
+    className: "lg:col-start-1 lg:col-end-2 lg:row-start-2 lg:row-end-3",
   },
   {
     Icon: GlobeIcon,
@@ -71,13 +101,21 @@ const features = [
     description: "Expert installers with years of experience.",
     href: "/about",
     cta: "Meet the Team",
-    background: <div className="absolute -right-20 -top-20 opacity-60" />,
-    className: "lg:col-start-3 lg:col-end-4 lg:row-start-3 lg:row-end-4",
+    background: (
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-1"
+        style={{ 
+          backgroundImage: 'url("/team.jpg")'
+        }}
+      />
+    ),
+    className: "lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-3",
   },
 ]
 
 export function HeroSection({
   className,
+  title,
   subtitle = {
     regular: "Premium Car Wrapping Services in ",
     gradient: "Sydney",
@@ -86,13 +124,13 @@ export function HeroSection({
   ctaText = "Get a Quote",
   ctaHref = "/contact",
   gridOptions,
-  ...props
+  children,
 }: HeroSectionProps) {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 500], [0, 250])
 
   return (
-    <div className={cn("relative overflow-hidden min-h-screen", className)} {...props}>
+    <div className={cn("relative overflow-hidden min-h-screen", className)}>
       {/* Parallax Background Image */}
       <motion.div 
         className="absolute inset-0 z-0 will-change-transform" 
@@ -166,7 +204,7 @@ export function HeroSection({
             </motion.div>
           </div>
           <motion.div 
-            className="mt-32 mx-10 relative z-10"
+            className="mt-32 relative z-10"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
@@ -175,20 +213,20 @@ export function HeroSection({
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <BentoGrid className="lg:grid-rows-3">
+            <BentoGrid>
               {features.map((feature, index) => (
                 <BentoCard 
                   key={feature.name} 
                   {...feature} 
                   specialOffer={feature.specialOffer}
-                  className={cn(feature.className, "will-change-transform")} 
+                  className={cn(feature.className)} 
                 />
               ))}
             </BentoGrid>
           </motion.div>
         </div>
       </section>
-      <div className="absolute bottom-0 left-0 right-0 h-64 backdrop-blur-3xl bg-gradient-to-b from-transparent via-black/70 to-black will-change-transform"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-b from-transparent via-black/70 to-black"></div>
       <div
         className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500 will-change-transform"
         style={{
