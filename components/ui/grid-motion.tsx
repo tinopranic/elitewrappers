@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react"
 import { gsap } from "gsap"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 interface GridMotionProps {
   /**
@@ -91,25 +92,30 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
                 const content = combinedItems[rowIndex * 7 + itemIndex]
                 return (
                   <div key={itemIndex} className="relative">
-                    <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl">
-                      {typeof content === "string" && content.startsWith("http") ? (
-                        <div
-                          className="absolute inset-0 bg-cover bg-center transition-transform duration-300 hover:scale-110"
-                          style={{
-                            backgroundImage: `url(${content})`,
-                          }}
-                          onError={(e) => {
-                            // If image fails to load, show a fallback background
-                            const target = e.target as HTMLDivElement;
-                            target.style.backgroundColor = '#1f1f1f';
-                            target.style.backgroundImage = 'none';
-                            target.innerHTML = '<div class="text-gray-400">Image unavailable</div>';
-                          }}
-                        />
-                      ) : (
-                        <div className="p-4 text-center z-1">{content}</div>
-                      )}
-                    </div>
+                    <Link href="/gallery" className="block h-full">
+                      <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl group">
+                        {typeof content === "string" && content.startsWith("http") ? (
+                          <div
+                            className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                            style={{
+                              backgroundImage: `url(${content})`,
+                            }}
+                            onError={(e) => {
+                              // If image fails to load, show a fallback background
+                              const target = e.target as HTMLDivElement;
+                              target.style.backgroundColor = '#1f1f1f';
+                              target.style.backgroundImage = 'none';
+                              target.innerHTML = '<div class="text-gray-400">Image unavailable</div>';
+                            }}
+                          />
+                        ) : (
+                          <div className="p-4 text-center z-1">{content}</div>
+                        )}
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <span className="text-white text-sm">View Gallery</span>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
                 )
               })}
