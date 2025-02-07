@@ -63,29 +63,29 @@ const partnerImages = [
 
 const services: Service[] = [
   {
-    label: "Custom Wraps",
-    id: "custom-wraps",
-    icon: <Paintbrush className="text-white h-5 w-5 flex-shrink-0" />,
-    description: "Transform your vehicle with our premium custom wraps.",
-    content:
-      "Our custom wraps are designed to give your vehicle a unique look. We use high-quality vinyl and expert application techniques to ensure a perfect finish every time.",
-    images: [
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
-    ],
-  },
-  {
     label: "Paint Protection",
     id: "paint-protection",
     icon: <Shield className="text-white h-5 w-5 flex-shrink-0" />,
     description: "Shield your car's paint from scratches and debris.",
     content:
-      "Our paint protection films provide an invisible shield against road debris, stone chips, and minor scratches. Preserve your vehicle's finish and resale value with our top-tier protection solutions.",
+      "Our paint protection films provide an invisible shield against road debris, stone chips, and minor scratches. We use advanced self-healing technology that automatically removes minor scratches and swirl marks, ensuring your vehicle maintains its pristine appearance.\n\n\nOur premium installations come with multi year warranty, giving you peace of mind for years to come. The film includes UV protection to prevent paint fade and oxidation, while our certified technicians ensure flawless installation that enhances and preserves your vehicle's finish.",
     images: [
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
+      "/ppf.jpg",
+      "/ppf2.jpg",
+      "/premium.jpg",
+    ],
+  },
+  {
+    label: "Custom Wraps",
+    id: "custom-wraps",
+    icon: <Paintbrush className="text-white h-5 w-5 flex-shrink-0" />,
+    description: "Transform your vehicle with our premium custom wraps.",
+    content:
+      "Our custom wraps are designed to give your vehicle a unique look that stands out from the crowd. Using only premium vinyl materials, we can achieve full vehicle color changes that transform your car's appearance completely.\n\n\nOur expert team works closely with you to create custom designs and patterns tailored to your vision, offering a wide range of finishes including matte, gloss, satin, and chrome. Best of all, our wraps are completely removable without damaging your original paint, giving you the freedom to change your style whenever you want.",
+    images: [
+      "/custom4.png",
+      "/custom5.png",
+      "/custom3.jpg",
     ],
   },
   {
@@ -94,24 +94,24 @@ const services: Service[] = [
     icon: <Truck className="text-white h-5 w-5 flex-shrink-0" />,
     description: "Turn your fleet into moving billboards.",
     content:
-      "Make your business stand out with our commercial vehicle wraps. We offer custom designs that transform your fleet into eye-catching mobile advertisements, increasing brand visibility wherever you go.",
+      "Make your business stand out with our commercial vehicle wraps. We offer custom designs that transform your fleet into eye-catching mobile advertisements, increasing brand visibility wherever you go. Our cost-effective mobile advertising solutions include professional design services to ensure your message captures attention on the road.\n\n\nWe maintain perfect consistency across your entire fleet, using durable materials specifically chosen for long-term exposure and daily commercial use. Our wraps not only advertise your business but also protect your vehicles' paintwork, maintaining their value for years to come.",
     images: [
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
+      "/commercial1.jpg",
+      "/commercial2.jpg",
+      "/commercial3.jpg",
     ],
   },
   {
-    label: "Signage",
-    id: "signage",
+    label: "Trailer Signage",
+    id: "trailer-signage",
     icon: <FileText className="text-white h-5 w-5 flex-shrink-0" />,
-    description: "Create impactful business signage.",
+    description: "Professional signage solutions for trailers and trucks.",
     content:
-      "From storefront signs to trade show displays, our signage solutions help your business make a lasting impression. We use durable materials and vibrant printing techniques to create signs that get noticed.",
+      "Transform your trailers into powerful mobile advertising platforms with our professional signage solutions. We specialize in creating high-impact graphics and branding that make your trailers stand out on the road, ensuring your message reaches a wider audience wherever your fleet travels.\n\n\nUsing premium-grade materials specifically designed for trailers and heavy vehicles, we ensure your signage withstands harsh road conditions and frequent exposure to the elements. Our expert team handles everything from design to installation, delivering durable, eye-catching results that effectively promote your business 24/7.",
     images: [
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
-      "/placeholder.svg?height=300&width=400",
+      "/trailer1.png",
+      "/trailer2.png",
+      "/trailer3.png",
     ],
   },
 ]
@@ -123,15 +123,15 @@ const eliteProcessData: TimelineEntry[] = [
       <ul className="space-y-4">
         <li className="flex items-start gap-3">
           <MessageSquare className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>In-depth discussion of your vision, preferences, and requirements</span>
+          <span className="font-semibold">In-depth discussion of your vision, preferences, and requirements</span>
         </li>
         <li className="flex items-start gap-3">
           <Palette className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-          <span>Explore color options, finishes, and material selections</span>
+          <span className="font-semibold">Explore color options, finishes, and material selections</span>
         </li>
         <li className="flex items-start gap-3">
           <Calendar className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Timeline planning and budget discussion</span>
+          <span className="font-semibold">Timeline planning and budget discussion</span>
         </li>
       </ul>
     ),
@@ -153,15 +153,15 @@ const eliteProcessData: TimelineEntry[] = [
       <ul className="space-y-4">
         <li className="flex items-start gap-3">
           <Sparkles className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Creation of precise digital mockups</span>
+          <span className="font-semibold">Creation of precise digital mockups</span>
         </li>
         <li className="flex items-start gap-3">
           <Settings className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-          <span>Detailed customization of graphics and patterns</span>
+          <span className="font-semibold">Detailed customization of graphics and patterns</span>
         </li>
         <li className="flex items-start gap-3">
           <ClipboardCheck className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Multiple revision rounds until perfect</span>
+          <span className="font-semibold">Multiple revision rounds until perfect</span>
         </li>
       </ul>
     ),
@@ -183,15 +183,15 @@ const eliteProcessData: TimelineEntry[] = [
       <ul className="space-y-4">
         <li className="flex items-start gap-3">
           <PaintBucket className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Professional cleaning and surface preparation</span>
+          <span className="font-semibold">Professional cleaning and surface preparation</span>
         </li>
         <li className="flex items-start gap-3">
           <Shield className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-          <span>Protection of sensitive areas and components</span>
+          <span className="font-semibold">Protection of sensitive areas and components</span>
         </li>
         <li className="flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Surface inspection and imperfection correction</span>
+          <span className="font-semibold">Surface inspection and imperfection correction</span>
         </li>
       </ul>
     ),
@@ -213,15 +213,15 @@ const eliteProcessData: TimelineEntry[] = [
       <ul className="space-y-4">
         <li className="flex items-start gap-3">
           <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Premium vinyl application by certified installers</span>
+          <span className="font-semibold">Premium vinyl application by certified installers</span>
         </li>
         <li className="flex items-start gap-3">
           <Settings className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-          <span>Precision alignment and panel matching</span>
+          <span className="font-semibold">Precision alignment and panel matching</span>
         </li>
         <li className="flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Careful attention to curves and complex surfaces</span>
+          <span className="font-semibold">Careful attention to curves and complex surfaces</span>
         </li>
       </ul>
     ),
@@ -243,15 +243,15 @@ const eliteProcessData: TimelineEntry[] = [
       <ul className="space-y-4">
         <li className="flex items-start gap-3">
           <BadgeCheck className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Multi-point inspection under various lighting conditions</span>
+          <span className="font-semibold">Multi-point inspection under various lighting conditions</span>
         </li>
         <li className="flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-          <span>Verification of seams, edges, and adhesion</span>
+          <span className="font-semibold">Verification of seams, edges, and adhesion</span>
         </li>
         <li className="flex items-start gap-3">
           <FileCheck className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Final assembly check and cleaning</span>
+          <span className="font-semibold">Final assembly check and cleaning</span>
         </li>
       </ul>
     ),
@@ -273,15 +273,15 @@ const eliteProcessData: TimelineEntry[] = [
       <ul className="space-y-4">
         <li className="flex items-start gap-3">
           <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Comprehensive vehicle walkthrough</span>
+          <span className="font-semibold">Comprehensive vehicle walkthrough</span>
         </li>
         <li className="flex items-start gap-3">
           <FileCheck className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-          <span>Detailed care instructions and warranty documentation</span>
+          <span className="font-semibold">Detailed care instructions and warranty documentation</span>
         </li>
         <li className="flex items-start gap-3">
           <Calendar className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-          <span>Follow-up inspection scheduling</span>
+          <span className="font-semibold">Follow-up inspection scheduling</span>
         </li>
       </ul>
     ),
@@ -482,7 +482,7 @@ const ServiceContent = ({ service }: ServiceContentProps) => {
                   src={image || "/placeholder.svg"}
                   alt={`${service.label} image ${index + 1}`}
                   fill
-                  className="rounded-lg object-cover"
+                  className={`rounded-lg object-cover ${index === 2 && image !== '/commercial3.jpg' && image !== '/trailer3.png' ? 'object-top' : 'object-center'}`}
                 />
               </div>
             ))}

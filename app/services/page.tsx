@@ -36,7 +36,7 @@ const services = [
     title: "Paint Protection Film",
     description: "Preserve your vehicle's pristine appearance with our advanced protection solutions.",
     details:
-      "Our paint protection films provide an invisible shield that safeguards your vehicle's paint from road debris, stone chips, scratches, and environmental damage. We use XPEL's industry-leading self-healing film technology, which automatically repairs minor scratches and swirl marks when exposed to heat. The film is virtually invisible once applied and comes with a 10-year warranty. We cover high-impact areas like the hood, fenders, mirrors, and door edges, or can apply full-body protection for maximum preservation of your vehicle's finish.",
+      "Our paint protection films provide an invisible shield that safeguards your vehicle's paint from road debris, stone chips, scratches, and environmental damage. We use XPEL's industry-leading self-healing film technology, which automatically repairs minor scratches and swirl marks when exposed to heat. The film is virtually invisible once applied and comes with a multi year warranty. We cover high-impact areas like the hood, fenders, mirrors, and door edges, or can apply full-body protection for maximum preservation of your vehicle's finish.",
     id: "paint-protection-film",
   },
   {
@@ -223,11 +223,27 @@ export default function ServicesPage() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/placeholder.svg"
+                  src={
+                    service.id === "paint-protection-film"
+                      ? "/ppf.jpg"
+                      : service.id === "custom-designs"
+                      ? "/custom5.png"
+                      : service.id === "commercial-vehicle-wraps"
+                      ? "/commercial2.jpg"
+                      : service.id === "trailer-signage"
+                      ? "/trailer1.png"
+                      : service.id === "full-vehicle-wraps"
+                      ? "/custom1.jpg"
+                      : service.id === "ceramic-coating"
+                      ? "/ceramic.jpg"
+                      : service.id === "signage-solutions"
+                      ? "/commercial1.jpg"
+                      : "/placeholder.svg"
+                  }
                   alt={service.title}
                   width={500}
                   height={300}
-                  className="rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg object-cover"
                 />
               </div>
             </div>
