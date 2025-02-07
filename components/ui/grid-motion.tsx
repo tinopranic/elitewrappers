@@ -76,18 +76,18 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
           background: `radial-gradient(circle, ${gradientColor} 0%, transparent 100%)`,
         }}
       >
-        <div className="relative z-2 flex-none grid h-[150vh] w-[150vw] gap-4 grid-rows-[repeat(4,1fr)] grid-cols-[100%] -rotate-15 origin-center">
+        <div className="relative z-2 flex-none grid h-[150vh] w-[200vw] md:w-[150vw] gap-2 md:gap-4 grid-rows-[repeat(4,1fr)] grid-cols-[100%] -rotate-15 origin-center">
           {[...Array(4)].map((_, rowIndex) => (
             <div
               key={rowIndex}
-              className="grid gap-4 grid-cols-[repeat(7,1fr)] will-change-transform will-change-filter"
+              className="grid gap-4 grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(7,1fr)] will-change-transform will-change-filter"
               ref={(el: HTMLDivElement | null) => {
                 if (rowRefs.current) {
                   rowRefs.current[rowIndex] = el
                 }
               }}
             >
-              {[...Array(7)].map((_, itemIndex) => {
+              {[...Array(rowIndex === 3 ? 3 : 7)].map((_, itemIndex) => {
                 const content = combinedItems[rowIndex * 7 + itemIndex]
                 return (
                   <div key={itemIndex} className="relative">
