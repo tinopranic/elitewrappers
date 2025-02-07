@@ -93,7 +93,10 @@ export function Services() {
                     src={image}
                     alt={`${selectedService.label} example ${index + 1}`}
                     fill
-                    className="object-cover"
+                    className={cn(
+                      "object-cover",
+                      image === "/premium.jpg" && "object-top"
+                    )}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </motion.div>
