@@ -16,6 +16,7 @@ import { SectionHeading } from "@/components/ui/section-heading"
 import { Paintbrush, Shield, Truck, FileText, Calendar, Palette, Sparkles, CheckCircle2, ClipboardCheck, Car, MessageSquare, PaintBucket, Settings, BadgeCheck, FileCheck } from "lucide-react"
 import { services } from "@/config/services"
 import type { Service } from "@/types"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 
 interface TimelineEntry {
   title: string;
@@ -242,155 +243,60 @@ interface ServiceContentProps {
 }
 
 export function Services() {
-  const [open, setOpen] = useState(false)
-  const [selectedService, setSelectedService] = useState<Service>(services[0])
+  const [selectedService, setSelectedService] = useState(services[0])
+  const [open, setOpen] = useState(true)
 
   return (
-    <>
-      <section className="py-24 bg-black text-white relative" aria-labelledby="services-heading">
-        <div className="absolute inset-0 -z-10">
-          <SparklesCore
-            id="tsparticlesfull"
-            background="transparent"
-            minSize={0.6}
-            maxSize={1.4}
-            particleDensity={50}
-            className="w-full h-full"
-            particleColor="#00bac5"
-            speed={0.05}
-          />
+    <section className="relative bg-black py-24" id="services">
+      <div className="container mx-auto px-4">
+        <SectionHeading>Our Services</SectionHeading>
+        
+        {/* Mobile Accordion View */}
+        <div className="lg:hidden">
+          <Accordion type="single" collapsible>
+            {services.map((service) => (
+              <AccordionItem key={service.id} value={service.id}>
+                <AccordionTrigger className="text-white hover:text-teal-400">
+                  <div className="flex items-center gap-3">
+                    <service.icon className="h-5 w-5" />
+                    <span>{service.label}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ServiceContent service={service} />
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
-        <div className="relative z-10 will-change-transform">
-          <div className="container mx-auto px-4">
-            <div className="relative">
-              <SectionHeading id="services-heading">
-                Our Services
-              </SectionHeading>
-            </div>
-            <div
-              className={cn(
-                "rounded-md flex flex-col md:flex-row bg-neutral-900 text-white w-full flex-1 max-w-7xl mx-auto border border-neutral-700 overflow-hidden",
-                "h-[450px] md:h-[500px] lg:h-[550px]",
-              )}
-              role="tablist"
-              aria-orientation="vertical"
-            >
-              <div className="w-[300px] bg-neutral-800 border-r border-neutral-700 p-4">
-                <Logo />
-                <div className="mt-8 flex flex-col gap-2">
-                  {services.map((service, idx) => {
-                    const Icon = service.icon
-                    return (
-                      <button
-                        key={idx}
-                        className={cn(
-                          "flex items-center gap-2 p-2 rounded hover:bg-neutral-700 transition-colors text-white text-left w-full",
-                          selectedService.label === service.label && "bg-neutral-700"
-                        )}
-                        onClick={() => {
-                          setSelectedService(service)
-                          setOpen(false)
-                        }}
-                        role="tab"
-                        aria-selected={selectedService.label === service.label}
-                        aria-controls={`service-panel-${service.id}`}
-                        id={`service-tab-${service.id}`}
-                      >
-                        <Icon className="h-5 w-5 text-white" aria-hidden="true" />
-                        <span>{service.label}</span>
-                      </button>
-                    )
-                  })}
+
+        {/* Desktop Sidebar View */}
+        <div className="hidden lg:block">
+          <div className="grid grid-cols-[300px_1fr] gap-8">
+            <Sidebar open={open} setOpen={setOpen}>
+              <div className="flex flex-col h-full bg-neutral-900/50 backdrop-blur-sm rounded-lg">
+                <div className="flex-1 py-2">
+                  {services.map((service) => (
+                    <button
+                      key={service.id}
+                      onClick={() => setSelectedService(service)}
+                      className={cn(
+                        "flex w-full items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors",
+                        selectedService.id === service.id && "bg-white/10"
+                      )}
+                    >
+                      <service.icon className="h-5 w-5 text-white" aria-hidden="true" />
+                      {service.label}
+                    </button>
+                  ))}
                 </div>
               </div>
-              <div 
-                role="tabpanel"
-                id={`service-panel-${selectedService.id}`}
-                aria-labelledby={`service-tab-${selectedService.id}`}
-                className="flex-1"
-              >
-                <ServiceContent service={selectedService} />
-              </div>
-            </div>
+            </Sidebar>
+            <ServiceContent service={selectedService} />
           </div>
         </div>
-        <div
-          className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500 will-change-transform"
-          style={{
-            opacity: '0.1',
-            filter: 'blur(7px)',
-            background:
-              'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
-            transform: 'translateZ(0)',
-          }}
-          aria-hidden="true"
-        />
-      </section>
-
-      <section className="py-16 bg-black relative" aria-labelledby="partners-heading">
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90" aria-hidden="true"></div>
-        <div className="relative z-10">
-          <div className="container mx-auto px-4">
-            <div className="relative">
-              <SectionHeading id="partners-heading">
-                Our Partners
-              </SectionHeading>
-            </div>
-            <div className="w-full overflow-hidden will-change-transform" role="region" aria-label="Partner logos">
-              <ScrollVelocity velocity={2} className="mb-4">
-                {partnerImages.map(({ name, logo }) => (
-                  <div key={name} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8 will-change-transform">
-                    <Image
-                      src={logo || "/placeholder.svg"}
-                      alt={`${name} logo`}
-                      fill
-                      sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
-                      className="h-full w-full object-contain object-center"
-                      loading="lazy"
-                      quality={75}
-                    />
-                  </div>
-                ))}
-              </ScrollVelocity>
-              <ScrollVelocity velocity={-2}>
-                {[...partnerImages].reverse().map(({ name, logo }) => (
-                  <div key={`reverse-${name}`} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8 will-change-transform">
-                    <Image
-                      src={logo || "/placeholder.svg"}
-                      alt={`${name} logo`}
-                      fill
-                      sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
-                      className="h-full w-full object-contain object-center"
-                      loading="lazy"
-                      quality={75}
-                    />
-                  </div>
-                ))}
-              </ScrollVelocity>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-24 bg-white min-h-screen py-24" aria-labelledby="process-heading">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] will-change-transform" aria-hidden="true" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-white" aria-hidden="true" />
-        <div className="absolute inset-0 mix-blend-overlay opacity-40" aria-hidden="true">
-          <div className="absolute top-0 -left-4 w-3/4 h-3/4 bg-gradient-to-br from-teal-500/10 to-transparent rounded-full blur-3xl will-change-transform" style={{ transform: 'translateZ(0)' }} />
-          <div className="absolute bottom-0 -right-4 w-3/4 h-3/4 bg-gradient-to-tl from-pink-500/10 to-transparent rounded-full blur-3xl will-change-transform" style={{ transform: 'translateZ(0)' }} />
-        </div>
-        <div className="container mx-auto px-4 relative">
-          <div className="relative mb-16">
-            <SectionHeading textColor="text-gray-900" id="process-heading">
-              The Elite Process
-            </SectionHeading>
-          </div>
-          <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100 will-change-transform">
-            <Timeline data={eliteProcessData} />
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
 

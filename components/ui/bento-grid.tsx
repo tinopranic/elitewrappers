@@ -13,7 +13,12 @@ const BentoGrid = ({
   return (
     <>
       <ShimmerStyle />
-      <div className={cn("grid w-full auto-rows-[16rem] grid-cols-3 gap-4", className)}>{children}</div>
+      <div className={cn(
+        "grid w-full auto-rows-[20rem] grid-cols-1 gap-3 sm:auto-rows-[16rem] md:grid-cols-2 lg:auto-rows-[16rem] lg:grid-cols-3 lg:gap-4",
+        className
+      )}>
+        {children}
+      </div>
     </>
   )
 }
@@ -45,6 +50,7 @@ const BentoCard = ({
       "transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       specialOffer &&
         "before:absolute before:inset-0 before:rounded-xl before:p-[2px] before:bg-gradient-to-r before:from-teal-500 before:via-pink-500 before:to-teal-500 before:animate-shine-border",
+      "max-w-md mx-auto w-full lg:max-w-none lg:mx-0",
       className,
     )}
     role="article"
