@@ -16,14 +16,14 @@ export function Services() {
   return (
     <section className="relative bg-black py-12 sm:py-16 md:py-24" id="services">
       <div className="absolute inset-0 bg-noise opacity-50 mix-blend-soft-light"></div>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading>Our Services</SectionHeading>
         <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16 text-sm sm:text-base">
           Experience premium vehicle transformation services tailored to your vision.
         </p>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:grid grid-cols-[1fr_2fr] gap-12">
+        <div className="hidden lg:grid grid-cols-[1fr_2fr] gap-8 lg:gap-12">
           {/* Service Navigation */}
           <div className="space-y-4">
             {services.map((service) => (
@@ -115,7 +115,7 @@ export function Services() {
         </div>
 
         {/* Mobile Accordion Layout */}
-        <div className="lg:hidden space-y-4">
+        <div className="lg:hidden space-y-4 overflow-hidden">
           {services.map((service) => (
             <motion.div
               key={service.id}
@@ -129,7 +129,9 @@ export function Services() {
                     setSelectedService(service)
                   }
                 }}
-                className="w-full text-left p-4 sm:p-6 flex items-center justify-between"
+                className="w-full text-left p-4 sm:p-6 flex items-center justify-between relative z-10"
+                aria-expanded={selectedService.id === service.id}
+                aria-controls={`content-${service.id}`}
               >
                 <div className="flex items-center gap-3">
                   <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />
@@ -138,6 +140,7 @@ export function Services() {
                 <motion.div
                   animate={{ rotate: selectedService.id === service.id ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
+                  className="flex items-center justify-center w-8 h-8"
                 >
                   <svg
                     className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400"
@@ -156,6 +159,7 @@ export function Services() {
               </button>
 
               <motion.div
+                id={`content-${service.id}`}
                 initial={false}
                 animate={{
                   height: selectedService.id === service.id ? "auto" : 0,
