@@ -127,7 +127,7 @@ export function HeroSection({
   children,
 }: HeroSectionProps) {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -139,10 +139,10 @@ export function HeroSection({
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       </div>
-      <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-        <div className="pt-32 md:pt-40 space-y-5 max-w-3xl leading-0 lg:leading-5 mx-auto text-center">
+      <div className="relative z-10 container mx-auto px-4 md:px-6">
+        <div className="pt-20 md:pt-32 space-y-5 max-w-3xl mx-auto text-center">
           <motion.h1 
-            className="text-4xl tracking-tighter font-serpentine text-white md:text-7xl"
+            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white"
             style={{
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -183,7 +183,7 @@ export function HeroSection({
           </motion.div>
         </div>
         <motion.div 
-          className="mt-32 relative z-10"
+          className="mt-16 md:mt-32 relative z-10"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ 
@@ -192,19 +192,22 @@ export function HeroSection({
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          <BentoGrid>
+          <BentoGrid className="px-2 md:px-0">
             {features.map((feature, index) => (
               <BentoCard 
                 key={feature.name} 
                 {...feature} 
                 specialOffer={feature.specialOffer}
-                className={cn(feature.className)} 
+                className={cn(
+                  feature.className,
+                  "min-h-[200px] md:min-h-[250px]"
+                )} 
               />
             ))}
           </BentoGrid>
         </motion.div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-b from-transparent via-black/70 to-black"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 md:h-64 bg-gradient-to-b from-transparent via-black/70 to-black"></div>
     </section>
   )
 }

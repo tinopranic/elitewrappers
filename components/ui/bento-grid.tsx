@@ -14,7 +14,7 @@ const BentoGrid = ({
     <>
       <ShimmerStyle />
       <div className={cn(
-        "grid w-full auto-rows-[20rem] grid-cols-1 gap-3 sm:auto-rows-[16rem] md:grid-cols-2 lg:auto-rows-[16rem] lg:grid-cols-3 lg:gap-4",
+        "grid w-full grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 auto-rows-[16rem] sm:auto-rows-[20rem] md:auto-rows-[16rem]",
         className
       )}>
         {children}
@@ -50,7 +50,7 @@ const BentoCard = ({
       "transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       specialOffer &&
         "before:absolute before:inset-0 before:rounded-xl before:p-[2px] before:bg-gradient-to-r before:from-teal-500 before:via-pink-500 before:to-teal-500 before:animate-shine-border",
-      "max-w-md mx-auto w-full lg:max-w-none lg:mx-0",
+      "w-full",
       className,
     )}
     role="article"
@@ -65,18 +65,18 @@ const BentoCard = ({
       
       {/* Content positioned at bottom with hover animation */}
       <div className="mt-auto relative z-10">
-        <div className="p-6 flex flex-col gap-1 transform-gpu transition-all duration-300 group-hover:-translate-y-10">
+        <div className="p-4 sm:p-6 flex flex-col gap-1 transform-gpu transition-all duration-300 group-hover:-translate-y-10">
           <Icon
-            className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 text-white"
+            className="h-8 w-8 sm:h-12 sm:w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 text-white"
             aria-hidden="true"
           />
           <h2 
             id={`card-heading-${name.toLowerCase().replace(/\s+/g, '-')}`}
-            className="text-xl font-semibold text-white text-left"
+            className="text-lg sm:text-xl font-semibold text-white text-left"
           >
             {name}
           </h2>
-          <p className="max-w-lg text-white/80 text-left">{description}</p>
+          <p className="text-sm sm:text-base text-white/80 text-left line-clamp-2 sm:line-clamp-none">{description}</p>
         </div>
       </div>
 

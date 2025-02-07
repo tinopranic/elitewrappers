@@ -148,7 +148,7 @@ export default function ServicesPage() {
           <div className="relative z-10 container mx-auto px-4">
             <div className="max-w-3xl">
               <motion.h1 
-                className="text-4xl md:text-7xl font-bold text-white mb-6"
+                className="text-3xl sm:text-4xl md:text-7xl font-bold text-white mb-4 md:mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -156,7 +156,7 @@ export default function ServicesPage() {
                 Our Services
               </motion.h1>
               <motion.p 
-                className="text-xl text-gray-300 max-w-2xl"
+                className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -183,8 +183,8 @@ export default function ServicesPage() {
           />
         </div>
 
-        <div className="container mx-auto px-4 py-24">
-          <div className="grid gap-12">
+        <div className="container mx-auto px-4 py-12 md:py-24">
+          <div className="grid gap-8 md:gap-12">
             {services.map((service, index) => (
               <motion.article
                 key={service.id}
@@ -195,21 +195,21 @@ export default function ServicesPage() {
                 className="relative"
                 aria-labelledby={`service-heading-${service.id}`}
               >
-                <div className={`grid md:grid-cols-2 gap-8 items-center ${
+                <div className={`grid md:grid-cols-2 gap-6 md:gap-8 items-start md:items-center ${
                   index % 2 === 0 ? 'md:grid-flow-row' : 'md:grid-flow-row-dense'
                 }`}>
                   {/* Content */}
-                  <div className={`space-y-6 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+                  <div className={`space-y-4 md:space-y-6 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                     <header className="inline-flex items-center gap-3 text-teal-400">
-                      <service.icon className="w-8 h-8" aria-hidden="true" />
-                      <h2 id={`service-heading-${service.id}`} className="text-3xl font-bold text-white">
+                      <service.icon className="w-6 h-6 md:w-8 md:h-8" aria-hidden="true" />
+                      <h2 id={`service-heading-${service.id}`} className="text-2xl md:text-3xl font-bold text-white">
                         {service.label}
                       </h2>
                     </header>
-                    <p className="text-gray-400 text-lg">{service.description}</p>
-                    <div className="prose prose-invert">
+                    <p className="text-base md:text-lg text-gray-400">{service.description}</p>
+                    <div className="prose prose-invert max-w-none">
                       {service.content.split('\n\n').map((paragraph, i) => (
-                        <p key={i} className="text-gray-300 leading-relaxed">
+                        <p key={i} className="text-sm md:text-base text-gray-300 leading-relaxed">
                           {paragraph}
                         </p>
                       ))}
@@ -217,7 +217,7 @@ export default function ServicesPage() {
                     <div className="pt-4">
                       <Link
                         href={`/contact?service=${service.id}`}
-                        className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                        className="inline-flex items-center justify-center px-6 md:px-8 py-2.5 md:py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
                         aria-label={`Get started with ${service.label}`}
                       >
                         Get Started
@@ -226,9 +226,9 @@ export default function ServicesPage() {
                   </div>
 
                   {/* Images */}
-                  <div className="grid grid-cols-2 gap-4 relative" role="presentation" aria-label={`${service.label} gallery`}>
+                  <div className="grid grid-cols-2 gap-3 md:gap-4 relative mt-6 md:mt-0" role="presentation" aria-label={`${service.label} gallery`}>
                     <div className="col-span-2">
-                      <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
+                      <div className="relative aspect-[16/9] rounded-lg md:rounded-xl overflow-hidden">
                         <Image
                           src={service.images[0]}
                           alt={`${service.label} showcase`}
@@ -240,7 +240,7 @@ export default function ServicesPage() {
                         />
                       </div>
                     </div>
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                    <div className="relative aspect-[4/3] rounded-lg md:rounded-xl overflow-hidden">
                       <Image
                         src={service.images[1]}
                         alt={`${service.label} detail view 1`}
@@ -250,7 +250,7 @@ export default function ServicesPage() {
                         quality={85}
                       />
                     </div>
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                    <div className="relative aspect-[4/3] rounded-lg md:rounded-xl overflow-hidden">
                       <Image
                         src={service.images[2]}
                         alt={`${service.label} detail view 2`}
@@ -267,7 +267,7 @@ export default function ServicesPage() {
 
                 {/* Separator */}
                 {index !== services.length - 1 && (
-                  <div className="my-16 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" role="separator" aria-hidden="true" />
+                  <div className="my-8 md:my-16 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" role="separator" aria-hidden="true" />
                 )}
               </motion.article>
             ))}
@@ -276,19 +276,19 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-black text-white" aria-labelledby="faq-heading">
+      <section className="py-16 md:py-24 bg-black text-white" aria-labelledby="faq-heading">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <header className="text-center mb-12">
-              <h2 id="faq-heading" className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-              <p className="text-lg text-gray-400">Find answers to common questions about our services.</p>
+            <header className="text-center mb-8 md:mb-12">
+              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Frequently Asked Questions</h2>
+              <p className="text-base md:text-lg text-gray-400">Find answers to common questions about our services.</p>
             </header>
-            <div className="grid gap-6" role="region" aria-label="FAQ Accordion">
+            <div className="grid gap-4 md:gap-6" role="region" aria-label="FAQ Accordion">
               {faqs.map((faq, index) => (
                 <Accordion key={index} type="single" collapsible>
                   <AccordionItem value={`item-${index}`}>
-                    <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                    <AccordionTrigger className="text-left text-sm md:text-base">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-sm md:text-base">{faq.answer}</AccordionContent>
                   </AccordionItem>
                 </Accordion>
               ))}
@@ -298,22 +298,22 @@ export default function ServicesPage() {
       </section>
 
       {/* Partners Section */}
-      <section className="py-16 bg-black relative" aria-labelledby="partners-heading">
+      <section className="py-12 md:py-16 bg-black relative" aria-labelledby="partners-heading">
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90" aria-hidden="true"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
             <div className="relative">
-              <h2 id="partners-heading" className="text-4xl font-bold text-center text-white mb-12">Our Partners</h2>
+              <h2 id="partners-heading" className="text-3xl md:text-4xl font-bold text-center text-white mb-8 md:mb-12">Our Partners</h2>
             </div>
             <div className="w-full overflow-hidden" role="region" aria-label="Partner logos carousel">
               <ScrollVelocity velocity={3} className="mb-4">
                 {partnerImages.map(({ name, logo }) => (
-                  <div key={name} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8">
+                  <div key={name} className="relative h-12 w-24 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-4 md:mx-8">
                     <Image
                       src={logo || "/placeholder.svg"}
                       alt={`${name} logo`}
                       fill
-                      sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
+                      sizes="(max-width: 768px) 96px, (max-width: 1200px) 160px, 192px"
                       className="h-full w-full object-contain object-center"
                       loading="lazy"
                       quality={85}
@@ -323,12 +323,12 @@ export default function ServicesPage() {
               </ScrollVelocity>
               <ScrollVelocity velocity={-3}>
                 {[...partnerImages].reverse().map(({ name, logo }) => (
-                  <div key={`reverse-${name}`} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8">
+                  <div key={`reverse-${name}`} className="relative h-12 w-24 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-4 md:mx-8">
                     <Image
                       src={logo || "/placeholder.svg"}
                       alt={`${name} logo`}
                       fill
-                      sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
+                      sizes="(max-width: 768px) 96px, (max-width: 1200px) 160px, 192px"
                       className="h-full w-full object-contain object-center"
                       loading="lazy"
                       quality={85}

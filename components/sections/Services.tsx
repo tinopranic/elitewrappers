@@ -14,11 +14,11 @@ export function Services() {
   const [hoveredService, setHoveredService] = useState<string | null>(null)
 
   return (
-    <section className="relative bg-black py-24" id="services">
+    <section className="relative bg-black py-12 sm:py-16 md:py-24" id="services">
       <div className="absolute inset-0 bg-noise opacity-50 mix-blend-soft-light"></div>
       <div className="container mx-auto px-4">
         <SectionHeading>Our Services</SectionHeading>
-        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-16">
+        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16 text-sm sm:text-base">
           Experience premium vehicle transformation services tailored to your vision.
         </p>
 
@@ -129,18 +129,18 @@ export function Services() {
                     setSelectedService(service)
                   }
                 }}
-                className="w-full text-left p-6 flex items-center justify-between"
+                className="w-full text-left p-4 sm:p-6 flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
-                  <service.icon className="w-6 h-6 text-teal-400" />
-                  <h3 className="text-lg font-semibold text-white">{service.label}</h3>
+                  <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />
+                  <h3 className="text-base sm:text-lg font-semibold text-white">{service.label}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: selectedService.id === service.id ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
                   <svg
-                    className="w-5 h-5 text-gray-400"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -164,16 +164,17 @@ export function Services() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="p-6 pt-0">
+                <div className="p-4 sm:p-6 pt-0">
                   <div className="prose prose-invert max-w-none mb-6">
+                    <p className="text-sm sm:text-base text-gray-400 mb-4">{service.description}</p>
                     {service.content.split('\n\n').map((paragraph, index) => (
-                      <p key={index} className="text-gray-300 leading-relaxed">
+                      <p key={index} className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                         {paragraph}
                       </p>
                     ))}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                     {service.images.map((image, index) => (
                       <div
                         key={image}
@@ -183,8 +184,11 @@ export function Services() {
                           src={image}
                           alt={`${service.label} example ${index + 1}`}
                           fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className={cn(
+                            "object-cover",
+                            image === "/premium.jpg" && "object-top"
+                          )}
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, 25vw"
                         />
                       </div>
                     ))}
@@ -193,7 +197,7 @@ export function Services() {
                   <div className="mt-6 text-center">
                     <Link
                       href="/contact"
-                      className="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                      className="inline-flex items-center justify-center px-6 py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
                     >
                       Get Started with {service.label}
                     </Link>
