@@ -40,16 +40,17 @@ export default function AboutPage() {
     <div className="bg-white">
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-black to-gray-900 py-24 sm:py-32">
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dark-overlay-car-wrap-zNXbgGXMXBXZXXXXXXXXXXXXXXXXXX.jpg"
-          alt="Dark overlay of a vehicle being wrapped"
+          src="/aboutbg.jpg"
+          alt="Elite Wrappers Sydney Workshop"
           fill
           className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
           priority
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80 -z-10" />
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">About Elite Wrappers</h2>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
+            <p className="mt-6 text-lg leading-8 text-white">
               Transforming vehicles with precision, creativity, and unmatched expertise since 2010.
             </p>
           </div>
@@ -58,18 +59,20 @@ export default function AboutPage() {
 
       <div className="overflow-hidden bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-            <div className="lg:pr-8 lg:pt-4">
-              <div className="lg:max-w-lg">
-                <h2 className="text-base font-semibold leading-7 text-indigo-600">Our Story</h2>
-                <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  A Decade of Excellence
-                </p>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Founded in 2010, Elite Wrappers has been at the forefront of the vehicle wrapping industry in Sydney.
-                  Our journey began with a passion for cars and a vision to offer top-tier wrapping services that would
-                  transform vehicles and exceed client expectations.
-                </p>
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 h-[600px]">
+            <div className="lg:pr-8 lg:pt-4 h-full">
+              <div className="lg:max-w-lg h-full flex flex-col justify-between">
+                <div>
+                  <h2 className="text-base font-semibold leading-7 text-pink-500">Our Story</h2>
+                  <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    A Decade of Excellence
+                  </p>
+                  <p className="mt-6 text-lg leading-8 text-gray-600">
+                    Founded in 2010, Elite Wrappers has been at the forefront of the vehicle wrapping industry in Sydney.
+                    Our journey began with a passion for cars and a vision to offer top-tier wrapping services that would
+                    transform vehicles and exceed client expectations.
+                  </p>
+                </div>
                 <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                   {[
                     {
@@ -90,7 +93,7 @@ export default function AboutPage() {
                   ].map((feature) => (
                     <div key={feature.name} className="relative pl-9">
                       <dt className="inline font-semibold text-gray-900">
-                        <div className="absolute left-1 top-1 h-5 w-5 text-indigo-600">
+                        <div className="absolute left-1 top-1 h-5 w-5 text-teal-500">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path
                               fillRule="evenodd"
@@ -107,13 +110,15 @@ export default function AboutPage() {
                 </dl>
               </div>
             </div>
-            <Image
-              src="https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-              alt="Elite Wrappers team at work"
-              className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
-              width={2432}
-              height={1442}
-            />
+            <div className="h-full relative">
+              <Image
+                src="https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+                alt="Elite Wrappers team at work"
+                className="w-[48rem] max-w-none h-full rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0 object-cover absolute inset-0"
+                width={2432}
+                height={1442}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -121,7 +126,7 @@ export default function AboutPage() {
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-indigo-600">Our Commitment</h2>
+            <h2 className="text-base font-semibold leading-7 text-pink-500">Our Commitment</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Dedicated to Quality and Innovation
             </p>
@@ -198,7 +203,7 @@ export default function AboutPage() {
                 },
               ].map((feature) => (
                 <div key={feature.name} className="flex flex-col items-start">
-                  <div className="rounded-md bg-indigo-500 p-2 ring-1 ring-indigo-600">{feature.icon}</div>
+                  <div className="rounded-md bg-teal-500 p-2 ring-1 ring-teal-600">{feature.icon}</div>
                   <dt className="mt-4 font-semibold text-gray-900">{feature.name}</dt>
                   <dd className="mt-2 leading-7 text-gray-600">{feature.description}</dd>
                 </div>
@@ -208,7 +213,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="bg-black py-24 sm:py-32">
+      <div className="bg-gradient-to-r from-black via-gray-900 to-black py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-white text-center mb-12">What Our Customers Say</h2>
           <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
