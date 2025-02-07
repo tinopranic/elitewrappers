@@ -130,9 +130,8 @@ export function HeroSection({
     <section className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/mobilbg.jpg')] md:bg-[url('/hb.jpg')]"
           style={{
-            backgroundImage: 'url("/hb.jpg")',
             backgroundPosition: '50% 50%',
             backgroundSize: 'cover',
           }}
