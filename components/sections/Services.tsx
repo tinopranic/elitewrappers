@@ -1,141 +1,207 @@
 "use client"
 
 import React, { useState } from "react"
-import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar"
-import { Menu } from "lucide-react"
-import Link from "next/link"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { BorderTrail } from "@/components/ui/border-trail"
-import { OurPartners } from "./OurPartners"
-import { SparklesCore } from "@/components/ui/sparkles"
-import { ScrollVelocity } from "@/components/ui/scroll-velocity"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { Paintbrush, Shield, Truck, FileText } from "lucide-react"
 import { services } from "@/config/services"
 import type { Service } from "@/types"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-
-interface ServiceContentProps {
-  service: Service
-}
+import { SectionHeading } from "@/components/ui/section-heading"
+import Image from "next/image"
+import Link from "next/link"
 
 export function Services() {
   const [selectedService, setSelectedService] = useState(services[0])
-  const [open, setOpen] = useState(true)
+  const [hoveredService, setHoveredService] = useState<string | null>(null)
 
   return (
     <section className="relative bg-black py-24" id="services">
+      <div className="absolute inset-0 bg-noise opacity-50 mix-blend-soft-light"></div>
       <div className="container mx-auto px-4">
         <SectionHeading>Our Services</SectionHeading>
-        
-        {/* Mobile Accordion View */}
-        <div className="lg:hidden">
-          <Accordion type="single" collapsible>
+        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-16">
+          Experience premium vehicle transformation services tailored to your vision.
+        </p>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid grid-cols-[1fr_2fr] gap-12">
+          {/* Service Navigation */}
+          <div className="space-y-4">
             {services.map((service) => (
-              <AccordionItem key={service.id} value={service.id}>
-                <AccordionTrigger className="text-white hover:text-teal-400">
-                  <div className="flex items-center gap-3">
-                    <service.icon className="h-5 w-5" />
-                    <span>{service.label}</span>
+              <motion.button
+                key={service.id}
+                onClick={() => setSelectedService(service)}
+                onMouseEnter={() => setHoveredService(service.id)}
+                onMouseLeave={() => setHoveredService(null)}
+                className={cn(
+                  "w-full text-left p-6 rounded-xl transition-all duration-300",
+                  "relative overflow-hidden group",
+                  selectedService.id === service.id
+                    ? "bg-gradient-to-r from-teal-500/20 to-pink-500/20 text-white"
+                    : "bg-neutral-900/50 text-gray-400 hover:bg-neutral-800/50 hover:text-white"
+                )}
+              >
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <service.icon className="w-6 h-6" />
+                    <h3 className="text-lg font-semibold">{service.label}</h3>
                   </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ServiceContent service={service} />
-                </AccordionContent>
-              </AccordionItem>
+                  <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                    {service.description}
+                  </p>
+                </div>
+                {selectedService.id === service.id && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-pink-500/10"
+                    layoutId="serviceBg"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </motion.button>
             ))}
-          </Accordion>
+          </div>
+
+          {/* Service Content */}
+          <motion.div
+            key={selectedService.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-neutral-900/50 backdrop-blur-sm rounded-xl p-8"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <selectedService.icon className="w-8 h-8 text-teal-400" />
+              <h2 className="text-2xl font-bold text-white">{selectedService.label}</h2>
+            </div>
+            
+            <div className="prose prose-invert max-w-none mb-8">
+              {selectedService.content.split('\n\n').map((paragraph, index) => (
+                <p key={index} className="text-gray-300 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              {selectedService.images.map((image, index) => (
+                <motion.div
+                  key={image}
+                  className="relative aspect-video rounded-lg overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Image
+                    src={image}
+                    alt={`${selectedService.label} example ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+              >
+                Get Started with {selectedService.label}
+              </Link>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Desktop Sidebar View */}
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-[300px_1fr] gap-8">
-            <Sidebar open={open} setOpen={setOpen}>
-              <div className="flex flex-col h-full bg-neutral-900/50 backdrop-blur-sm rounded-lg">
-                <div className="flex-1 py-2">
-                  {services.map((service) => (
-                    <button
-                      key={service.id}
-                      onClick={() => setSelectedService(service)}
-                      className={cn(
-                        "flex w-full items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors",
-                        selectedService.id === service.id && "bg-white/10"
-                      )}
-                    >
-                      <service.icon className="h-5 w-5 text-white" aria-hidden="true" />
-                      {service.label}
-                    </button>
-                  ))}
+        {/* Mobile Accordion Layout */}
+        <div className="lg:hidden space-y-4">
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              className="bg-neutral-900/50 rounded-xl overflow-hidden"
+            >
+              <button
+                onClick={() => {
+                  if (selectedService.id === service.id) {
+                    setSelectedService(services[0])
+                  } else {
+                    setSelectedService(service)
+                  }
+                }}
+                className="w-full text-left p-6 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <service.icon className="w-6 h-6 text-teal-400" />
+                  <h3 className="text-lg font-semibold text-white">{service.label}</h3>
                 </div>
-              </div>
-            </Sidebar>
-            <ServiceContent service={selectedService} />
-          </div>
+                <motion.div
+                  animate={{ rotate: selectedService.id === service.id ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <svg
+                    className="w-5 h-5 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </motion.div>
+              </button>
+
+              <motion.div
+                initial={false}
+                animate={{
+                  height: selectedService.id === service.id ? "auto" : 0,
+                  opacity: selectedService.id === service.id ? 1 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="p-6 pt-0">
+                  <div className="prose prose-invert max-w-none mb-6">
+                    {service.content.split('\n\n').map((paragraph, index) => (
+                      <p key={index} className="text-gray-300 leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {service.images.map((image, index) => (
+                      <div
+                        key={image}
+                        className="relative aspect-video rounded-lg overflow-hidden"
+                      >
+                        <Image
+                          src={image}
+                          alt={`${service.label} example ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 text-center">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                    >
+                      Get Started with {service.label}
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
-  )
-}
-
-const Logo = () => {
-  return (
-    <Link href="#" className="font-normal flex space-x-2 items-center text-sm text-white py-1 relative z-20">
-      <Image
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NEW%20Logo%20jpg-6ER5dcL86gISqvgRIepb8CjEGxn8HQ.png"
-        alt="Elite Wrappers Sydney Logo"
-        width={24}
-        height={20}
-        className="flex-shrink-0"
-        priority
-      />
-      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium ml-2">
-        Elite Wrappers
-      </motion.span>
-    </Link>
-  )
-}
-
-const ServiceContent = ({ service }: ServiceContentProps) => {
-  const Icon = service.icon
-  return (
-    <div className="flex flex-1 bg-neutral-800 text-white">
-      <div className="relative p-2 md:p-4 lg:p-6 rounded-tl-2xl border-l border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
-        <BorderTrail
-          className="bg-gradient-to-r from-teal-400 via-pink-500 to-teal-400"
-          size={250}
-          transition={{
-            repeat: Number.POSITIVE_INFINITY,
-            duration: 12,
-            ease: "linear",
-          }}
-        />
-        <div className="flex flex-col gap-2 h-full">
-          <h3 className="text-xl md:text-2xl font-semibold flex items-center gap-2 text-white font-air-travellers">
-            <Icon className="h-5 w-5 md:h-6 md:w-6 text-white" aria-hidden="true" />
-            {service.label}
-          </h3>
-          <p className="text-sm md:text-base text-gray-300">{service.description}</p>
-          <p className="mt-2 text-sm md:text-base text-white">{service.content}</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-auto">
-            {service.images.map((image: string, index: number) => (
-              <div key={index} className="relative aspect-video">
-                <Image
-                  src={image || "/placeholder.svg"}
-                  alt={`${service.label} - ${index === 0 ? 'Primary' : index === 1 ? 'Secondary' : 'Additional'} view`}
-                  fill
-                  className={`rounded-lg object-cover ${index === 2 && image !== '/commercial3.jpg' && image !== '/trailer3.png' ? 'object-top' : 'object-center'}`}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  quality={85}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
   )
 }
 
