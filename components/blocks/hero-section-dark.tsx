@@ -139,7 +139,7 @@ export function HeroSection({
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none" />
       </div>
       <div className="relative z-10 container mx-auto px-4 md:px-6">
-        <div className="pt-24 md:pt-32 space-y-5 max-w-3xl mx-auto text-center">
+        <div className="pt-36 md:pt-32 space-y-8 md:space-y-5 max-w-3xl mx-auto text-center">
           <motion.h1 
             className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white"
             style={{
@@ -172,7 +172,7 @@ export function HeroSection({
               <div className="relative inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
                 <Link
                   href="/contact?scroll=contact-form"
-                  className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-50"
+                  className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-3 sm:py-2 px-8 sm:px-6 text-base sm:text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-50 touch-manipulation"
                   aria-label="Get a quote for our services"
                 >
                   {ctaText}
@@ -206,7 +206,7 @@ export function HeroSection({
           </BentoGrid>
         </motion.div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-32 md:h-64 bg-gradient-to-b from-transparent via-black/70 to-black"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 md:h-64 bg-gradient-to-b from-transparent via-black/70 to-black pointer-events-none"></div>
     </section>
   )
 }
