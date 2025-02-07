@@ -12,65 +12,9 @@ import Link from "next/link"
 import { Pricing } from "@/components/blocks/pricing"
 import { FadeInHeading } from "@/components/ui/fade-in-heading"
 import { SectionHeading } from "@/components/ui/section-heading"
-
-const services = [
-  {
-    icon: Car,
-    title: "Full Vehicle Wraps",
-    description: "Transform your vehicle's appearance completely with our premium vinyl wrapping solutions.",
-    details:
-      "Our full vehicle wraps offer a complete transformation of your vehicle's exterior. Using top-quality vinyl from leading manufacturers like 3M, Avery, and XPEL, we can change your car's color, add custom designs, or create a unique textured finish. Our wraps not only enhance aesthetics but also protect your original paint, maintaining your vehicle's resale value. With a durability of 5-7 years and a wide range of finishes including matte, gloss, satin, chrome, and color-shifting options, the possibilities are endless.",
-    id: "full-vehicle-wraps",
-  },
-  {
-    icon: Truck,
-    title: "Trailer Signage",
-    description: "Professional signage and wrapping solutions for commercial trailers and trucks.",
-    details:
-      "Our trailer signage service is specifically designed for commercial fleet operators and businesses with transport needs. We provide high-quality, durable wraps and signage solutions for trailers of all sizes, from small cargo trailers to full-size semi-trailers. Using commercial-grade materials that withstand harsh weather conditions and frequent use, we ensure your branding remains vibrant and professional. Our solutions include full trailer wraps, partial wraps, DOT compliance lettering, and reflective safety markings. Each project is custom-designed to maximize visibility and impact while meeting all industry regulations.",
-    id: "trailer-signage",
-  },
-  {
-    icon: Shield,
-    title: "Paint Protection Film",
-    description: "Preserve your vehicle's pristine appearance with our advanced protection solutions.",
-    details:
-      "Our paint protection films provide an invisible shield that safeguards your vehicle's paint from road debris, stone chips, scratches, and environmental damage. We use XPEL's industry-leading self-healing film technology, which automatically repairs minor scratches and swirl marks when exposed to heat. The film is virtually invisible once applied and comes with a multi year warranty. We cover high-impact areas like the hood, fenders, mirrors, and door edges, or can apply full-body protection for maximum preservation of your vehicle's finish.",
-    id: "paint-protection-film",
-  },
-  {
-    icon: Paintbrush,
-    title: "Custom Designs",
-    description: "Stand out from the crowd with personalized vehicle graphics and unique design elements.",
-    details:
-      "Our custom design service combines artistic creativity with technical expertise to create truly unique vehicle appearances. Our in-house design team works closely with you to develop concepts that match your vision, whether it's subtle accents or bold statements. We utilize advanced digital design tools to create precise mockups, allowing you to visualize the final result before application. From racing stripes and custom graphics to complete artistic wraps, we can transform your ideas into reality while ensuring perfect execution and longevity.",
-    id: "custom-designs",
-  },
-  {
-    icon: Truck,
-    title: "Commercial Vehicle Wraps",
-    description: "Transform your fleet into powerful mobile advertising platforms that capture attention.",
-    details:
-      "Our commercial wrapping solutions turn your vehicles into effective marketing tools that generate thousands of daily impressions. We handle everything from single vehicles to entire fleets, ensuring consistent branding across all units. Our commercial-grade vinyl materials are specifically chosen for durability and weather resistance, maintaining your professional image in all conditions. We work with your existing branding guidelines or can help develop new designs that maximize visibility and impact. All installations are precisely measured and professionally applied to ensure your message looks perfect from every angle.",
-    id: "commercial-vehicle-wraps",
-  },
-  {
-    icon: FileText,
-    title: "Signage Solutions",
-    description: "Create impactful business signage that enhances your brand presence and visibility.",
-    details:
-      "Our signage solutions extend beyond vehicles to help establish your brand's physical presence. We create high-impact business signs, window graphics, wall wraps, and trade show displays using premium materials and advanced printing technology. Our team handles everything from design and production to professional installation, ensuring your signage not only looks outstanding but also withstands the test of time. Whether you need indoor or outdoor signage, we use weather-resistant materials and UV-protected inks to maintain vibrant colors and clarity for years.",
-    id: "signage-solutions",
-  },
-  {
-    icon: Zap,
-    title: "Ceramic Coating",
-    description: "Add an extra layer of protection and brilliant shine to your vehicle's exterior.",
-    details:
-      "Our ceramic coating service provides the ultimate in paint protection and aesthetic enhancement. This advanced nano-ceramic technology bonds with your vehicle's paint at a molecular level, creating a permanent protective layer that repels water, dirt, and contaminants. The coating enhances your paint's gloss and depth while making cleaning easier and reducing the need for waxing. With proper maintenance, our ceramic coatings can last up to 5 years, providing long-term protection against environmental damage, UV rays, and chemical contaminants while keeping your vehicle looking showroom-fresh.",
-    id: "ceramic-coating",
-  },
-]
+import { motion } from "framer-motion"
+import { services } from "@/config/services"
+import { SparklesCore } from "@/components/ui/sparkles"
 
 const faqs = [
   {
@@ -189,71 +133,134 @@ function ScrollToSection() {
 
 export default function ServicesPage() {
   return (
-    <>
-      <Suspense fallback={null}>
-        <ScrollToSection />
-      </Suspense>
-      <WavyBackground className="max-w-4xl mx-auto pb-40">
-        <div className="container mx-auto px-4 pt-40 pb-24">
-          <FadeInHeading as="h1" className="text-5xl md:text-6xl font-bold text-center text-white mb-6">
-            Our Services
-          </FadeInHeading>
-          <p className="text-xl text-center text-gray-300 max-w-2xl mx-auto">
-            Discover our range of premium vehicle wrapping and protection services designed to transform and safeguard
-            your vehicle.
-          </p>
+    <div className="relative min-h-screen bg-black">
+      {/* Hero Section */}
+      <WavyBackground
+        colors={["#14B8A6", "#EC4899", "#14B8A6"]}
+        waveWidth={100}
+        backgroundFill="black"
+        blur={5}
+        speed="slow"
+        waveOpacity={0.5}
+        className="h-[60vh] md:h-[70vh] flex items-center"
+      >
+        <div className="relative z-10 container mx-auto px-4">
+          <div className="max-w-3xl">
+            <motion.h1 
+              className="text-4xl md:text-7xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              Our Services
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-gray-300 max-w-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Premium vehicle transformation services tailored to your vision
+            </motion.p>
+          </div>
         </div>
       </WavyBackground>
 
-      {services.map((service, index) => (
-        <section key={index} id={service.id} className={`py-20 ${index % 2 === 0 ? "bg-black" : "bg-gray-900"}`}>
-          <div className="container mx-auto px-4">
-            <div
-              className={`flex flex-col ${
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              } items-center justify-between gap-16`}
-            >
-              <div className="md:w-1/2">
-                <FadeInHeading as="h2" className="text-3xl font-bold text-white mb-4">
-                  {service.title}
-                </FadeInHeading>
-                <p className="text-xl text-gray-300 mb-6">{service.description}</p>
-                <p className="text-gray-400">{service.details}</p>
-              </div>
-              <div className="md:w-1/2">
-                <Image
-                  src={
-                    service.id === "paint-protection-film"
-                      ? "/ppf.jpg"
-                      : service.id === "custom-designs"
-                      ? "/custom5.png"
-                      : service.id === "commercial-vehicle-wraps"
-                      ? "/commercial2.jpg"
-                      : service.id === "trailer-signage"
-                      ? "/trailer1.png"
-                      : service.id === "full-vehicle-wraps"
-                      ? "/custom1.jpg"
-                      : service.id === "ceramic-coating"
-                      ? "/ceramic.jpg"
-                      : service.id === "signage-solutions"
-                      ? "/commercial1.jpg"
-                      : "/placeholder.svg"
-                  }
-                  alt={`${service.title} - ${service.description}`}
-                  width={500}
-                  height={300}
-                  className="rounded-lg shadow-lg object-cover w-full"
-                  loading={index === 0 ? "eager" : "lazy"}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  quality={85}
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRseHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                />
-              </div>
-            </div>
+      {/* Services Grid */}
+      <div className="relative">
+        <div className="absolute inset-0 -z-10">
+          <SparklesCore
+            id="tsparticlesfull"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.4}
+            particleDensity={100}
+            className="w-full h-full"
+            particleColor="#00bac5"
+            speed={0.1}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 py-24">
+          <div className="grid gap-12">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="relative"
+              >
+                <div className={`grid md:grid-cols-2 gap-8 items-center ${
+                  index % 2 === 0 ? 'md:grid-flow-row' : 'md:grid-flow-row-dense'
+                }`}>
+                  {/* Content */}
+                  <div className={`space-y-6 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+                    <div className="inline-flex items-center gap-3 text-teal-400">
+                      <service.icon className="w-8 h-8" />
+                      <h2 className="text-3xl font-bold text-white">{service.label}</h2>
+                    </div>
+                    <p className="text-gray-400 text-lg">{service.description}</p>
+                    <div className="prose prose-invert">
+                      {service.content.split('\n\n').map((paragraph, i) => (
+                        <p key={i} className="text-gray-300 leading-relaxed">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="pt-4">
+                      <Link
+                        href={`/contact?service=${service.id}`}
+                        className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                      >
+                        Get Started
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Images */}
+                  <div className="grid grid-cols-2 gap-4 relative">
+                    <div className="col-span-2">
+                      <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
+                        <Image
+                          src={service.images[0]}
+                          alt={`${service.label} main image`}
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    </div>
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                      <Image
+                        src={service.images[1]}
+                        alt={`${service.label} detail 1`}
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                      <Image
+                        src={service.images[2]}
+                        alt={`${service.label} detail 2`}
+                        fill
+                        className={`object-cover hover:scale-105 transition-transform duration-500 ${
+                          service.images[2] === "/premium.jpg" ? "object-top" : "object-center"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Separator */}
+                {index !== services.length - 1 && (
+                  <div className="my-16 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+                )}
+              </motion.div>
+            ))}
           </div>
-        </section>
-      ))}
+        </div>
+      </div>
 
       <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4">
@@ -320,7 +327,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
 
