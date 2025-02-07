@@ -133,42 +133,44 @@ function ScrollToSection() {
 
 export default function ServicesPage() {
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative min-h-screen bg-black" role="main">
       {/* Hero Section */}
-      <WavyBackground
-        colors={["#14B8A6", "#EC4899", "#14B8A6"]}
-        waveWidth={100}
-        backgroundFill="black"
-        blur={5}
-        speed="slow"
-        waveOpacity={0.5}
-        className="h-[60vh] md:h-[70vh] flex items-center"
-      >
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-3xl">
-            <motion.h1 
-              className="text-4xl md:text-7xl font-bold text-white mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              Our Services
-            </motion.h1>
-            <motion.p 
-              className="text-xl text-gray-300 max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Premium vehicle transformation services tailored to your vision
-            </motion.p>
+      <section aria-label="Services Introduction" className="relative">
+        <WavyBackground
+          colors={["#14B8A6", "#EC4899", "#14B8A6"]}
+          waveWidth={100}
+          backgroundFill="black"
+          blur={5}
+          speed="slow"
+          waveOpacity={0.5}
+          className="h-[60vh] md:h-[70vh] flex items-center"
+        >
+          <div className="relative z-10 container mx-auto px-4">
+            <div className="max-w-3xl">
+              <motion.h1 
+                className="text-4xl md:text-7xl font-bold text-white mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Our Services
+              </motion.h1>
+              <motion.p 
+                className="text-xl text-gray-300 max-w-2xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Premium vehicle transformation services tailored to your vision
+              </motion.p>
+            </div>
           </div>
-        </div>
-      </WavyBackground>
+        </WavyBackground>
+      </section>
 
       {/* Services Grid */}
-      <div className="relative">
-        <div className="absolute inset-0 -z-10">
+      <section aria-label="Services Details" className="relative">
+        <div className="absolute inset-0 -z-10" aria-hidden="true">
           <SparklesCore
             id="tsparticlesfull"
             background="transparent"
@@ -184,23 +186,26 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4 py-24">
           <div className="grid gap-12">
             {services.map((service, index) => (
-              <motion.div
+              <motion.article
                 key={service.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true, margin: "-100px" }}
                 className="relative"
+                aria-labelledby={`service-heading-${service.id}`}
               >
                 <div className={`grid md:grid-cols-2 gap-8 items-center ${
                   index % 2 === 0 ? 'md:grid-flow-row' : 'md:grid-flow-row-dense'
                 }`}>
                   {/* Content */}
                   <div className={`space-y-6 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                    <div className="inline-flex items-center gap-3 text-teal-400">
-                      <service.icon className="w-8 h-8" />
-                      <h2 className="text-3xl font-bold text-white">{service.label}</h2>
-                    </div>
+                    <header className="inline-flex items-center gap-3 text-teal-400">
+                      <service.icon className="w-8 h-8" aria-hidden="true" />
+                      <h2 id={`service-heading-${service.id}`} className="text-3xl font-bold text-white">
+                        {service.label}
+                      </h2>
+                    </header>
                     <p className="text-gray-400 text-lg">{service.description}</p>
                     <div className="prose prose-invert">
                       {service.content.split('\n\n').map((paragraph, i) => (
@@ -213,6 +218,7 @@ export default function ServicesPage() {
                       <Link
                         href={`/contact?service=${service.id}`}
                         className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                        aria-label={`Get started with ${service.label}`}
                       >
                         Get Started
                       </Link>
@@ -220,33 +226,40 @@ export default function ServicesPage() {
                   </div>
 
                   {/* Images */}
-                  <div className="grid grid-cols-2 gap-4 relative">
+                  <div className="grid grid-cols-2 gap-4 relative" role="presentation" aria-label={`${service.label} gallery`}>
                     <div className="col-span-2">
                       <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
                         <Image
                           src={service.images[0]}
-                          alt={`${service.label} main image`}
+                          alt={`${service.label} showcase`}
                           fill
                           className="object-cover hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority={index === 0}
+                          quality={85}
                         />
                       </div>
                     </div>
                     <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
                       <Image
                         src={service.images[1]}
-                        alt={`${service.label} detail 1`}
+                        alt={`${service.label} detail view 1`}
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        quality={85}
                       />
                     </div>
                     <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
                       <Image
                         src={service.images[2]}
-                        alt={`${service.label} detail 2`}
+                        alt={`${service.label} detail view 2`}
                         fill
                         className={`object-cover hover:scale-105 transition-transform duration-500 ${
                           service.images[2] === "/premium.jpg" ? "object-top" : "object-center"
                         }`}
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        quality={85}
                       />
                     </div>
                   </div>
@@ -254,22 +267,23 @@ export default function ServicesPage() {
 
                 {/* Separator */}
                 {index !== services.length - 1 && (
-                  <div className="my-16 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+                  <div className="my-16 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" role="separator" aria-hidden="true" />
                 )}
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <section className="py-24 bg-black text-white">
+      {/* FAQ Section */}
+      <section className="py-24 bg-black text-white" aria-labelledby="faq-heading">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <header className="text-center mb-12">
+              <h2 id="faq-heading" className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
               <p className="text-lg text-gray-400">Find answers to common questions about our services.</p>
-            </div>
-            <div className="grid gap-6">
+            </header>
+            <div className="grid gap-6" role="region" aria-label="FAQ Accordion">
               {faqs.map((faq, index) => (
                 <Accordion key={index} type="single" collapsible>
                   <AccordionItem value={`item-${index}`}>
@@ -283,16 +297,15 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-black relative">
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90"></div>
+      {/* Partners Section */}
+      <section className="py-16 bg-black relative" aria-labelledby="partners-heading">
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90" aria-hidden="true"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
             <div className="relative">
-              <SectionHeading>
-                Our Partners
-              </SectionHeading>
+              <h2 id="partners-heading" className="text-4xl font-bold text-center text-white mb-12">Our Partners</h2>
             </div>
-            <div className="w-full overflow-hidden">
+            <div className="w-full overflow-hidden" role="region" aria-label="Partner logos carousel">
               <ScrollVelocity velocity={3} className="mb-4">
                 {partnerImages.map(({ name, logo }) => (
                   <div key={name} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8">
