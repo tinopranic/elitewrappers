@@ -80,17 +80,23 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom"
+                  className="absolute inset-0 origin-bottom bg-gray-800 rounded-3xl flex items-center justify-center p-8"
                 >
-                  <Image
-                    key={`image-${testimonial.name}-${index}`}
-                    src={testimonial.src || "/placeholder.svg"}
-                    alt={testimonial.name}
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
-                  />
+                  <div className="relative w-full h-full flex flex-col items-center justify-center">
+                    <div className="relative w-48 h-48 mb-4">
+                      <Image
+                        src={testimonial.src}
+                        alt="Google Reviews"
+                        fill
+                        className="object-contain"
+                        priority={index === 0}
+                      />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xl font-semibold text-white">{testimonial.name}</p>
+                      <p className="text-teal-400">{testimonial.designation}</p>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
