@@ -51,7 +51,7 @@ export default function ContactPage() {
           blur={5}
           speed="slow"
           waveOpacity={0.5}
-          containerClassName="min-h-screen"
+          containerClassName="min-h-screen flex items-center bg-black"
           className="w-full"
         >
           <div className="container mx-auto px-4 pt-40 pb-24">
