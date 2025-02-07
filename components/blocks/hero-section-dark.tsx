@@ -128,20 +128,20 @@ export function HeroSection({
 }: HeroSectionProps) {
   return (
     <section className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/mobilebg.jpg')] md:bg-[url('/hb.jpg')]"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/mobilebg.jpg')] md:bg-[url('/hb.jpg')] pointer-events-none select-none"
           style={{
             backgroundPosition: '50% 50%',
             backgroundSize: 'cover',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none select-none" />
       </div>
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="pt-36 md:pt-32 space-y-8 md:space-y-5 max-w-3xl mx-auto text-center">
           <motion.h1 
-            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white mb-8 sm:mb-4"
+            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white mb-12 sm:mb-4"
             style={{
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -158,7 +158,7 @@ export function HeroSection({
             </span>
           </motion.h1>
           <motion.div 
-            className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0 relative z-50 mt-8 sm:mt-0"
+            className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0 relative z-[100] mt-12 sm:mt-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
@@ -167,18 +167,19 @@ export function HeroSection({
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] z-50">
-              <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+            <div className="relative inline-block overflow-hidden rounded-full p-[1.5px] z-[100]">
+              <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
               <div className="relative inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
                 <Link
                   href="/contact?scroll=contact-form"
-                  className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-3 sm:py-2 px-8 sm:px-6 text-base sm:text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-50 touch-manipulation"
+                  className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-4 sm:py-2 px-10 sm:px-6 text-base sm:text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-[100]"
                   aria-label="Get a quote for our services"
+                  style={{ cursor: 'pointer' }}
                 >
-                  {ctaText}
+                  <span className="relative z-[100]">{ctaText}</span>
                 </Link>
               </div>
-            </span>
+            </div>
           </motion.div>
         </div>
         <motion.div 
