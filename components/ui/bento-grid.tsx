@@ -89,7 +89,7 @@ const BentoCard = ({
           variant="ghost" 
           asChild 
           size="sm" 
-          className="pointer-events-auto text-white hover:text-white"
+          className="pointer-events-auto text-white hover:text-pink-500"
         >
           <a 
             href={href}
