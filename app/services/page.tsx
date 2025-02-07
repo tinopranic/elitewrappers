@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import { Car, Shield, Paintbrush, Truck, FileText, Zap } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"
 import { Pricing } from "@/components/blocks/pricing"
 import { FadeInHeading } from "@/components/ui/fade-in-heading"
 import { SectionHeading } from "@/components/ui/section-heading"
@@ -248,82 +247,13 @@ export default function ServicesPage() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={85}
                   placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRseHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRseHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
               </div>
             </div>
           </div>
         </section>
       ))}
-
-      <section className="py-20 bg-black">
-        <div className="container mx-auto px-4">
-          <FadeInHeading className="text-4xl font-bold text-center text-white mb-12">Our Process</FadeInHeading>
-          <StickyScroll
-            content={[
-              {
-                title: "Consultation",
-                description:
-                  "We start with a detailed consultation to understand your vision and requirements for your vehicle.",
-                content: (
-                  <div className="h-full w-full flex items-center justify-center text-white">
-                    Consultation
-                  </div>
-                ),
-              },
-              {
-                title: "Design",
-                description:
-                  "Our expert designers create custom designs tailored to your preferences and vehicle specifications.",
-                content: (
-                  <div className="h-full w-full flex items-center justify-center text-white">
-                    Design
-                  </div>
-                ),
-              },
-              {
-                title: "Preparation",
-                description:
-                  "We meticulously clean and prepare your vehicle to ensure the best possible application of wraps or treatments.",
-                content: (
-                  <div className="h-full w-full flex items-center justify-center text-white">
-                    Preparation
-                  </div>
-                ),
-              },
-              {
-                title: "Application",
-                description:
-                  "Our skilled technicians apply the wrap or treatment with precision, ensuring a flawless finish.",
-                content: (
-                  <div className="h-full w-full flex items-center justify-center text-white">
-                    Application
-                  </div>
-                ),
-              },
-              {
-                title: "Quality Check",
-                description: "We perform a thorough quality check to ensure every detail meets our high standards.",
-                content: (
-                  <div className="h-full w-full flex items-center justify-center text-white">
-                    Quality Check
-                  </div>
-                ),
-              },
-              {
-                title: "Delivery",
-                description:
-                  "We deliver your transformed vehicle, providing care instructions to maintain its new look.",
-                content: (
-                  <div className="h-full w-full flex items-center justify-center text-white">
-                    Delivery
-                  </div>
-                ),
-              },
-            ]}
-          />
-        </div>
-      </section>
 
       <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4">

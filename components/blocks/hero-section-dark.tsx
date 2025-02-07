@@ -126,26 +126,19 @@ export function HeroSection({
   gridOptions,
   children,
 }: HeroSectionProps) {
-  const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 500], [0, 250])
-
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-      <motion.div 
-        style={{ y }} 
-        className="absolute inset-0 z-0"
-      >
+      <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: 'url("/hb.jpg")',
             backgroundPosition: '50% 50%',
             backgroundSize: 'cover',
-            transform: 'translateZ(0)', // Force GPU acceleration for smoother parallax
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" /> {/* Bottom fade */}
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+      </div>
       <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
         <div className="pt-32 md:pt-40 space-y-5 max-w-3xl leading-0 lg:leading-5 mx-auto text-center">
           <motion.h1 
