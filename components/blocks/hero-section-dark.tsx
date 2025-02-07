@@ -141,7 +141,7 @@ export function HeroSection({
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="pt-36 md:pt-32 space-y-8 md:space-y-5 max-w-3xl mx-auto text-center">
           <motion.h1 
-            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white mb-12 sm:mb-4"
+            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white mb-24 sm:mb-4"
             style={{
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -158,7 +158,7 @@ export function HeroSection({
             </span>
           </motion.h1>
           <motion.div 
-            className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0 relative z-[100] mt-12 sm:mt-0"
+            className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0 relative z-[100] mt-24 sm:mt-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
