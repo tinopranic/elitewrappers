@@ -1,32 +1,34 @@
 "use client"
 
 import { FadeInHeading } from "./fade-in-heading"
-import type { ReactNode } from "react"
+import type { ReactNode, ElementType } from "react"
 import { cn } from "@/lib/utils"
 
-interface SectionHeadingProps {
+export interface SectionHeadingProps {
   children: ReactNode
   className?: string
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+  as?: ElementType
   textColor?: string
+  id?: string
 }
 
 export function SectionHeading({ 
   children, 
   className, 
-  as = "h2",
-  textColor = "text-white"
+  as: Component = "div",
+  textColor = "text-white",
+  id
 }: SectionHeadingProps) {
   return (
-    <FadeInHeading 
-      as={as}
+    <Component
+      id={id}
       className={cn(
-        "text-5xl text-center mb-12 font-serpentine",
+        "text-3xl md:text-4xl lg:text-5xl font-serpentine text-center mb-12",
         textColor,
         className
       )}
     >
       {children}
-    </FadeInHeading>
+    </Component>
   )
 } 

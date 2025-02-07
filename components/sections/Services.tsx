@@ -14,15 +14,8 @@ import { SparklesCore } from "@/components/ui/sparkles"
 import { ScrollVelocity } from "@/components/ui/scroll-velocity"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { Paintbrush, Shield, Truck, FileText, Calendar, Palette, Sparkles, CheckCircle2, ClipboardCheck, Car, MessageSquare, PaintBucket, Settings, BadgeCheck, FileCheck } from "lucide-react"
-
-interface Service {
-  label: string;
-  id: string;
-  icon: JSX.Element;
-  description: string;
-  content: string;
-  images: string[];
-}
+import { services } from "@/config/services"
+import type { Service } from "@/types"
 
 interface TimelineEntry {
   title: string;
@@ -58,61 +51,6 @@ const partnerImages = [
   {
     name: "Seven2Media",
     logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/s2m-d0Gvl8h9dky44dqGaBYhhzFekIAePF.png",
-  },
-]
-
-const services: Service[] = [
-  {
-    label: "Paint Protection",
-    id: "paint-protection",
-    icon: <Shield className="text-white h-5 w-5 flex-shrink-0" />,
-    description: "Shield your car's paint from scratches and debris.",
-    content:
-      "Our paint protection films provide an invisible shield against road debris, stone chips, and minor scratches. We use advanced self-healing technology that automatically removes minor scratches and swirl marks, ensuring your vehicle maintains its pristine appearance.\n\n\nOur premium installations come with multi year warranty, giving you peace of mind for years to come. The film includes UV protection to prevent paint fade and oxidation, while our certified technicians ensure flawless installation that enhances and preserves your vehicle's finish.",
-    images: [
-      "/ppf.jpg",
-      "/ppf2.jpg",
-      "/premium.jpg",
-    ],
-  },
-  {
-    label: "Custom Wraps",
-    id: "custom-wraps",
-    icon: <Paintbrush className="text-white h-5 w-5 flex-shrink-0" />,
-    description: "Transform your vehicle with our premium custom wraps.",
-    content:
-      "Our custom wraps are designed to give your vehicle a unique look that stands out from the crowd. Using only premium vinyl materials, we can achieve full vehicle color changes that transform your car's appearance completely.\n\n\nOur expert team works closely with you to create custom designs and patterns tailored to your vision, offering a wide range of finishes including matte, gloss, satin, and chrome. Best of all, our wraps are completely removable without damaging your original paint, giving you the freedom to change your style whenever you want.",
-    images: [
-      "/custom4.png",
-      "/custom5.png",
-      "/custom3.jpg",
-    ],
-  },
-  {
-    label: "Commercial Wraps",
-    id: "commercial-wraps",
-    icon: <Truck className="text-white h-5 w-5 flex-shrink-0" />,
-    description: "Turn your fleet into moving billboards.",
-    content:
-      "Make your business stand out with our commercial vehicle wraps. We offer custom designs that transform your fleet into eye-catching mobile advertisements, increasing brand visibility wherever you go. Our cost-effective mobile advertising solutions include professional design services to ensure your message captures attention on the road.\n\n\nWe maintain perfect consistency across your entire fleet, using durable materials specifically chosen for long-term exposure and daily commercial use. Our wraps not only advertise your business but also protect your vehicles' paintwork, maintaining their value for years to come.",
-    images: [
-      "/commercial1.jpg",
-      "/commercial2.jpg",
-      "/commercial3.jpg",
-    ],
-  },
-  {
-    label: "Trailer Signage",
-    id: "trailer-signage",
-    icon: <FileText className="text-white h-5 w-5 flex-shrink-0" />,
-    description: "Professional signage solutions for trailers and trucks.",
-    content:
-      "Transform your trailers into powerful mobile advertising platforms with our professional signage solutions. We specialize in creating high-impact graphics and branding that make your trailers stand out on the road, ensuring your message reaches a wider audience wherever your fleet travels.\n\n\nUsing premium-grade materials specifically designed for trailers and heavy vehicles, we ensure your signage withstands harsh road conditions and frequent exposure to the elements. Our expert team handles everything from design to installation, delivering durable, eye-catching results that effectively promote your business 24/7.",
-    images: [
-      "/trailer1.png",
-      "/trailer2.png",
-      "/trailer3.png",
-    ],
   },
 ]
 
@@ -299,13 +237,17 @@ const eliteProcessData: TimelineEntry[] = [
   },
 ]
 
+interface ServiceContentProps {
+  service: Service
+}
+
 export function Services() {
   const [open, setOpen] = useState(false)
   const [selectedService, setSelectedService] = useState<Service>(services[0])
 
   return (
     <>
-      <section className="py-24 bg-black text-white relative">
+      <section className="py-24 bg-black text-white relative" aria-labelledby="services-heading">
         <div className="absolute inset-0 -z-10">
           <SparklesCore
             id="tsparticlesfull"
@@ -321,7 +263,7 @@ export function Services() {
         <div className="relative z-10 will-change-transform">
           <div className="container mx-auto px-4">
             <div className="relative">
-              <SectionHeading>
+              <SectionHeading id="services-heading">
                 Our Services
               </SectionHeading>
             </div>
@@ -330,29 +272,45 @@ export function Services() {
                 "rounded-md flex flex-col md:flex-row bg-neutral-900 text-white w-full flex-1 max-w-7xl mx-auto border border-neutral-700 overflow-hidden",
                 "h-[450px] md:h-[500px] lg:h-[550px]",
               )}
+              role="tablist"
+              aria-orientation="vertical"
             >
               <div className="w-[300px] bg-neutral-800 border-r border-neutral-700 p-4">
                 <Logo />
                 <div className="mt-8 flex flex-col gap-2">
-                  {services.map((service, idx) => (
-                    <button
-                      key={idx}
-                      className={cn(
-                        "flex items-center gap-2 p-2 rounded hover:bg-neutral-700 transition-colors text-white text-left w-full",
-                        selectedService.label === service.label && "bg-neutral-700"
-                      )}
-                      onClick={() => {
-                        setSelectedService(service)
-                        setOpen(false)
-                      }}
-                    >
-                      {service.icon}
-                      <span>{service.label}</span>
-                    </button>
-                  ))}
+                  {services.map((service, idx) => {
+                    const Icon = service.icon
+                    return (
+                      <button
+                        key={idx}
+                        className={cn(
+                          "flex items-center gap-2 p-2 rounded hover:bg-neutral-700 transition-colors text-white text-left w-full",
+                          selectedService.label === service.label && "bg-neutral-700"
+                        )}
+                        onClick={() => {
+                          setSelectedService(service)
+                          setOpen(false)
+                        }}
+                        role="tab"
+                        aria-selected={selectedService.label === service.label}
+                        aria-controls={`service-panel-${service.id}`}
+                        id={`service-tab-${service.id}`}
+                      >
+                        <Icon className="h-5 w-5 text-white" aria-hidden="true" />
+                        <span>{service.label}</span>
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
-              <ServiceContent service={selectedService} />
+              <div 
+                role="tabpanel"
+                id={`service-panel-${selectedService.id}`}
+                aria-labelledby={`service-tab-${selectedService.id}`}
+                className="flex-1"
+              >
+                <ServiceContent service={selectedService} />
+              </div>
             </div>
           </div>
         </div>
@@ -365,19 +323,20 @@ export function Services() {
               'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
             transform: 'translateZ(0)',
           }}
+          aria-hidden="true"
         />
       </section>
 
-      <section className="py-16 bg-black relative">
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90"></div>
+      <section className="py-16 bg-black relative" aria-labelledby="partners-heading">
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90" aria-hidden="true"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
             <div className="relative">
-              <SectionHeading>
+              <SectionHeading id="partners-heading">
                 Our Partners
               </SectionHeading>
             </div>
-            <div className="w-full overflow-hidden will-change-transform">
+            <div className="w-full overflow-hidden will-change-transform" role="region" aria-label="Partner logos">
               <ScrollVelocity velocity={2} className="mb-4">
                 {partnerImages.map(({ name, logo }) => (
                   <div key={name} className="relative h-16 w-32 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-8 will-change-transform">
@@ -388,6 +347,7 @@ export function Services() {
                       sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
                       className="h-full w-full object-contain object-center"
                       loading="lazy"
+                      quality={75}
                     />
                   </div>
                 ))}
@@ -402,6 +362,7 @@ export function Services() {
                       sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 192px"
                       className="h-full w-full object-contain object-center"
                       loading="lazy"
+                      quality={75}
                     />
                   </div>
                 ))}
@@ -411,16 +372,16 @@ export function Services() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-24 bg-white min-h-screen py-24">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] will-change-transform" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-white" />
-        <div className="absolute inset-0 mix-blend-overlay opacity-40">
+      <section className="relative z-10 mt-24 bg-white min-h-screen py-24" aria-labelledby="process-heading">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] will-change-transform" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-white" aria-hidden="true" />
+        <div className="absolute inset-0 mix-blend-overlay opacity-40" aria-hidden="true">
           <div className="absolute top-0 -left-4 w-3/4 h-3/4 bg-gradient-to-br from-teal-500/10 to-transparent rounded-full blur-3xl will-change-transform" style={{ transform: 'translateZ(0)' }} />
           <div className="absolute bottom-0 -right-4 w-3/4 h-3/4 bg-gradient-to-tl from-pink-500/10 to-transparent rounded-full blur-3xl will-change-transform" style={{ transform: 'translateZ(0)' }} />
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="relative mb-16">
-            <SectionHeading textColor="text-gray-900">
+            <SectionHeading textColor="text-gray-900" id="process-heading">
               The Elite Process
             </SectionHeading>
           </div>
@@ -451,11 +412,8 @@ const Logo = () => {
   )
 }
 
-interface ServiceContentProps {
-  service: Service;
-}
-
 const ServiceContent = ({ service }: ServiceContentProps) => {
+  const Icon = service.icon
   return (
     <div className="flex flex-1 bg-neutral-800 text-white">
       <div className="relative p-2 md:p-4 lg:p-6 rounded-tl-2xl border-l border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
@@ -470,7 +428,7 @@ const ServiceContent = ({ service }: ServiceContentProps) => {
         />
         <div className="flex flex-col gap-2 h-full">
           <h3 className="text-xl md:text-2xl font-semibold flex items-center gap-2 text-white font-air-travellers">
-            {React.cloneElement(service.icon, { className: "h-5 w-5 md:h-6 md:w-6 text-white" })}
+            <Icon className="h-5 w-5 md:h-6 md:w-6 text-white" aria-hidden="true" />
             {service.label}
           </h3>
           <p className="text-sm md:text-base text-gray-300">{service.description}</p>
@@ -480,9 +438,12 @@ const ServiceContent = ({ service }: ServiceContentProps) => {
               <div key={index} className="relative aspect-video">
                 <Image
                   src={image || "/placeholder.svg"}
-                  alt={`${service.label} image ${index + 1}`}
+                  alt={`${service.label} - ${index === 0 ? 'Primary' : index === 1 ? 'Secondary' : 'Additional'} view`}
                   fill
                   className={`rounded-lg object-cover ${index === 2 && image !== '/commercial3.jpg' && image !== '/trailer3.png' ? 'object-top' : 'object-center'}`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                  quality={85}
                 />
               </div>
             ))}

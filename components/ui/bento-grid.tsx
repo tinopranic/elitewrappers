@@ -47,6 +47,8 @@ const BentoCard = ({
         "before:absolute before:inset-0 before:rounded-xl before:p-[2px] before:bg-gradient-to-r before:from-teal-500 before:via-pink-500 before:to-teal-500 before:animate-shine-border",
       className,
     )}
+    role="article"
+    aria-labelledby={`card-heading-${name.toLowerCase().replace(/\s+/g, '-')}`}
   >
     {specialOffer && <div className="absolute inset-[2px] bg-transparent rounded-xl z-0" />}
     <div className="relative z-1 flex flex-col justify-between h-full">
@@ -60,8 +62,14 @@ const BentoCard = ({
         <div className="p-6 flex flex-col gap-1 transform-gpu transition-all duration-300 group-hover:-translate-y-10">
           <Icon
             className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 text-white"
+            aria-hidden="true"
           />
-          <h3 className="text-xl font-semibold text-white text-left">{name}</h3>
+          <h2 
+            id={`card-heading-${name.toLowerCase().replace(/\s+/g, '-')}`}
+            className="text-xl font-semibold text-white text-left"
+          >
+            {name}
+          </h2>
           <p className="max-w-lg text-white/80 text-left">{description}</p>
         </div>
       </div>
@@ -77,9 +85,12 @@ const BentoCard = ({
           size="sm" 
           className="pointer-events-auto text-white hover:text-white"
         >
-          <a href={href}>
+          <a 
+            href={href}
+            aria-label={`${cta} - ${name}`}
+          >
             {cta}
-            <ArrowRightIcon className="ml-2 h-4 w-4" />
+            <ArrowRightIcon className="ml-2 h-4 w-4" aria-hidden="true" />
           </a>
         </Button>
       </div>

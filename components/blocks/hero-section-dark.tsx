@@ -148,7 +148,7 @@ export function HeroSection({
       </motion.div>
       <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
         <div className="pt-32 md:pt-40 space-y-5 max-w-3xl leading-0 lg:leading-5 mx-auto text-center">
-          <motion.h2 
+          <motion.h1 
             className="text-4xl tracking-tighter font-serpentine text-white md:text-7xl"
             style={{
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
@@ -164,7 +164,7 @@ export function HeroSection({
             <span className="text-white">
               {subtitle.gradient}
             </span>
-          </motion.h2>
+          </motion.h1>
           <motion.div 
             className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0"
             initial={{ opacity: 0, y: 20 }}
@@ -181,6 +181,7 @@ export function HeroSection({
                 <Link
                   href={ctaHref + "?scroll=contact-form"}
                   className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
+                  aria-label="Get a quote for our services"
                 >
                   {ctaText}
                 </Link>
