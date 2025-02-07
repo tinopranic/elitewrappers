@@ -200,8 +200,8 @@ export function Services() {
 
                   <div className="mt-6 text-center">
                     <Link
-                      href="/contact"
-                      className="inline-flex items-center justify-center px-6 py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                      href="/contact?scroll=contact-form"
+                      className="inline-flex items-center justify-center px-6 py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300 relative z-20"
                     >
                       Get Started with {service.label}
                     </Link>
