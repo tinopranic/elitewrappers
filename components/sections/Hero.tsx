@@ -36,11 +36,12 @@ export function Hero() {
               'url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1.jpg-BxyUdrLQf9oHWBQ5XsmLMFUEtgVDBc.jpeg")',
           }}
         />
-        <div className="absolute inset-0 bg-black/50" /> {/* Darkening overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />{" "}
-        {/* Bottom fade */}
+        <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       </div>
-      <p className="max-w-2xl mx-auto text-white">description</p>
+      <div className="pt-20 md:pt-0">
+        <p className="max-w-2xl mx-auto text-white">description</p>
+      </div>
     </HeroSection>
   )
 }

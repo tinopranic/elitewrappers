@@ -140,7 +140,7 @@ export function HeroSection({
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       </div>
       <div className="relative z-10 container mx-auto px-4 md:px-6">
-        <div className="pt-20 md:pt-32 space-y-5 max-w-3xl mx-auto text-center">
+        <div className="pt-24 md:pt-32 space-y-5 max-w-3xl mx-auto text-center">
           <motion.h1 
             className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white"
             style={{
