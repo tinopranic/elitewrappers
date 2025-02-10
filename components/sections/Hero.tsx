@@ -13,8 +13,8 @@ export function Hero() {
         </FadeInHeading>
       }
       subtitle={{
-        regular: "Premium Car Wrapping Services in ",
-        gradient: "Sydney",
+        regular: "Premium wrapping and ",
+        gradient: "fleet branding services",
       }}
       description="Elite Wrappers Sydney offers top-quality vehicle wraps, paint protection, and custom designs to transform your car's appearance and protect its value."
       ctaText="Get a Quote"

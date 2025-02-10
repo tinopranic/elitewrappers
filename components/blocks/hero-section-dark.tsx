@@ -117,8 +117,8 @@ export function HeroSection({
   className,
   title,
   subtitle = {
-    regular: "Get ",
-    gradient: "Wrapped",
+    regular: "Premium wrapping and ",
+    gradient: "fleet branding services",
   },
   description = "",
   ctaText = "Get a Quote",
@@ -130,12 +130,13 @@ export function HeroSection({
     <section className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/homehero.jpg')] pointer-events-none select-none"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/trx.jpg')] pointer-events-none select-none"
           style={{
             backgroundPosition: '50% 50%',
             backgroundSize: 'cover',
           }}
         />
+        <div className="absolute inset-0 bg-black/50 pointer-events-none select-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none select-none" />
       </div>
       <div className="relative z-10 container mx-auto px-4 md:px-6">
@@ -145,17 +146,58 @@ export function HeroSection({
             style={{
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.8,
-              ease: [0.16, 1, 0.3, 1],
-            }}
           >
-            {subtitle.regular}
-            <span className="text-white">
-              {subtitle.gradient}
-            </span>
+            <motion.span
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.7,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="inline-block"
+            >
+              {subtitle.regular.split(" ").map((word, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: index * 0.15,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="inline-block mr-[0.25em]"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="text-white inline-block"
+            >
+              {subtitle.gradient.split(" ").map((word, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.5 + index * 0.15,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="inline-block mr-[0.25em]"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.span>
           </motion.h1>
           <motion.div 
             className="items-center gap-x-3 space-y-3 sm:flex sm:space-y-0 relative z-[100] mt-24 sm:mt-0"
@@ -182,30 +224,6 @@ export function HeroSection({
             </div>
           </motion.div>
         </div>
-        <motion.div 
-          className="mt-16 md:mt-32 relative z-10"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 1,
-            delay: 0.6,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-        >
-          <BentoGrid className="px-2 md:px-0">
-            {features.map((feature, index) => (
-              <BentoCard 
-                key={feature.name} 
-                {...feature} 
-                specialOffer={feature.specialOffer}
-                className={cn(
-                  feature.className,
-                  "min-h-[200px] md:min-h-[250px]"
-                )} 
-              />
-            ))}
-          </BentoGrid>
-        </motion.div>
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-32 md:h-64 bg-gradient-to-b from-transparent via-black/70 to-black pointer-events-none"></div>
     </section>
