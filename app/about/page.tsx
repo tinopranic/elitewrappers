@@ -126,13 +126,17 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-3xl font-bold text-white mb-6">Our Journey</h2>
+            <div className="relative aspect-video rounded-xl overflow-hidden">
+              <Image
+                src="/aboutus.jpg"
+                alt="Elite Wrappers Journey"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Our Journey</h2>
               <div className="space-y-6 text-gray-300">
                 <p>
                   Elite Wrappers began with a passion for automotive aesthetics and a vision to provide Sydney with premium vehicle transformation services. What started as a small workshop has grown into a leading force in the industry.
@@ -144,22 +148,7 @@ export default function AboutPage() {
                   Today, we continue to push boundaries, embracing new technologies and techniques while maintaining our core values of quality, integrity, and customer satisfaction.
                 </p>
               </div>
-            </motion.div>
-            <motion.div 
-              className="relative h-[600px] rounded-lg overflow-hidden"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Image
-                src="/workshop.jpg"
-                alt="Elite Wrappers Workshop"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
