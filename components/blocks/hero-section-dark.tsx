@@ -130,7 +130,7 @@ export function HeroSection({
     <section className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/herobg3.jpg')] pointer-events-none select-none"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/homehero.jpg')] pointer-events-none select-none"
           style={{
             backgroundPosition: '50% 50%',
             backgroundSize: 'cover',
