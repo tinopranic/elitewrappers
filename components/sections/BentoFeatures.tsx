@@ -102,6 +102,9 @@ export function BentoFeatures() {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 font-serpentine bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-pink-500">
+            Get Wrapped
+          </h2>
           <BentoGrid className="px-2 md:px-0">
             {features.map((feature, index) => (
               <BentoCard 
