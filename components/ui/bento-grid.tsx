@@ -48,16 +48,14 @@ const BentoCard = ({
       "group relative flex flex-col justify-between overflow-hidden rounded-xl",
       "[box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
       "transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
-      specialOffer &&
-        "before:absolute before:inset-0 before:rounded-xl before:p-[2px] before:bg-gradient-to-r before:from-teal-500 before:via-pink-500 before:to-teal-500 before:animate-shine-border",
+      specialOffer && "animate-card-pulse shadow-[0_0_15px_rgba(20,184,166,0.3)]",
       "w-full",
       className,
     )}
     role="article"
     aria-labelledby={`card-heading-${name.toLowerCase().replace(/\s+/g, '-')}`}
   >
-    {specialOffer && <div className="absolute inset-[2px] bg-transparent rounded-xl z-0" />}
-    <div className="relative z-1 flex flex-col justify-between h-full">
+    <div className="relative z-10 flex flex-col justify-between h-full">
       <div className="absolute inset-0 z-0">{background}</div>
       
       {/* Content container with gradient overlay */}
@@ -67,7 +65,10 @@ const BentoCard = ({
       <div className="mt-auto relative z-10">
         <div className="p-4 sm:p-6 flex flex-col gap-1 transform-gpu transition-all duration-300 group-hover:-translate-y-10">
           <Icon
-            className="h-8 w-8 sm:h-12 sm:w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 text-white"
+            className={cn(
+              "h-8 w-8 sm:h-12 sm:w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 text-white",
+              specialOffer && "text-teal-400"
+            )}
             aria-hidden="true"
           />
           <h2 
@@ -89,7 +90,10 @@ const BentoCard = ({
           variant="ghost" 
           asChild 
           size="sm" 
-          className="pointer-events-auto text-white hover:text-pink-500"
+          className={cn(
+            "pointer-events-auto text-white",
+            specialOffer ? "hover:text-teal-400" : "hover:text-pink-500"
+          )}
         >
           <a 
             href={href}
@@ -107,27 +111,21 @@ const BentoCard = ({
 
 const ShimmerStyle = () => (
   <style jsx global>{`
-    ${shimmerAnimation}
-    .animate-shine-border {
-      animation: shine-border 3s linear infinite;
-      background-size: 200% 200%;
+    @keyframes card-pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(20, 184, 166, 0.3);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 25px rgba(20, 184, 166, 0.5);
+      }
+    }
+    .animate-card-pulse {
+      animation: card-pulse 3s ease-in-out infinite;
     }
   `}</style>
 )
-
-const shimmerAnimation = `
-  @keyframes shine-border {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-`
 
 export { BentoCard, BentoGrid }
 
