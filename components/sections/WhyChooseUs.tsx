@@ -10,7 +10,7 @@ import { SectionHeading } from "@/components/ui/section-heading"
 import { Award, Clock, ThumbsUp, Users } from "lucide-react"
 
 const stats = [
-  { name: "Years of Experience", value: 10, icon: Clock },
+  { name: "Years of Experience", value: 15, icon: Clock },
   { name: "Satisfied Customers", value: 5000, icon: ThumbsUp },
   { name: "Expert Team Members", value: 15, icon: Users },
 ]

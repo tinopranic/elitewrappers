@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/section-heading"
 import { Shield, Users, Clock, Award, Star, Truck, Car } from "lucide-react"
 import Link from "next/link"
 import { Testimonials } from "@/components/sections/Testimonials"
+import { WavyBackground } from "@/components/ui/wavy-background"
 
 const achievements = [
   { 
@@ -111,8 +112,11 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl mb-6">About Elite Wrappers</h1>
+            <p className="text-lg leading-8 text-gray-300 mb-6">
+              With over 15 years of industry expertise, Elite Wrappers has established itself as Sydney's premier vehicle transformation specialist. In 2020, we proudly opened our flagship store in Penrith, bringing together our wealth of experience and passion for automotive excellence under one roof.
+            </p>
             <p className="text-lg leading-8 text-gray-300">
-              Since 2010, we've been Sydney's premier destination for vehicle transformation, combining artistry with technical expertise to deliver exceptional results.
+              Our state-of-the-art facility combines cutting-edge technology with masterful craftsmanship, setting new standards in vehicle wrapping and protection services. Today, we continue to build on our legacy of excellence, serving both private and commercial clients with the same dedication to quality and innovation that has defined our journey from the beginning.
             </p>
           </motion.div>
         </div>
