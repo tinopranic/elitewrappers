@@ -14,10 +14,14 @@ export function Services() {
   const [hoveredService, setHoveredService] = useState<string | null>(null)
 
   return (
-    <section className="relative bg-black py-12 sm:py-16 md:py-24" id="services">
-      <div className="absolute inset-0 bg-noise opacity-50 mix-blend-soft-light"></div>
+    <section 
+      className="relative bg-black py-12 sm:py-16 md:py-24" 
+      id="services"
+      aria-labelledby="services-heading"
+    >
+      <div className="absolute inset-0 bg-noise opacity-50 mix-blend-soft-light" aria-hidden="true"></div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading>Our Services</SectionHeading>
+        <SectionHeading id="services-heading">Our Services</SectionHeading>
         <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16 text-sm sm:text-base">
           Experience premium vehicle transformation services tailored to your vision.
         </p>
@@ -25,7 +29,7 @@ export function Services() {
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-[1fr_2fr] gap-8 lg:gap-12">
           {/* Service Navigation */}
-          <div className="space-y-4">
+          <div className="space-y-4" role="tablist" aria-label="Service options">
             {services.map((service) => (
               <motion.button
                 key={service.id}
@@ -39,10 +43,14 @@ export function Services() {
                     ? "bg-gradient-to-r from-teal-500/20 to-pink-500/20 text-white"
                     : "bg-neutral-900/50 text-gray-400 hover:bg-neutral-800/50 hover:text-white"
                 )}
+                role="tab"
+                aria-selected={selectedService.id === service.id}
+                aria-controls={`panel-${service.id}`}
+                id={`tab-${service.id}`}
               >
                 <div className="relative z-10">
                   <div className="flex items-center gap-3 mb-2">
-                    <service.icon className="w-6 h-6" />
+                    <service.icon className="w-6 h-6" aria-hidden="true" />
                     <h3 className="text-lg font-semibold">{service.label}</h3>
                   </div>
                   <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
@@ -54,6 +62,7 @@ export function Services() {
                     className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-pink-500/10"
                     layoutId="serviceBg"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    aria-hidden="true"
                   />
                 )}
               </motion.button>
@@ -67,9 +76,12 @@ export function Services() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="bg-neutral-900/50 backdrop-blur-sm rounded-xl p-8"
+            role="tabpanel"
+            aria-labelledby={`tab-${selectedService.id}`}
+            id={`panel-${selectedService.id}`}
           >
             <div className="flex items-center gap-4 mb-6">
-              <selectedService.icon className="w-8 h-8 text-teal-400" />
+              <selectedService.icon className="w-8 h-8 text-teal-400" aria-hidden="true" />
               <h2 className="text-2xl font-bold text-white">{selectedService.label}</h2>
             </div>
             
@@ -81,13 +93,18 @@ export function Services() {
               ))}
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div 
+              className="grid grid-cols-3 gap-4"
+              role="list"
+              aria-label={`${selectedService.label} example images`}
+            >
               {selectedService.images.map((image, index) => (
                 <motion.div
                   key={image}
                   className="relative aspect-video rounded-lg overflow-hidden"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
+                  role="listitem"
                 >
                   <Image
                     src={image}
@@ -108,6 +125,7 @@ export function Services() {
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
+                aria-label={`Get started with ${selectedService.label} service`}
               >
                 Get Started with {selectedService.label}
               </Link>
@@ -133,21 +151,24 @@ export function Services() {
                 className="w-full text-left p-4 sm:p-6 flex items-center justify-between relative z-10"
                 aria-expanded={selectedService.id === service.id}
                 aria-controls={`content-${service.id}`}
+                id={`mobile-tab-${service.id}`}
               >
                 <div className="flex items-center gap-3">
-                  <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />
+                  <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" aria-hidden="true" />
                   <h3 className="text-base sm:text-lg font-semibold text-white">{service.label}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: selectedService.id === service.id ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                   className="flex items-center justify-center w-8 h-8"
+                  aria-hidden="true"
                 >
                   <svg
                     className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -168,6 +189,8 @@ export function Services() {
                 }}
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
+                role="region"
+                aria-labelledby={`mobile-tab-${service.id}`}
               >
                 <div className="p-4 sm:p-6 pt-0">
                   <div className="prose prose-invert max-w-none mb-6">
@@ -179,11 +202,16 @@ export function Services() {
                     ))}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                  <div 
+                    className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4"
+                    role="list"
+                    aria-label={`${service.label} example images`}
+                  >
                     {service.images.map((image, index) => (
                       <div
                         key={image}
                         className="relative aspect-video rounded-lg overflow-hidden"
+                        role="listitem"
                       >
                         <Image
                           src={image}
@@ -204,6 +232,7 @@ export function Services() {
                     <Link
                       href="/contact?scroll=contact-form"
                       className="inline-flex items-center justify-center px-6 py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300 relative z-20"
+                      aria-label={`Get started with ${service.label} service`}
                     >
                       Get Started with {service.label}
                     </Link>

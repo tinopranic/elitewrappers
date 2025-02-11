@@ -127,17 +127,23 @@ export function HeroSection({
   children,
 }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+    <section 
+      className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-black"
+      aria-label="Hero section"
+    >
+      <div className="absolute inset-0 z-0 pointer-events-none select-none" aria-hidden="true">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/trx.jpg')] pointer-events-none select-none"
           style={{
             backgroundPosition: '50% 50%',
             backgroundSize: 'cover',
           }}
+          role="img"
+          aria-label="Background image of a wrapped vehicle"
         />
         <div 
           className="absolute inset-0 pointer-events-none select-none"
+          aria-hidden="true"
           style={{
             background: `linear-gradient(
               to bottom,
@@ -171,6 +177,7 @@ export function HeroSection({
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="inline-block"
+              aria-label="Premium wrapping"
             >
               {subtitle.regular}
             </motion.span>
@@ -183,6 +190,7 @@ export function HeroSection({
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="text-white inline-block"
+              aria-label="Fleet branding"
             >
               {subtitle.gradient}
             </motion.span>
@@ -198,13 +206,15 @@ export function HeroSection({
             }}
           >
             <div className="relative inline-block overflow-hidden rounded-full p-[1.5px] z-[100]">
-              <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+              <div 
+                className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]"
+                aria-hidden="true"
+              />
               <div className="relative inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
                 <Link
                   href="/contact?scroll=contact-form"
                   className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-4 sm:py-2 px-10 sm:px-6 text-base sm:text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-[100]"
-                  aria-label="Get a quote"
-                  style={{ cursor: 'pointer' }}
+                  aria-label="Get a quote for vehicle wrapping services"
                 >
                   <span className="relative z-[100]">{ctaText}</span>
                 </Link>
