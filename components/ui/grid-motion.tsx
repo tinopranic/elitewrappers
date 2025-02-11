@@ -27,6 +27,14 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
   const defaultItems = Array.from({ length: totalItems }, (_, index) => `Item ${index + 1}`)
   const combinedItems = items.length > 0 ? items.slice(0, totalItems) : defaultItems
 
+  // Calculate items per row based on screen size
+  const getItemsPerRow = (rowIndex: number) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return 3 // Always show 3 items per row on mobile
+    }
+    return rowIndex === 3 ? 3 : 7 // Desktop layout remains unchanged
+  }
+
   useEffect(() => {
     mouseXRef.current = window.innerWidth / 2
     
@@ -88,8 +96,13 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
                 }
               }}
             >
-              {[...Array(rowIndex === 3 ? 3 : 7)].map((_, itemIndex) => {
-                const content = combinedItems[rowIndex * 7 + itemIndex]
+              {[...Array(getItemsPerRow(rowIndex))].map((_, itemIndex) => {
+                // Calculate the actual index in the items array
+                const itemsPerRow = getItemsPerRow(rowIndex)
+                const startIndex = rowIndex * itemsPerRow
+                const actualIndex = startIndex + itemIndex
+                const content = combinedItems[actualIndex % combinedItems.length] // Use modulo to cycle through items if needed
+
                 return (
                   <div key={itemIndex} className="relative">
                     <Link href="/gallery" className="block h-full">
