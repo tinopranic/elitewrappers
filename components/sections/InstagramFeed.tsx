@@ -21,6 +21,7 @@ export function InstagramFeed() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [retryCount, setRetryCount] = useState(0)
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     async function fetchPosts() {
@@ -42,19 +43,51 @@ export function InstagramFeed() {
           throw new Error(data.error || 'Failed to fetch Instagram posts')
         }
 
-        setPosts(data.data || [])
+        // Filter out posts with invalid media_url or missing required fields
+        const validPosts = data.data.filter((post: InstagramPost) => {
+          // Log each post for debugging
+          console.log('Processing post:', {
+            id: post.id,
+            type: post.media_type,
+            hasMediaUrl: !!post.media_url,
+            hasThumbnail: !!post.thumbnail_url
+          });
+
+          // For VIDEO posts, ensure we have a thumbnail
+          if (post.media_type === 'VIDEO' && !post.thumbnail_url) {
+            console.log('Skipping video without thumbnail:', post.id);
+            return false;
+          }
+
+          // For CAROUSEL_ALBUM, ensure we have either media_url or thumbnail_url
+          if (post.media_type === 'CAROUSEL_ALBUM' && !post.media_url && !post.thumbnail_url) {
+            console.log('Skipping carousel without media:', post.id);
+            return false;
+          }
+
+          // Ensure we have a valid URL to display
+          const hasValidUrl = post.media_url || post.thumbnail_url;
+          if (!hasValidUrl) {
+            console.log('Skipping post without valid URL:', post.id);
+            return false;
+          }
+
+          return true;
+        });
+
+        console.log(`Filtered ${data.data.length} posts to ${validPosts.length} valid posts`);
+        setPosts(validPosts)
         setError(null)
         setRetryCount(0)
       } catch (err) {
         console.error('Error in InstagramFeed:', err);
         setError(err instanceof Error ? err.message : 'Failed to load Instagram posts')
         
-        // Retry logic for temporary failures
         if (retryCount < 3) {
           console.log(`Retrying fetch (attempt ${retryCount + 1}/3)...`);
           setTimeout(() => {
             setRetryCount(prev => prev + 1)
-          }, 2000 * (retryCount + 1)) // Exponential backoff
+          }, 2000 * (retryCount + 1))
         }
       } finally {
         setLoading(false)
@@ -62,7 +95,34 @@ export function InstagramFeed() {
     }
 
     fetchPosts()
-  }, [retryCount]) // Re-run when retryCount changes
+  }, [retryCount])
+
+  const handleImageError = (postId: string) => {
+    console.log('Image load failed for post:', postId);
+    setFailedImages(prev => new Set(prev).add(postId))
+  }
+
+  const getMediaUrl = (post: InstagramPost) => {
+    // If this image previously failed, try the alternate URL
+    if (failedImages.has(post.id)) {
+      const alternateUrl = post.thumbnail_url || post.media_url || '';
+      console.log('Using alternate URL for failed image:', post.id, alternateUrl);
+      return alternateUrl;
+    }
+    
+    // For videos, always use thumbnail
+    if (post.media_type === 'VIDEO') {
+      return post.thumbnail_url || post.media_url || '';
+    }
+
+    // For carousels, prefer media_url but fall back to thumbnail
+    if (post.media_type === 'CAROUSEL_ALBUM') {
+      return post.media_url || post.thumbnail_url || '';
+    }
+
+    // For regular images, use media_url
+    return post.media_url || '';
+  }
 
   if (loading) {
     return (
@@ -127,11 +187,13 @@ export function InstagramFeed() {
           <Link href={post.permalink} target="_blank" rel="noopener noreferrer">
             <div className="relative w-full h-full overflow-hidden rounded-lg">
               <Image
-                src={post.media_type === 'VIDEO' ? post.thumbnail_url || post.media_url : post.media_url}
+                src={getMediaUrl(post)}
                 alt={post.caption || 'Instagram post'}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-110"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                onError={() => handleImageError(post.id)}
+                priority={index < 6}
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <div className="p-4 text-center">

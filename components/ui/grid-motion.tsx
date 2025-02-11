@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from "react"
 import { gsap } from "gsap"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { useInstagramFeed } from "./instagram-feed"
 
 interface GridMotionProps {
   /**
@@ -16,9 +17,15 @@ interface GridMotionProps {
    * Additional CSS classes
    */
   className?: string
+  instagramAccessToken?: string
 }
 
-export function GridMotion({ items = [], gradientColor = "black", className }: GridMotionProps) {
+export function GridMotion({ 
+  items = [], 
+  gradientColor = "black", 
+  className,
+  instagramAccessToken 
+}: GridMotionProps) {
   const gridRef = useRef<HTMLDivElement>(null)
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
   const mouseXRef = useRef(0)
@@ -27,12 +34,33 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
   const defaultItems = Array.from({ length: totalItems }, (_, index) => `Item ${index + 1}`)
   const combinedItems = items.length > 0 ? items.slice(0, totalItems) : defaultItems
 
+  // Get Instagram posts for the middle row
+  const { posts: instagramPosts, loading: instagramLoading } = useInstagramFeed({
+    accessToken: instagramAccessToken || '',
+    limit: 7 // Maximum items per row on desktop
+  })
+
   // Calculate items per row based on screen size
   const getItemsPerRow = (rowIndex: number) => {
     if (typeof window !== 'undefined' && window.innerWidth < 768) {
       return 3 // Always show 3 items per row on mobile
     }
     return rowIndex === 3 ? 3 : 7 // Desktop layout remains unchanged
+  }
+
+  // Function to get items for a specific row
+  const getRowItems = (rowIndex: number, itemsPerRow: number) => {
+    // For the middle row (index 1), use recent gallery images starting from second tile
+    if (rowIndex === 1) {
+      const recentImages = combinedItems.slice(0, itemsPerRow - 1); // Get recent images
+      const firstTile = combinedItems[itemsPerRow * 2]; // Get a tile from later in the sequence
+      return [firstTile, ...recentImages];
+    }
+
+    // For other rows, use the remaining items
+    const startIndex = rowIndex === 0 ? itemsPerRow : (rowIndex * itemsPerRow);
+    const endIndex = startIndex + itemsPerRow;
+    return combinedItems.slice(startIndex, endIndex);
   }
 
   useEffect(() => {
@@ -86,53 +114,59 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
         }}
       >
         <div className="relative z-2 flex-none grid h-[150vh] w-[200vw] md:w-[150vw] gap-2 md:gap-4 grid-rows-[repeat(4,1fr)] grid-cols-[100%] -rotate-15 origin-center">
-          {[...Array(4)].map((_, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="grid gap-2 md:gap-4 grid-cols-[repeat(3,minmax(0,1fr))] md:grid-cols-[repeat(7,minmax(0,1fr))] will-change-transform will-change-filter"
-              ref={(el: HTMLDivElement | null) => {
-                if (rowRefs.current) {
-                  rowRefs.current[rowIndex] = el
-                }
-              }}
-            >
-              {[...Array(getItemsPerRow(rowIndex))].map((_, itemIndex) => {
-                // Calculate the actual index in the items array
-                const itemsPerRow = getItemsPerRow(rowIndex)
-                const startIndex = rowIndex * itemsPerRow
-                const actualIndex = startIndex + itemIndex
-                const content = combinedItems[actualIndex % combinedItems.length] // Use modulo to cycle through items if needed
+          {[...Array(4)].map((_, rowIndex) => {
+            const itemsPerRow = getItemsPerRow(rowIndex);
+            const rowItems = getRowItems(rowIndex, itemsPerRow);
+            
+            return (
+              <div
+                key={rowIndex}
+                className="grid gap-2 md:gap-4 grid-cols-[repeat(3,minmax(0,1fr))] md:grid-cols-[repeat(7,minmax(0,1fr))] will-change-transform will-change-filter"
+                ref={(el: HTMLDivElement | null) => {
+                  if (rowRefs.current) {
+                    rowRefs.current[rowIndex] = el
+                  }
+                }}
+              >
+                {rowItems.map((content, itemIndex) => {
+                  const isInstagramRow = rowIndex === 1 && instagramAccessToken && !instagramLoading;
+                  const href = isInstagramRow && instagramPosts[itemIndex]
+                    ? instagramPosts[itemIndex].permalink
+                    : "/gallery";
 
-                return (
-                  <div key={itemIndex} className="relative">
-                    <Link href="/gallery" className="block h-full">
-                      <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl group aspect-video">
-                        {typeof content === "string" && content.startsWith("http") ? (
-                          <div
-                            className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-                            style={{
-                              backgroundImage: `url(${content})`,
-                            }}
-                            onError={(e) => {
-                              const target = e.target as HTMLDivElement;
-                              target.style.backgroundColor = '#1f1f1f';
-                              target.style.backgroundImage = 'none';
-                              target.innerHTML = '<div class="text-gray-400">Image unavailable</div>';
-                            }}
-                          />
-                        ) : (
-                          <div className="p-4 text-center z-1">{content}</div>
-                        )}
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <span className="text-white text-sm">View Gallery</span>
+                  return (
+                    <div key={itemIndex} className="relative">
+                      <Link href={href} className="block h-full" target={isInstagramRow ? "_blank" : undefined}>
+                        <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl group aspect-video">
+                          {typeof content === "string" && content.startsWith("http") ? (
+                            <div
+                              className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                              style={{
+                                backgroundImage: `url(${content})`,
+                              }}
+                              onError={(e) => {
+                                const target = e.target as HTMLDivElement;
+                                target.style.backgroundColor = '#1f1f1f';
+                                target.style.backgroundImage = 'none';
+                                target.innerHTML = '<div class="text-gray-400">Image unavailable</div>';
+                              }}
+                            />
+                          ) : (
+                            <div className="p-4 text-center z-1">{content}</div>
+                          )}
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span className="text-white text-sm">
+                              {isInstagramRow ? "View on Instagram" : "View Gallery"}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                )
-              })}
-            </div>
-          ))}
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
         <div className="relative pointer-events-none h-full w-full inset-0">
           <div className="rounded-none" />

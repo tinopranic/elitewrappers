@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { GridMotion } from "@/components/ui/grid-motion"
 import { SparklesCore } from "@/components/ui/sparkles"
 import { SectionHeading } from "@/components/ui/section-heading"
@@ -9,6 +9,8 @@ import Link from "next/link"
 export function FeaturedProjects() {
   const [projects, setProjects] = React.useState<(string | JSX.Element)[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [mounted, setMounted] = useState(false)
+  const [instagramAccessToken, setInstagramAccessToken] = useState<string>('')
 
   React.useEffect(() => {
     async function fetchInstagramPosts() {
@@ -62,6 +64,14 @@ export function FeaturedProjects() {
     fetchInstagramPosts()
   }, [])
 
+  useEffect(() => {
+    setMounted(true)
+    // Get the Instagram access token from environment variable
+    setInstagramAccessToken(process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN || '')
+  }, [])
+
+  if (!mounted) return null
+
   return (
     <section className="relative min-h-screen bg-black pb-24">
       <div className="absolute inset-0 -z-10">
@@ -91,7 +101,12 @@ export function FeaturedProjects() {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-500"></div>
           </div>
         ) : (
-          <GridMotion items={projects} gradientColor="rgba(20, 184, 166, 0.15)" className="relative z-20" />
+          <GridMotion 
+            items={projects} 
+            gradientColor="rgba(20, 184, 166, 0.15)" 
+            className="relative z-20"
+            instagramAccessToken={instagramAccessToken}
+          />
         )}
       </div>
       <div className="relative z-20 flex justify-center mt-12">
