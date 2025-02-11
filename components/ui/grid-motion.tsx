@@ -81,7 +81,7 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
           {[...Array(4)].map((_, rowIndex) => (
             <div
               key={rowIndex}
-              className="grid gap-4 grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(7,1fr)] will-change-transform will-change-filter"
+              className="grid gap-2 md:gap-4 grid-cols-[repeat(3,minmax(0,1fr))] md:grid-cols-[repeat(7,minmax(0,1fr))] will-change-transform will-change-filter"
               ref={(el: HTMLDivElement | null) => {
                 if (rowRefs.current) {
                   rowRefs.current[rowIndex] = el
@@ -93,7 +93,7 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
                 return (
                   <div key={itemIndex} className="relative">
                     <Link href="/gallery" className="block h-full">
-                      <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl group">
+                      <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl group aspect-video">
                         {typeof content === "string" && content.startsWith("http") ? (
                           <div
                             className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
@@ -101,7 +101,6 @@ export function GridMotion({ items = [], gradientColor = "black", className }: G
                               backgroundImage: `url(${content})`,
                             }}
                             onError={(e) => {
-                              // If image fails to load, show a fallback background
                               const target = e.target as HTMLDivElement;
                               target.style.backgroundColor = '#1f1f1f';
                               target.style.backgroundImage = 'none';
