@@ -53,8 +53,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const [height, setHeight] = useState(0)
   const isInView = useInView(containerRef, { 
     once: true, 
-    margin: "-100px",
-    amount: 0.2 // Optimize when the animation triggers
+    margin: "-50px",
+    amount: 0.1
   })
 
   useEffect(() => {
@@ -81,26 +81,38 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 10%", "end 50%"],
+    offset: ["start 20%", "end 80%"],
   })
 
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height], {
-    clamp: true // Ensure values stay within bounds
-  })
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1], {
-    clamp: true
-  })
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height])
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.2], [0, 1])
 
   return (
     <div className="w-full bg-white font-sans overflow-x-hidden" ref={containerRef}>
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20 px-2 md:px-4">
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-12 sm:pb-20 px-4">
         {data.map((item, index) => (
-          <TimelineItem 
-            key={index} 
-            item={item} 
-            index={index}
-            isInView={isInView}
-          />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4, delay: index * 0.15 }}
+            className="flex justify-start pt-8 sm:pt-16 md:pt-40 w-full"
+          >
+            <div className="sticky flex flex-col md:flex-row z-40 items-center top-16 sm:top-20 md:top-40 self-start w-[60px] sm:w-[80px] md:w-[300px] flex-shrink-0">
+              <TimelineDot />
+              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-black">{item.title}</h3>
+            </div>
+
+            <div className="relative pl-6 sm:pl-8 md:pl-32 lg:pl-40 w-full max-w-full overflow-x-hidden">
+              <h3 className="md:hidden block text-base sm:text-lg mb-4 text-left font-bold text-black">{item.title}</h3>
+              <div className="text-black space-y-4">
+                <div className="w-full max-w-[calc(100vw-80px)] sm:max-w-[calc(100vw-120px)] md:max-w-none">
+                  {item.content}
+                </div>
+                <p className="text-sm sm:text-base text-gray-600">{item.description}</p>
+              </div>
+            </div>
+          </motion.div>
         ))}
         <div
           style={{
@@ -108,7 +120,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden',
           }}
-          className="absolute md:left-8 left-2 top-0 overflow-hidden w-[2px] bg-gray-300 [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] max-h-[calc(100%-4rem)] md:max-h-full will-change-transform"
+          className="absolute md:left-8 left-[29px] top-0 overflow-hidden w-[2px] bg-gray-300 [mask-image:linear-gradient(to_bottom,transparent_0%,black_5%,black_95%,transparent_100%)] max-h-[calc(100%-2rem)] md:max-h-full will-change-transform"
         >
           <motion.div
             style={{

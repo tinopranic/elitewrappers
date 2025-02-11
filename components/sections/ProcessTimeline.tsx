@@ -9,13 +9,13 @@ import { Suspense } from "react"
 
 const ImageWithFallback = ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) => {
   return (
-    <div className="relative w-full h-48 rounded-lg overflow-hidden bg-gray-100">
+    <div className="relative w-full h-32 sm:h-48 rounded-lg overflow-hidden bg-gray-100">
       <Image
         src={src}
         alt={alt}
         fill
         className="object-cover transition-opacity duration-300 group-hover:opacity-90"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
         loading="lazy"
         quality={75}
         {...props}
@@ -141,14 +141,14 @@ const timelineData = [
 
 export function ProcessTimeline() {
   return (
-    <section className="relative bg-black py-24">
+    <section className="relative bg-black py-12 sm:py-24">
       <div className="absolute inset-0 -z-10">
         <SparklesCore
           id="tsparticlesfull"
           background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
+          minSize={0.4}
+          maxSize={1.0}
+          particleDensity={50}
           className="w-full h-full"
           particleColor="#00bac5"
           speed={0.1}
@@ -157,7 +157,7 @@ export function ProcessTimeline() {
       
       <div className="container mx-auto px-4">
         <SectionHeading>Our Process</SectionHeading>
-        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-16">
+        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-16 text-sm sm:text-base">
           Experience our streamlined approach to vehicle transformation, where every step is executed with precision and care.
         </p>
       </div>
@@ -167,7 +167,7 @@ export function ProcessTimeline() {
       </div>
       
       <div
-        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[200px] w-[200px] sm:h-[310px] sm:w-[310px] rounded-full bg-teal-500"
         style={{
           opacity: '0.1',
           filter: 'blur(7px)',
