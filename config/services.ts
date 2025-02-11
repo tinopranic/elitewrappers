@@ -50,7 +50,7 @@ export const services: Service[] = [
       "Transform your trailers into powerful mobile advertising platforms with our professional signage solutions. We specialize in creating high-impact graphics and branding that make your trailers stand out on the road, ensuring your message reaches a wider audience wherever your fleet travels.\n\n\nUsing premium-grade materials specifically designed for trailers and heavy vehicles, we ensure your signage withstands harsh road conditions and frequent exposure to the elements. Our expert team handles everything from design to installation, delivering durable, eye-catching results that effectively promote your business 24/7.",
     images: [
       "/trailer1.png",
-      "/trailer2.png",
+      "/trailer22.jpg",
       "/trailer3.png",
     ],
   },

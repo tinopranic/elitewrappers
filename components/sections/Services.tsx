@@ -95,7 +95,8 @@ export function Services() {
                     fill
                     className={cn(
                       "object-cover",
-                      image === "/premium.jpg" && "object-top"
+                      image === "/premium.jpg" && "object-top",
+                      image === "/trailer22.jpg" && "object-center"
                     )}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
@@ -190,7 +191,8 @@ export function Services() {
                           fill
                           className={cn(
                             "object-cover",
-                            image === "/premium.jpg" && "object-top"
+                            image === "/premium.jpg" && "object-top",
+                            image === "/trailer22.jpg" && "object-center"
                           )}
                           sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, 25vw"
                         />

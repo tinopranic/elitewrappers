@@ -13,8 +13,8 @@ export function Hero() {
         </FadeInHeading>
       }
       subtitle={{
-        regular: "Premium wrapping and ",
-        gradient: "fleet branding services",
+        regular: "Premium wrapping",
+        gradient: "& fleet branding",
       }}
       description="Elite Wrappers Sydney offers top-quality vehicle wraps, paint protection, and custom designs to transform your car's appearance and protect its value."
       ctaText="Get a Quote"
@@ -33,11 +33,10 @@ export function Hero() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage:
-              'url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1.jpg-BxyUdrLQf9oHWBQ5XsmLMFUEtgVDBc.jpeg")',
+              'url("/trx.jpg")',
           }}
         />
         <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       </div>
       <div className="pt-20 md:pt-0">
         <p className="max-w-2xl mx-auto text-white">description</p>

@@ -13,7 +13,7 @@ interface HeroSectionProps {
   title?: React.ReactNode
   subtitle?: {
     regular: string
-    gradient: string
+    gradient: React.ReactNode
   }
   description?: string
   ctaText?: string
@@ -117,8 +117,8 @@ export function HeroSection({
   className,
   title,
   subtitle = {
-    regular: "Premium wrapping and ",
-    gradient: "fleet branding services",
+    regular: "Premium wrapping",
+    gradient: "fleet branding",
   },
   description = "",
   ctaText = "Get a Quote",
@@ -136,13 +136,29 @@ export function HeroSection({
             backgroundSize: 'cover',
           }}
         />
-        <div className="absolute inset-0 bg-black/50 pointer-events-none select-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none select-none" />
+        <div 
+          className="absolute inset-0 pointer-events-none select-none"
+          style={{
+            background: `linear-gradient(
+              to bottom,
+              transparent 0%,
+              transparent 5%,
+              rgba(0, 0, 0, 0.1) 10%,
+              rgba(0, 0, 0, 0.2) 15%,
+              rgba(0, 0, 0, 0.3) 20%,
+              rgba(0, 0, 0, 0.3) 80%,
+              rgba(0, 0, 0, 0.2) 85%,
+              rgba(0, 0, 0, 0.1) 90%,
+              transparent 95%,
+              transparent 100%
+            )`
+          }}
+        />
       </div>
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="pt-36 md:pt-32 space-y-8 md:space-y-5 max-w-3xl">
           <motion.h1 
-            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white mb-24 sm:mb-4 text-left"
+            className="text-3xl sm:text-4xl md:text-7xl tracking-tighter font-serpentine text-white mb-24 sm:mb-4 text-left flex flex-col gap-2"
             style={{
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -156,21 +172,7 @@ export function HeroSection({
               }}
               className="inline-block"
             >
-              {subtitle.regular.split(" ").map((word, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.15,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="inline-block mr-[0.25em]"
-                >
-                  {word}
-                </motion.span>
-              ))}
+              {subtitle.regular}
             </motion.span>
             <motion.span
               initial={{ opacity: 0, x: -100 }}
@@ -182,21 +184,7 @@ export function HeroSection({
               }}
               className="text-white inline-block"
             >
-              {subtitle.gradient.split(" ").map((word, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: 0.5 + index * 0.15,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="inline-block mr-[0.25em]"
-                >
-                  {word}
-                </motion.span>
-              ))}
+              {subtitle.gradient}
             </motion.span>
           </motion.h1>
           <motion.div 
@@ -215,7 +203,7 @@ export function HeroSection({
                 <Link
                   href="/contact?scroll=contact-form"
                   className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-4 sm:py-2 px-10 sm:px-6 text-base sm:text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-[100]"
-                  aria-label="Get a quote for our services"
+                  aria-label="Get a quote"
                   style={{ cursor: 'pointer' }}
                 >
                   <span className="relative z-[100]">{ctaText}</span>
@@ -225,7 +213,6 @@ export function HeroSection({
           </motion.div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-32 md:h-64 bg-gradient-to-b from-transparent via-black/70 to-black pointer-events-none"></div>
     </section>
   )
 }

@@ -73,8 +73,12 @@ export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
         throw new Error(data.error || 'Failed to send message')
       }
 
-      // Show success message
-      toast.success('Message sent successfully! We will get back to you soon.')
+      // Show enhanced success message
+      toast.success('Message Sent Successfully!', {
+        description: "Thank you for contacting Elite Wrappers. We'll get back to you within 24-48 hours.",
+        duration: 5000,
+        position: "top-center",
+      })
       
       // Reset form
       setFormState({
@@ -86,7 +90,11 @@ export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
       })
     } catch (error) {
       console.error('Error sending message:', error)
-      toast.error('Failed to send message. Please try again.')
+      toast.error('Failed to Send Message', {
+        description: 'Please try again or contact us directly by phone.',
+        duration: 5000,
+        position: "top-center",
+      })
     } finally {
       setIsSubmitting(false)
     }
