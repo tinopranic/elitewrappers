@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     "automotive",
     "car customization",
   ],
+  verification: {
+    google: "YZAVdKk7y8M97415XRiv05e3qX88og7dly6trD4iGoQ",
+  },
   icons: {
     icon: [
       {
