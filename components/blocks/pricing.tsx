@@ -92,8 +92,8 @@ export function Pricing({
                       currency: "AUD",
                       minimumFractionDigits: 0,
                       maximumFractionDigits: 0,
+                      notation: "standard"
                     }}
-                    formatter={(value) => `$${value}`}
                     transformTiming={{
                       duration: 500,
                       easing: "ease-out",

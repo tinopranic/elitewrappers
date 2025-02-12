@@ -141,20 +141,21 @@ export const MobileSidebar = ({ className, children, ...props }: React.Component
 export const SidebarLink = ({
   link,
   className,
+  onClick,
   ...props
 }: {
   link: Links
   className?: string
-  props?: LinkProps
-}) => {
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+} & Omit<LinkProps, "onClick" | "href">) => {
   const { open, animate } = useSidebar()
   return (
     <Link
       href={link.href}
       className={cn("flex items-center justify-start gap-2 group/sidebar py-2", className)}
       onClick={(e) => {
-        if (typeof props.onClick === "function") {
-          props.onClick(e)
+        if (onClick) {
+          onClick(e)
         }
         // Force the link to navigate immediately
         if (!e.defaultPrevented) {
