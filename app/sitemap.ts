@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://elitewrappers.com.au'
+  const baseUrl = 'https://www.elitewrappers.com.au'
 
   return [
     {
