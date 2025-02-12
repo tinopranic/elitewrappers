@@ -9,7 +9,7 @@ import { Suspense } from "react"
 
 const ImageWithFallback = ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) => {
   return (
-    <div className="relative w-full h-32 sm:h-48 rounded-lg overflow-hidden bg-gray-100">
+    <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden bg-gray-100">
       <Image
         src={src}
         alt={alt}
@@ -29,7 +29,7 @@ const timelineData = [
     title: "Consultation",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/consult.jpg"
             alt="Consultation process"
@@ -57,7 +57,7 @@ const timelineData = [
     title: "Preparation",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/prep.jpg"
             alt="Vehicle preparation process"
@@ -85,7 +85,7 @@ const timelineData = [
     title: "Installation",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/ppf.jpg"
             alt="Installation process"
@@ -113,7 +113,7 @@ const timelineData = [
     title: "Final Inspection",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/custom4.png"
             alt="Final inspection process"
