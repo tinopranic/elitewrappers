@@ -1,10 +1,10 @@
 'use client'
 
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { pageview } from '@/lib/gtm'
 
-export function RouteChangeTracker() {
+function RouteChangeTrackerInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -14,4 +14,12 @@ export function RouteChangeTracker() {
   }, [pathname, searchParams])
 
   return null
+}
+
+export function RouteChangeTracker() {
+  return (
+    <Suspense fallback={null}>
+      <RouteChangeTrackerInner />
+    </Suspense>
+  )
 } 
