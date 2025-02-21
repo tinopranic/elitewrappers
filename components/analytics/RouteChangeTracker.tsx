@@ -2,7 +2,8 @@
 
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, Suspense } from 'react'
-import { pageview } from '@/lib/gtm'
+import { pageview as gtmPageview } from '@/lib/gtm'
+import { pageview as fbPageview } from '@/lib/meta-pixel'
 
 function RouteChangeTrackerInner() {
   const pathname = usePathname()
@@ -10,7 +11,8 @@ function RouteChangeTrackerInner() {
 
   useEffect(() => {
     const url = pathname + searchParams.toString()
-    pageview(url)
+    gtmPageview(url)
+    fbPageview()
   }, [pathname, searchParams])
 
   return null
