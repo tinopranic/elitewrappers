@@ -204,13 +204,22 @@ export function InstagramFeed() {
             >
               {posts.find(p => p.id === selectedPost) && (
                 <>
-                  <Image
-                    src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
-                    alt="Instagram post"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  />
+                  {posts.find(p => p.id === selectedPost)!.media_type === 'VIDEO' ? (
+                    <video
+                      src={posts.find(p => p.id === selectedPost)!.media_url}
+                      controls
+                      autoPlay
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
+                      alt="Instagram post"
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                    />
+                  )}
                   <Link
                     href={posts.find(p => p.id === selectedPost)!.permalink}
                     target="_blank"
