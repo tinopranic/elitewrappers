@@ -205,21 +205,17 @@ export function HeroSection({
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <div className="relative inline-block overflow-hidden rounded-full p-[1.5px] z-[100]">
-              <div 
-                className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]"
-                aria-hidden="true"
-              />
-              <div className="relative inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
+            <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
+              <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+              <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
                 <Link
-                  href="/contact?scroll=contact-form"
-                  className="relative inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-4 sm:py-2 px-10 sm:px-6 text-base sm:text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto z-[100]"
-                  aria-label="Get a quote for vehicle wrapping services"
+                  href="/contact"
+                  className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
                 >
-                  <span className="relative z-[100]">{ctaText}</span>
+                  Contact Us
                 </Link>
               </div>
-            </div>
+            </span>
           </motion.div>
         </div>
       </div>

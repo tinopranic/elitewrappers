@@ -1,13 +1,23 @@
 import Link from "next/link"
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
     <footer className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Elite Wrappers Sydney</h3>
+          <div className="space-y-6">
+            <Link href="/" className="block">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NEW%20Logo%20jpg-6ER5dcL86gISqvgRIepb8CjEGxn8HQ.png"
+                alt="Elite Wrappers Sydney Logo"
+                width={120}
+                height={120}
+                className="h-auto w-auto max-w-[120px]"
+                priority
+              />
+            </Link>
             <p className="text-sm text-gray-400">Premium vehicle wrapping and paint protection services in Sydney.</p>
           </div>
           <div>

@@ -15,7 +15,7 @@ export function Services() {
 
   return (
     <section 
-      className="relative bg-black py-12 sm:py-16 md:py-24" 
+      className="relative bg-premium-black py-12 sm:py-16 md:py-24" 
       id="services"
       aria-labelledby="services-heading"
     >
@@ -115,20 +115,27 @@ export function Services() {
                       image === "/premium.jpg" && "object-top",
                       image === "/trailer22.jpg" && "object-center"
                     )}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    loading={index === 0 ? "eager" : "lazy"}
+                    quality={index === 0 ? 90 : 75}
+                    priority={index === 0 && selectedService.id === services[0].id}
                   />
                 </motion.div>
               ))}
             </div>
 
             <div className="mt-8 text-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
-                aria-label={`Get started with ${selectedService.label} service`}
-              >
-                Get Started with {selectedService.label}
-              </Link>
+              <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
+                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+                <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
+                  <Link
+                    href="/contact"
+                    className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+              </span>
             </div>
           </motion.div>
         </div>
@@ -223,6 +230,9 @@ export function Services() {
                             image === "/trailer22.jpg" && "object-center"
                           )}
                           sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, 25vw"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          quality={index === 0 ? 85 : 75}
+                          priority={index === 0 && service.id === services[0].id}
                         />
                       </div>
                     ))}

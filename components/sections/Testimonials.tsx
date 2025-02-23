@@ -88,7 +88,7 @@ export function Testimonials() {
   }, [])
 
   return (
-    <section className="py-24 bg-black text-white">
+    <section className="py-24 bg-premium-gradient text-white">
       <div className="container mx-auto px-4">
         <SectionHeading>
           What Our Customers Say

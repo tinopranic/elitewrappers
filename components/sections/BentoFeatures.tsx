@@ -92,7 +92,7 @@ const features = [
 
 export function BentoFeatures() {
   return (
-    <section className="relative bg-black py-24">
+    <section className="relative bg-premium-black py-24">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}

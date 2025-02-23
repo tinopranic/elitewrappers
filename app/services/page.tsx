@@ -133,7 +133,7 @@ function ScrollToSection() {
 
 export default function ServicesPage() {
   return (
-    <div className="relative min-h-screen bg-black" role="main">
+    <div className="relative min-h-screen bg-premium-dark" role="main">
       {/* Hero Section */}
       <section aria-label="Services Introduction" className="relative">
         <WavyBackground
@@ -169,7 +169,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section aria-label="Services Details" className="relative">
+      <section aria-label="Services Details" className="relative bg-premium-black">
         <div className="absolute inset-0 -z-10" aria-hidden="true">
           <SparklesCore
             id="tsparticlesfull"
@@ -215,13 +215,18 @@ export default function ServicesPage() {
                       ))}
                     </div>
                     <div className="pt-4">
-                      <Link
-                        href={`/contact?service=${service.id}`}
-                        className="inline-flex items-center justify-center px-6 md:px-8 py-2.5 md:py-3 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-pink-500 rounded-full hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
-                        aria-label={`Get started with ${service.label}`}
-                      >
-                        Get Started
-                      </Link>
+                      <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
+                        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+                        <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
+                          <Link
+                            href={`/contact?service=${service.id}`}
+                            className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
+                            aria-label={`Get started with ${service.label}`}
+                          >
+                            Get Started
+                          </Link>
+                        </div>
+                      </span>
                     </div>
                   </div>
 
@@ -276,7 +281,7 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 md:py-24 bg-black text-white" aria-labelledby="faq-heading">
+      <section className="py-16 md:py-24 bg-premium-charcoal text-white" aria-labelledby="faq-heading">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <header className="text-center mb-8 md:mb-12">
@@ -298,7 +303,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Partners Section */}
-      <section className="py-12 md:py-16 bg-black relative" aria-labelledby="partners-heading">
+      <section className="py-12 md:py-16 bg-premium-dark relative" aria-labelledby="partners-heading">
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent via-black to-black opacity-90" aria-hidden="true"></div>
         <div className="relative z-10">
           <div className="container mx-auto px-4">
@@ -306,24 +311,9 @@ export default function ServicesPage() {
               <h2 id="partners-heading" className="text-3xl md:text-4xl font-bold text-center text-white mb-8 md:mb-12">Our Partners</h2>
             </div>
             <div className="w-full overflow-hidden" role="region" aria-label="Partner logos carousel">
-              <ScrollVelocity velocity={3} className="mb-4">
-                {partnerImages.map(({ name, logo }) => (
-                  <div key={name} className="relative h-12 w-24 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-4 md:mx-8">
-                    <Image
-                      src={logo || "/placeholder.svg"}
-                      alt={`${name} logo`}
-                      fill
-                      sizes="(max-width: 768px) 96px, (max-width: 1200px) 160px, 192px"
-                      className="h-full w-full object-contain object-center"
-                      loading="lazy"
-                      quality={85}
-                    />
-                  </div>
-                ))}
-              </ScrollVelocity>
-              <ScrollVelocity velocity={-3}>
-                {[...partnerImages].reverse().map(({ name, logo }) => (
-                  <div key={`reverse-${name}`} className="relative h-12 w-24 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-4 md:mx-8">
+              <ScrollVelocity velocity={3}>
+                {[...partnerImages, ...partnerImages].map(({ name, logo }, index) => (
+                  <div key={`${name}-${index}`} className="relative h-12 w-24 md:h-20 md:w-40 xl:h-24 xl:w-48 mx-4 md:mx-8">
                     <Image
                       src={logo || "/placeholder.svg"}
                       alt={`${name} logo`}

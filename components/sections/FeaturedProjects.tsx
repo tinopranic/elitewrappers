@@ -73,7 +73,7 @@ export function FeaturedProjects() {
   if (!mounted) return null
 
   return (
-    <section className="relative min-h-screen bg-black pb-24">
+    <section className="relative min-h-screen bg-premium-dark pb-24">
       <div className="absolute inset-0 -z-10">
         <SparklesCore
           id="tsparticlesfull"
@@ -103,7 +103,7 @@ export function FeaturedProjects() {
         ) : (
           <GridMotion 
             items={projects} 
-            gradientColor="rgba(20, 184, 166, 0.15)" 
+            gradientColor="rgba(20, 20, 20, 0.8)" 
             className="relative z-20"
             instagramAccessToken={instagramAccessToken}
           />
@@ -123,12 +123,12 @@ export function FeaturedProjects() {
         </span>
       </div>
       <div
-        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-500"
+        className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full"
         style={{
           opacity: '0.1',
           filter: 'blur(7px)',
           background:
-            'conic-gradient(from 90deg at 50% 50%, #00bac5 -60.49deg, #ee2b7c 59.93deg, #00bac5 299.51deg, #ee2b7c 419.93deg)',
+            'conic-gradient(from 90deg at 50% 50%, #1a1a1a -60.49deg, #242424 59.93deg, #1a1a1a 299.51deg, #242424 419.93deg)',
         }}
       />
     </section>

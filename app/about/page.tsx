@@ -93,9 +93,9 @@ const testimonials = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-black">
+    <div className="bg-premium-dark">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden bg-gradient-to-b from-black to-gray-900 py-24 sm:py-32">
+      <div className="relative isolate overflow-hidden bg-premium-black py-24 sm:py-32">
         <Image
           src="/aboutbg.jpg"
           alt="Elite Wrappers Sydney Workshop"
@@ -123,7 +123,7 @@ export default function AboutPage() {
       </div>
 
       {/* Our Story Section */}
-      <section className="py-24">
+      <section className="py-24 bg-premium-charcoal">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative aspect-video rounded-xl overflow-hidden">
@@ -154,14 +154,14 @@ export default function AboutPage() {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-900 to-black">
+      <section className="py-24 bg-premium-black">
         <div className="container mx-auto px-4">
           <SectionHeading>Our Achievements</SectionHeading>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={achievement.label}
-                className="text-center p-6 rounded-lg bg-gray-900/50 backdrop-blur-sm"
+                className="text-center p-6 rounded-lg bg-[#141414]/50 backdrop-blur-sm"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -178,14 +178,14 @@ export default function AboutPage() {
       </section>
 
       {/* Our Values Section */}
-      <section className="py-24 bg-black">
+      <section className="py-24 bg-premium-dark">
         <div className="container mx-auto px-4">
           <SectionHeading>Our Values</SectionHeading>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
             {values.map((value, index) => (
               <motion.div
                 key={value.title}
-                className="p-6 rounded-lg bg-gradient-to-br from-gray-900 to-black border border-gray-800"
+                className="p-6 rounded-lg bg-premium-black border border-gray-800"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -201,7 +201,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-24 bg-gradient-to-b from-black to-gray-900">
+      <section className="py-24 bg-premium-charcoal">
         <div className="container mx-auto px-4">
           <SectionHeading>Our Team</SectionHeading>
           <div className="max-w-3xl mx-auto text-center mb-12">
@@ -234,27 +234,27 @@ export default function AboutPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-900 to-black">
-        <div className="container mx-auto px-4">
-          <SectionHeading>What Our Clients Say</SectionHeading>
-          <Testimonials />
-        </div>
-      </section>
+      <Testimonials />
 
       {/* CTA Section */}
-      <section className="py-24 bg-black relative overflow-hidden">
+      <section className="py-24 bg-premium-dark relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Transform Your Vehicle?</h2>
             <p className="text-gray-300 mb-8">
               Contact us today to discuss your project and discover how we can help bring your vision to life.
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-teal-500 to-pink-500 hover:from-teal-600 hover:to-pink-600 transition-all duration-300"
-            >
-              Get in Touch
-            </Link>
+            <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
+              <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
+              <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
+                <Link
+                  href="/contact"
+                  className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </span>
           </div>
         </div>
         <div

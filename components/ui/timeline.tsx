@@ -12,8 +12,8 @@ interface TimelineEntry {
 
 // Memoize the TimelineDot component
 const TimelineDot = memo(() => (
-  <div className="h-6 md:h-10 absolute left-1 md:left-3 w-6 md:w-10 rounded-full bg-gray-100 flex items-center justify-center will-change-transform">
-    <div className="h-2 md:h-4 w-2 md:w-4 rounded-full bg-gray-300 border border-gray-400 p-2" />
+  <div className="h-6 md:h-10 absolute left-1 md:left-3 w-6 md:w-10 rounded-full bg-[#242424] flex items-center justify-center will-change-transform">
+    <div className="h-2 md:h-4 w-2 md:w-4 rounded-full bg-[#141414] border border-gray-700 p-2" />
   </div>
 ))
 TimelineDot.displayName = 'TimelineDot'
@@ -32,15 +32,16 @@ const TimelineItem = memo(({ item, index, isInView }: {
   >
     <div className="sticky flex flex-col md:flex-row z-40 items-center top-20 md:top-40 self-start w-[80px] md:w-[300px] flex-shrink-0 will-change-transform">
       <TimelineDot />
-      <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-black will-change-transform">{item.title}</h3>
+      <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-white will-change-transform">{item.title}</h3>
     </div>
 
     <div className="relative pl-8 md:pl-32 lg:pl-40 w-full max-w-full overflow-x-hidden">
-      <h3 className="md:hidden block text-lg mb-4 text-left font-bold text-black will-change-transform">{item.title}</h3>
-      <div className="text-black will-change-transform space-y-4">
+      <h3 className="md:hidden block text-lg mb-4 text-left font-bold text-white will-change-transform">{item.title}</h3>
+      <div className="text-gray-300 will-change-transform space-y-4">
         <div className="w-full max-w-[calc(100vw-120px)] md:max-w-none">
           {item.content}
         </div>
+        <p className="text-sm sm:text-base text-gray-400">{item.description}</p>
       </div>
     </div>
   </motion.div>
@@ -88,7 +89,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.2], [0, 1])
 
   return (
-    <div className="w-full bg-white font-sans overflow-x-hidden" ref={containerRef}>
+    <div className="w-full bg-transparent font-sans overflow-x-hidden" ref={containerRef}>
       <div ref={ref} className="relative max-w-7xl mx-auto pb-12 sm:pb-20 px-4">
         {data.map((item, index) => (
           <motion.div
@@ -100,16 +101,16 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-16 sm:top-20 md:top-40 self-start w-[60px] sm:w-[80px] md:w-[300px] flex-shrink-0">
               <TimelineDot />
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-black">{item.title}</h3>
+              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-white">{item.title}</h3>
             </div>
 
             <div className="relative pl-6 sm:pl-8 md:pl-32 lg:pl-40 w-full max-w-full overflow-x-hidden">
-              <h3 className="md:hidden block text-base sm:text-lg mb-4 text-left font-bold text-black">{item.title}</h3>
-              <div className="text-black space-y-4">
+              <h3 className="md:hidden block text-base sm:text-lg mb-4 text-left font-bold text-white">{item.title}</h3>
+              <div className="text-gray-300 space-y-4">
                 <div className="w-full max-w-[calc(100vw-80px)] sm:max-w-[calc(100vw-120px)] md:max-w-none">
                   {item.content}
                 </div>
-                <p className="text-sm sm:text-base text-gray-600">{item.description}</p>
+                <p className="text-sm sm:text-base text-gray-400">{item.description}</p>
               </div>
             </div>
           </motion.div>
@@ -120,7 +121,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden',
           }}
-          className="absolute md:left-8 left-[29px] top-0 overflow-hidden w-[2px] bg-gray-300 [mask-image:linear-gradient(to_bottom,transparent_0%,black_5%,black_95%,transparent_100%)] max-h-[calc(100%-2rem)] md:max-h-full will-change-transform"
+          className="absolute md:left-8 left-[29px] top-0 overflow-hidden w-[2px] bg-gray-700 [mask-image:linear-gradient(to_bottom,transparent_0%,black_5%,black_95%,transparent_100%)] max-h-[calc(100%-2rem)] md:max-h-full will-change-transform"
         >
           <motion.div
             style={{

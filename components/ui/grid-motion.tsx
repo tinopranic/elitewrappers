@@ -104,8 +104,8 @@ export function GridMotion({
   return (
     <div className={cn("h-full w-full overflow-hidden relative", className)} ref={gridRef}>
       <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="absolute top-0 h-24 w-full bg-gradient-to-b from-black to-transparent"></div>
-        <div className="absolute bottom-0 h-48 w-full bg-gradient-to-t from-black via-black to-transparent"></div>
+        <div className="absolute top-0 h-24 w-full bg-gradient-to-b from-[#1f1f1f] to-transparent"></div>
+        <div className="absolute bottom-0 h-48 w-full bg-gradient-to-t from-[#1f1f1f] via-[#1f1f1f] to-transparent"></div>
       </div>
       <section
         className="relative flex h-screen w-full items-center justify-center overflow-hidden"

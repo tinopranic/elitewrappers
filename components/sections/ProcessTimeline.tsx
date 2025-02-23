@@ -9,7 +9,7 @@ import { Suspense } from "react"
 
 const ImageWithFallback = ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) => {
   return (
-    <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden bg-gray-100">
+    <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden bg-[#141414]">
       <Image
         src={src}
         alt={alt}
@@ -29,7 +29,7 @@ const timelineData = [
     title: "Consultation",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-[#141414] rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/consult.jpg"
             alt="Consultation process"
@@ -38,15 +38,15 @@ const timelineData = [
         <div className="space-y-4">
           <div className="flex items-start gap-3">
             <MessageSquare className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">In-depth discussion of your vision and requirements</span>
+            <span className="font-semibold text-white">In-depth discussion of your vision and requirements</span>
           </div>
           <div className="flex items-start gap-3">
             <Palette className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Color and material selection</span>
+            <span className="font-semibold text-white">Color and material selection</span>
           </div>
           <div className="flex items-start gap-3">
             <Calendar className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Timeline and budget planning</span>
+            <span className="font-semibold text-white">Timeline and budget planning</span>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ const timelineData = [
     title: "Preparation",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-[#141414] rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/prep.jpg"
             alt="Vehicle preparation process"
@@ -66,15 +66,15 @@ const timelineData = [
         <div className="space-y-4">
           <div className="flex items-start gap-3">
             <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Vehicle inspection and surface preparation</span>
+            <span className="font-semibold text-white">Vehicle inspection and surface preparation</span>
           </div>
           <div className="flex items-start gap-3">
             <Shield className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Protection of sensitive areas</span>
+            <span className="font-semibold text-white">Protection of sensitive areas</span>
           </div>
           <div className="flex items-start gap-3">
             <Wrench className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Removal of necessary components</span>
+            <span className="font-semibold text-white">Removal of necessary components</span>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@ const timelineData = [
     title: "Installation",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-[#141414] rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/ppf.jpg"
             alt="Installation process"
@@ -94,15 +94,15 @@ const timelineData = [
         <div className="space-y-4">
           <div className="flex items-start gap-3">
             <Shield className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Premium material application</span>
+            <span className="font-semibold text-white">Premium material application</span>
           </div>
           <div className="flex items-start gap-3">
             <Wrench className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Precision fitting and trimming</span>
+            <span className="font-semibold text-white">Precision fitting and trimming</span>
           </div>
           <div className="flex items-start gap-3">
             <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Quality control at each step</span>
+            <span className="font-semibold text-white">Quality control at each step</span>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@ const timelineData = [
     title: "Final Inspection",
     content: (
       <div className="space-y-6 group">
-        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-gray-100 rounded-lg animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-48 sm:h-64 md:h-80 bg-[#141414] rounded-lg animate-pulse" />}>
           <ImageWithFallback
             src="/custom4.png"
             alt="Final inspection process"
@@ -122,15 +122,15 @@ const timelineData = [
         <div className="space-y-4">
           <div className="flex items-start gap-3">
             <Shield className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Thorough quality check</span>
+            <span className="font-semibold text-white">Thorough quality check</span>
           </div>
           <div className="flex items-start gap-3">
             <MessageSquare className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Client walkthrough and approval</span>
+            <span className="font-semibold text-white">Client walkthrough and approval</span>
           </div>
           <div className="flex items-start gap-3">
             <Car className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
-            <span className="font-semibold">Care instructions and documentation</span>
+            <span className="font-semibold text-white">Care instructions and documentation</span>
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@ const timelineData = [
 
 export function ProcessTimeline() {
   return (
-    <section className="relative bg-black py-12 sm:py-24">
+    <section className="relative bg-premium-dark py-12 sm:py-24">
       <div className="absolute inset-0 -z-10">
         <SparklesCore
           id="tsparticlesfull"
@@ -156,8 +156,8 @@ export function ProcessTimeline() {
       </div>
       
       <div className="container mx-auto px-4">
-        <SectionHeading>Our Process</SectionHeading>
-        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-16 text-sm sm:text-base">
+        <SectionHeading className="text-white">Our Process</SectionHeading>
+        <p className="text-center text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-16 text-sm sm:text-base">
           Experience our streamlined approach to vehicle transformation, where every step is executed with precision and care.
         </p>
       </div>
