@@ -235,7 +235,7 @@ export function Header() {
         <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" />
         <div
           className={cn(
-            "fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-premium-black/90 backdrop-blur-sm px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10",
+            "fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-premium-black/95 backdrop-blur-xl px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10",
             "h-[100dvh]",
           )}
         >
@@ -274,28 +274,28 @@ export function Header() {
               <div className="space-y-2 py-6">
                 <Link
                   href="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-gray-50/10 cursor-pointer"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   href="/services"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-gray-50/10 cursor-pointer"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Services
                 </Link>
                 <Link
                   href="/gallery"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-gray-50/10 cursor-pointer"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Gallery
                 </Link>
                 <Link
                   href="/about"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-gray-50/10 cursor-pointer"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   About
