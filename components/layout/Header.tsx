@@ -232,10 +232,10 @@ export function Header() {
       {/* Mobile menu, show/hide based on menu open state. */}
       <div className={`lg:hidden ${mobileMenuOpen ? "block" : "hidden"}`} role="dialog" aria-modal="true">
         {/* Background backdrop, show/hide based on slide-over state. */}
-        <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" />
+        <div className="fixed inset-0 z-40 bg-black/70 backdrop-blur-lg" />
         <div
           className={cn(
-            "fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-premium-black/95 backdrop-blur-xl px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10",
+            "fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black/95 backdrop-blur-2xl px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10",
             "h-[100dvh]",
           )}
         >
