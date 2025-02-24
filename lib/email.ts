@@ -20,6 +20,7 @@ export async function sendEmail(data: EmailData) {
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to: 'getwrapped@elitewrappers.com.au',
+    replyTo: data.email,
     subject: `New Contact Form Submission from ${data.name}`,
     html: `
       <h2>New Contact Form Submission</h2>
