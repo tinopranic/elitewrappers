@@ -1,13 +1,17 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { FB_PIXEL_ID } from '@/lib/meta-pixel'
 
 export function MetaPixel() {
+  const [hasConsent, setHasConsent] = useState(false)
+
   useEffect(() => {
-    // Initialize on mount if consent is given
-    if (localStorage.getItem('cookie-consent') === 'accepted') {
+    // Check consent only on client side
+    const consent = localStorage.getItem('cookie-consent')
+    if (consent === 'accepted') {
+      setHasConsent(true)
       // Track PageView after initialization
       if (window.fbq) {
         window.fbq('track', 'PageView')
@@ -15,7 +19,7 @@ export function MetaPixel() {
     }
   }, [])
 
-  if (localStorage.getItem('cookie-consent') !== 'accepted') {
+  if (!hasConsent) {
     return null
   }
 

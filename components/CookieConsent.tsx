@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Script from 'next/script'
 
 declare global {
   interface Window {
@@ -12,33 +11,33 @@ declare global {
 }
 
 export function CookieConsent() {
-  const [hasConsent, setHasConsent] = useState(false)
-  const [showBanner, setShowBanner] = useState(false)
+  const [hasConsent, setHasConsent] = useState<boolean | null>(null)
 
   useEffect(() => {
     // Check if user has already given consent
     const consent = localStorage.getItem('cookie-consent')
     if (consent === 'accepted') {
       setHasConsent(true)
+    } else if (consent === 'declined') {
+      setHasConsent(false)
     } else {
-      setShowBanner(true)
+      setHasConsent(null)
     }
   }, [])
 
   const acceptCookies = () => {
     localStorage.setItem('cookie-consent', 'accepted')
     setHasConsent(true)
-    setShowBanner(false)
     window.location.reload() // Reload to initialize tracking scripts
   }
 
   const declineCookies = () => {
     localStorage.setItem('cookie-consent', 'declined')
     setHasConsent(false)
-    setShowBanner(false)
   }
 
-  if (!showBanner) return null
+  // Don't show banner until we've checked localStorage
+  if (hasConsent !== null) return null
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black/95 text-white p-4 z-50">
