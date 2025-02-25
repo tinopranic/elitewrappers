@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer"
 import { RouteChangeTracker } from "@/components/analytics/RouteChangeTracker"
 import { GTM_ID } from "@/lib/gtm"
 import { FB_PIXEL_ID } from "@/lib/meta-pixel"
+import { CookieConsent } from "@/components/CookieConsent"
 
 const GA_ID = 'G-7VWQRTXFVB'
 
@@ -68,54 +69,62 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${serpentine.variable}`}>
       <head>
-        {/* Google Tag Manager */}
+        {/* Google Tag Manager - Load only after consent */}
         <Script
           id="gtm-script"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-              var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-              j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-              f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-5745RZDP');
+              // Check for cookie consent
+              if (localStorage.getItem('cookie-consent') === 'accepted') {
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+                var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+                j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-5745RZDP');
+              }
             `,
           }}
         />
       </head>
-      {/* Google Analytics */}
+      {/* Google Analytics - Load only after consent */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
+        data-cookieconsent="statistics"
       />
       <Script
         id="google-analytics"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}');
+            if (localStorage.getItem('cookie-consent') === 'accepted') {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}');
+            }
           `,
         }}
       />
-      {/* Meta Pixel Code */}
+      {/* Meta Pixel Code - Load only after consent */}
       <Script
         id="facebook-pixel"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1283822006034432');
-            fbq('track', 'PageView');
+            if (localStorage.getItem('cookie-consent') === 'accepted') {
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '1283822006034432');
+              fbq('track', 'PageView');
+            }
           `,
         }}
       />
@@ -145,6 +154,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   )
