@@ -8,7 +8,7 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { RouteChangeTracker } from "@/components/analytics/RouteChangeTracker"
 import { GTM_ID } from "@/lib/gtm"
-import { FB_PIXEL_ID } from "@/lib/meta-pixel"
+import { MetaPixel } from "@/components/analytics/MetaPixel"
 import { CookieConsent } from "@/components/CookieConsent"
 
 const GA_ID = 'G-7VWQRTXFVB'
@@ -107,38 +107,7 @@ export default function RootLayout({
           `,
         }}
       />
-      {/* Meta Pixel Code - Load only after consent */}
-      <Script
-        id="facebook-pixel"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            if (localStorage.getItem('cookie-consent') === 'accepted') {
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '1283822006034432');
-              fbq('track', 'PageView');
-            }
-          `,
-        }}
-      />
       <body className={inter.className}>
-        {/* Meta Pixel (noscript) */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
-            alt=""
-          />
-        </noscript>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -148,6 +117,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        <MetaPixel />
         <RouteChangeTracker />
         <Header />
         <main id="main-content" role="main">

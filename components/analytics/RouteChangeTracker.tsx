@@ -10,9 +10,16 @@ function RouteChangeTrackerInner() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    const url = pathname + searchParams.toString()
-    gtmPageview(url)
-    fbPageview()
+    // Only track if consent is given
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      const url = pathname + searchParams.toString()
+      gtmPageview(url)
+      
+      // Ensure fbq is available before calling
+      if (typeof window.fbq !== 'undefined') {
+        window.fbq('track', 'PageView')
+      }
+    }
   }, [pathname, searchParams])
 
   return null
