@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Instagram, ExternalLink } from "lucide-react"
+import { Instagram, ExternalLink, RefreshCcw } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface InstagramPost {
@@ -21,12 +21,13 @@ export function InstagramFeed() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [retryCount, setRetryCount] = useState(0)
-  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
+  const [failedImages, setFailedImages] = useState<Record<string, number>>({})
   const [selectedPost, setSelectedPost] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchPosts() {
       try {
+        setLoading(true)
         const response = await fetch('/api/instagram')
         const data = await response.json()
 
@@ -71,13 +72,34 @@ export function InstagramFeed() {
   }, [retryCount])
 
   const handleImageError = (postId: string) => {
-    setFailedImages(prev => new Set(prev).add(postId))
+    setFailedImages(prev => {
+      const retries = (prev[postId] || 0) + 1;
+      return { ...prev, [postId]: retries };
+    });
+  }
+
+  const canRetryImage = (postId: string) => {
+    return (failedImages[postId] || 0) < 3;
+  }
+
+  const retryImage = (postId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFailedImages(prev => {
+      const newFailedImages = { ...prev };
+      delete newFailedImages[postId];
+      return newFailedImages;
+    });
   }
 
   const getMediaUrl = (post: InstagramPost) => {
-    if (failedImages.has(post.id)) {
-      return post.thumbnail_url || post.media_url || '';
+    // If we've already tried the primary media and it failed, try the thumbnail
+    if (failedImages[post.id] && failedImages[post.id] > 0) {
+      if (post.thumbnail_url) return post.thumbnail_url;
+      // If no thumbnail, maybe try media_url again as last resort
+      return post.media_url;
     }
+    
+    // Otherwise use the standard priority
     if (post.media_type === 'VIDEO') {
       return post.thumbnail_url || post.media_url || '';
     }
@@ -147,6 +169,8 @@ export function InstagramFeed() {
             'col-span-2 row-span-2' : 
             index % 5 === 0 ? 'col-span-2' : '';
 
+          const imageFailed = failedImages[post.id] && failedImages[post.id] >= 3;
+
           return (
             <motion.div
               key={post.id}
@@ -158,29 +182,58 @@ export function InstagramFeed() {
               onClick={() => setSelectedPost(post.id)}
             >
               <div className="absolute inset-0 rounded-xl overflow-hidden">
-                <Image
-                  src={getMediaUrl(post)}
-                  alt={post.caption || 'Instagram post'}
-                  fill
-                  className="object-cover transition-all duration-500 group-hover:scale-110"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  onError={() => handleImageError(post.id)}
-                  priority={index < 6}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
-                  <p className="text-white text-sm line-clamp-3 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                    {post.caption || 'View on Instagram'}
-                  </p>
-                  <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                    <time className="text-gray-300 text-xs">
-                      {new Date(post.timestamp).toLocaleDateString()}
-                    </time>
-                    <ExternalLink className="w-4 h-4 text-white" />
+                {imageFailed ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900">
+                    <Instagram className="w-16 h-16 text-gray-500 mb-2" />
+                    <p className="text-xs text-gray-400">Image unavailable</p>
+                    <Link
+                      href={post.permalink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 text-xs text-teal-400 hover:text-teal-300"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      View on Instagram
+                    </Link>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    <Image
+                      src={getMediaUrl(post)}
+                      alt={post.caption || 'Instagram post'}
+                      fill
+                      className="object-cover transition-all duration-500 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      onError={() => handleImageError(post.id)}
+                      priority={index < 8}
+                    />
+                    
+                    {/* Retry button if image failed but can retry */}
+                    {failedImages[post.id] && failedImages[post.id] > 0 && canRetryImage(post.id) && (
+                      <button 
+                        onClick={(e) => retryImage(post.id, e)}
+                        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full hover:bg-black/90 z-10"
+                      >
+                        <RefreshCcw className="w-4 h-4 text-white" />
+                      </button>
+                    )}
+                    
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
+                      <p className="text-white text-sm line-clamp-3 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                        {post.caption || 'View on Instagram'}
+                      </p>
+                      <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                        <time className="text-gray-300 text-xs">
+                          {new Date(post.timestamp).toLocaleDateString()}
+                        </time>
+                        <ExternalLink className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
           );
@@ -212,13 +265,23 @@ export function InstagramFeed() {
                       className="w-full h-full object-contain"
                     />
                   ) : (
-                    <Image
-                      src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
-                      alt="Instagram post"
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                    />
+                    <div className="relative w-full h-full">
+                      {failedImages[selectedPost] && failedImages[selectedPost] >= 3 ? (
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900">
+                          <Instagram className="w-24 h-24 text-gray-500 mb-4" />
+                          <p className="text-gray-400">Image unavailable</p>
+                        </div>
+                      ) : (
+                        <Image
+                          src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
+                          alt="Instagram post"
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                          onError={() => handleImageError(selectedPost)}
+                        />
+                      )}
+                    </div>
                   )}
                   <Link
                     href={posts.find(p => p.id === selectedPost)!.permalink}
