@@ -1,157 +1,324 @@
 "use client"
 
-import React from "react"
-import { WavyBackground } from "@/components/ui/wavy-background"
+import React, { useState } from "react"
 import { InstagramFeed } from "@/components/sections/InstagramFeed"
-import { Instagram } from "lucide-react"
-import { motion } from "framer-motion"
+import { Instagram, Camera, Filter, Car, Truck, ChevronRight, ArrowRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { SparklesCore } from "@/components/ui/sparkles"
+import { cn } from "@/lib/utils"
+
+// Project categories
+const categories = [
+  { id: "all", name: "All Projects" },
+  { id: "cars", name: "Car Wraps", icon: <Car className="w-4 h-4" /> },
+  { id: "commercial", name: "Commercial", icon: <Truck className="w-4 h-4" /> },
+  { id: "special", name: "Special Projects", icon: <Filter className="w-4 h-4" /> }
+]
 
 export default function GalleryPage() {
+  const [activeCategory, setActiveCategory] = useState("all")
+  const [isLoaded, setIsLoaded] = useState(false)
+
   return (
-    <div className="relative bg-premium-dark min-h-screen">
-      {/* Hero Section with Wavy Background */}
-      <section className="relative overflow-hidden">
-        <WavyBackground
-          colors={["#14B8A6", "#EC4899", "#14B8A6"]}
-          waveWidth={100}
-          backgroundFill="#1f1f1f"
-          blur={10}
-          speed="slow"
-          waveOpacity={0.15}
-          containerClassName="min-h-[70vh] flex items-center bg-premium-black"
-          className="w-full"
-        >
-          <div className="container mx-auto px-4 relative z-10">
-            <motion.div 
+    <div className="relative bg-gradient-to-b from-black to-zinc-900 min-h-screen text-white">
+      {/* Hero Section - Minimalist with Dynamic Content */}
+      <section className="relative pt-24 pb-16 overflow-hidden">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
+              transition={{ duration: 0.6 }}
             >
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 font-serpentine">
-                Project Gallery
+              <h5 className="text-teal-400 font-medium mb-2 tracking-wide uppercase text-sm">Our Portfolio</h5>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 font-serpentine leading-tight">
+                Transformation <br />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-pink-500">
+                  Gallery
+                </span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-                Discover our portfolio of premium vehicle transformations, from luxury car wraps to commercial fleet branding.
+              <p className="text-lg text-zinc-400 max-w-lg mb-8">
+                Explore our collection of premium vehicle wraps, commercial branding, and custom transformations across Sydney.
               </p>
-              <div className="flex items-center justify-center gap-4">
-                <Link
-                  href="https://www.instagram.com/elitewrapperssydney/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-white bg-gradient-to-r from-teal-500/20 to-pink-500/20 px-6 py-3 rounded-full hover:from-teal-500/30 hover:to-pink-500/30 transition-all duration-300 backdrop-blur-sm border border-white/10"
-                >
+              
+              <div className="flex flex-wrap gap-3 mb-8">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => setActiveCategory(category.id)}
+                    className={cn(
+                      "px-4 py-2 rounded-full text-sm transition-all duration-300 flex items-center gap-2",
+                      activeCategory === category.id
+                        ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg shadow-teal-500/20"
+                        : "bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                    )}
+                  >
+                    {category.icon}
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+              
+              <Link
+                href="https://www.instagram.com/elitewrapperssydney/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-white group"
+              >
+                <span className="bg-gradient-to-r from-pink-600 to-pink-500 p-3 rounded-full transition-transform group-hover:scale-110">
                   <Instagram className="w-5 h-5" />
-                  <span>Follow on Instagram</span>
-                </Link>
+                </span>
+                <span className="font-medium">@elitewrapperssydney</span>
+                <ChevronRight className="w-4 h-4 opacity-70 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative aspect-square rounded-2xl overflow-hidden hidden lg:block"
+            >
+              <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2">
+                <div className="relative overflow-hidden rounded-lg">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src="/images/gallery/luxury-sedan-after.jpg"
+                      alt="Luxury sedan wrap"
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 300px"
+                    />
+                  </div>
+                </div>
+                <div className="relative overflow-hidden rounded-lg">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src="/images/gallery/sports-car-after.jpg"
+                      alt="Sports car wrap"
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 300px"
+                    />
+                  </div>
+                </div>
+                <div className="relative overflow-hidden rounded-lg">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src="/images/gallery/van-after.jpg"
+                      alt="Van wrap"
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 300px"
+                    />
+                  </div>
+                </div>
+                <div className="relative overflow-hidden rounded-lg">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src="/images/gallery/fleet-branding.jpg"
+                      alt="Fleet branding"
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 300px"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10" />
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 backdrop-blur-md bg-black/30 px-4 py-2 rounded-full text-sm z-20">
+                Elite Wrappers Portfolio
               </div>
             </motion.div>
           </div>
-        </WavyBackground>
-      </section>
-
-      {/* Gallery Grid Section */}
-      <section className="relative z-10 bg-premium-black py-24">
-        <div className="container mx-auto px-4">
-          <div className="relative">
-            <InstagramFeed />
-          </div>
         </div>
-
-        {/* Background Effects */}
+        
+        {/* Background Particle Effect - Subtle */}
         <div className="absolute inset-0 -z-10">
           <SparklesCore
-            id="tsparticlesfull"
+            id="heroparticles"
             background="transparent"
-            minSize={0.4}
-            maxSize={1.0}
-            particleDensity={30}
+            minSize={0.2}
+            maxSize={0.6}
+            particleDensity={20}
             className="w-full h-full"
-            particleColor="#00bac5"
-            speed={0.1}
+            particleColor="#14B8A6"
+            speed={0.05}
           />
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="relative bg-premium-dark py-24 overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl md:text-4xl font-bold text-white mb-6 font-serpentine bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-300"
-            >
-              Ready to Transform Your Vehicle?
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-gray-300 mb-8"
-            >
-              Contact us today to discuss your project and discover how we can bring your vision to life.
-            </motion.p>
+      
+      {/* Gallery Section - Redesigned */}
+      <section className="relative z-10 py-16">
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-12">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
-                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
-                <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
-                  <Link
-                    href="/contact"
-                    className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all sm:w-auto"
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              </span>
+              <h2 className="text-2xl md:text-3xl font-bold font-serpentine">
+                Latest Projects
+              </h2>
+              <p className="text-zinc-400">Browse our most recent transformations</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="hidden md:block"
+            >
+              <Link 
+                href="/contact" 
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 px-5 py-2.5 rounded-lg text-white shadow-lg shadow-teal-500/20 hover:shadow-teal-500/40 transition-all hover:-translate-y-1"
+              >
+                <span>Discuss Your Project</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           </div>
+          
+          <div className="relative mb-16">
+            <InstagramFeed />
+          </div>
         </div>
-
-        {/* Smooth Gradient Background */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-premium-black via-premium-dark to-premium-black opacity-80" />
         
-        {/* Center Radial Gradient */}
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[800px] h-[400px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(20,184,166,0.08) 0%, rgba(236,72,153,0.08) 35%, rgba(0,0,0,0) 100%)',
-          }}
-        />
-
-        {/* Animated Gradient Orb */}
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: 'conic-gradient(from 0deg at 50% 50%, rgba(20,184,166,0.15) 0deg, rgba(236,72,153,0.15) 180deg, rgba(20,184,166,0.15) 360deg)',
-            filter: 'blur(80px)',
-            animation: 'spin 8s linear infinite',
-          }}
-        />
-
-        {/* Additional Ambient Light */}
-        <div
-          className="absolute -left-1/4 top-1/2 -translate-y-1/2 -z-10 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(20,184,166,0.03) 0%, transparent 70%)',
-            filter: 'blur(50px)',
-          }}
-        />
-        <div
-          className="absolute -right-1/4 top-1/2 -translate-y-1/2 -z-10 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(236,72,153,0.03) 0%, transparent 70%)',
-            filter: 'blur(50px)',
-          }}
-        />
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0 -z-10 opacity-10">
+          <div className="absolute w-[500px] h-[500px] rounded-full bg-teal-500/30 blur-[120px] top-1/4 -left-64 animate-blob animation-delay-4000"></div>
+          <div className="absolute w-[600px] h-[600px] rounded-full bg-pink-500/20 blur-[120px] bottom-1/4 -right-64 animate-blob animation-delay-2000"></div>
+        </div>
       </section>
+      
+      {/* Services Overview */}
+      <section className="relative py-20 overflow-hidden bg-black/50">
+        <div className="container max-w-7xl mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold font-serpentine mb-4">
+              Transform Your Vehicle with Elite Wrappers
+            </h2>
+            <p className="text-zinc-400">
+              Our premium quality materials and expert craftsmanship deliver outstanding results every time.
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Premium Wraps",
+                description: "High-quality materials and precise application for stunning vehicle transformations.",
+                icon: <Camera className="w-8 h-8 text-teal-500" />,
+                link: "/services#premium-wraps"
+              },
+              {
+                title: "Paint Protection",
+                description: "Shield your vehicle's paintwork from damage with our protective films.",
+                icon: <Filter className="w-8 h-8 text-pink-500" />,
+                link: "/services#paint-protection"
+              },
+              {
+                title: "Commercial Branding",
+                description: "Transform your fleet with eye-catching branding that promotes your business.",
+                icon: <Truck className="w-8 h-8 text-teal-500" />,
+                link: "/services#commercial-branding"
+              }
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-2xl border border-zinc-800"
+              >
+                <div className="bg-gradient-to-br from-zinc-800 to-zinc-900 p-4 inline-block rounded-xl mb-4">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+                <p className="text-zinc-400 mb-4">{service.description}</p>
+                <Link
+                  href={service.link}
+                  className="text-teal-400 inline-flex items-center gap-1 hover:text-teal-300 transition-colors"
+                >
+                  Learn more
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section - Simplified and Modern */}
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-zinc-900 to-black">
+        <div className="container max-w-5xl mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="bg-gradient-to-br from-zinc-900/80 to-black/80 backdrop-blur-lg border border-zinc-800/50 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden"
+          >
+            <div className="absolute inset-0 overflow-hidden opacity-20">
+              <div className="absolute w-[300px] h-[300px] rounded-full bg-teal-500 blur-[80px] -top-10 -left-10"></div>
+              <div className="absolute w-[300px] h-[300px] rounded-full bg-pink-500 blur-[80px] -bottom-10 -right-10"></div>
+            </div>
+            
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serpentine">
+              Ready to Transform Your Vehicle?
+            </h2>
+            <p className="text-zinc-400 max-w-2xl mx-auto mb-8">
+              Contact our team today to discuss your project and discover how we can bring your vision to life with our premium wrapping services.
+            </p>
+            
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 px-8 py-4 rounded-lg text-white font-medium shadow-lg shadow-teal-500/20 hover:shadow-teal-500/40 transition-all hover:-translate-y-1"
+            >
+              Get in Touch
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Add keyframes for animation */}
+      <style jsx global>{`
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
     </div>
   )
 }
