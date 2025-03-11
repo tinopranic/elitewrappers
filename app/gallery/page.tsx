@@ -2,23 +2,14 @@
 
 import React, { useState } from "react"
 import { InstagramFeed } from "@/components/sections/InstagramFeed"
-import { Instagram, Camera, Filter, Car, Truck, ChevronRight, ArrowRight } from "lucide-react"
+import { Instagram, ChevronRight, ArrowRight, Camera, Shield, Truck } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { SparklesCore } from "@/components/ui/sparkles"
 import { cn } from "@/lib/utils"
 
-// Project categories
-const categories = [
-  { id: "all", name: "All Projects" },
-  { id: "cars", name: "Car Wraps", icon: <Car className="w-4 h-4" /> },
-  { id: "commercial", name: "Commercial", icon: <Truck className="w-4 h-4" /> },
-  { id: "special", name: "Special Projects", icon: <Filter className="w-4 h-4" /> }
-]
-
 export default function GalleryPage() {
-  const [activeCategory, setActiveCategory] = useState("all")
   const [isLoaded, setIsLoaded] = useState(false)
 
   return (
@@ -32,7 +23,7 @@ export default function GalleryPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h5 className="text-teal-400 font-medium mb-2 tracking-wide uppercase text-sm">Our Portfolio</h5>
+              <h5 className="text-teal-400 font-medium mb-2 tracking-wide uppercase text-sm">OUR PORTFOLIO</h5>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 font-serpentine leading-tight">
                 Transformation <br />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-pink-500">
@@ -42,24 +33,6 @@ export default function GalleryPage() {
               <p className="text-lg text-zinc-400 max-w-lg mb-8">
                 Explore our collection of premium vehicle wraps, commercial branding, and custom transformations across Sydney.
               </p>
-              
-              <div className="flex flex-wrap gap-3 mb-8">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setActiveCategory(category.id)}
-                    className={cn(
-                      "px-4 py-2 rounded-full text-sm transition-all duration-300 flex items-center gap-2",
-                      activeCategory === category.id
-                        ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg shadow-teal-500/20"
-                        : "bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 hover:text-white"
-                    )}
-                  >
-                    {category.icon}
-                    {category.name}
-                  </button>
-                ))}
-              </div>
               
               <Link
                 href="https://www.instagram.com/elitewrapperssydney/"
@@ -86,8 +59,8 @@ export default function GalleryPage() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
                   <div className="relative w-full h-full">
                     <Image 
-                      src="/images/gallery/luxury-sedan-after.jpg"
-                      alt="Luxury sedan wrap"
+                      src="/ppf.jpg"
+                      alt="Paint Protection"
                       fill
                       className="object-cover transition-transform duration-700 hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 300px"
@@ -98,8 +71,8 @@ export default function GalleryPage() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
                   <div className="relative w-full h-full">
                     <Image 
-                      src="/images/gallery/sports-car-after.jpg"
-                      alt="Sports car wrap"
+                      src="/custom4.png"
+                      alt="Custom Wrap"
                       fill
                       className="object-cover transition-transform duration-700 hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 300px"
@@ -110,8 +83,8 @@ export default function GalleryPage() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
                   <div className="relative w-full h-full">
                     <Image 
-                      src="/images/gallery/van-after.jpg"
-                      alt="Van wrap"
+                      src="/commercial1.jpg"
+                      alt="Commercial Wrap"
                       fill
                       className="object-cover transition-transform duration-700 hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 300px"
@@ -122,8 +95,8 @@ export default function GalleryPage() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-pink-500/20 mix-blend-overlay z-10" />
                   <div className="relative w-full h-full">
                     <Image 
-                      src="/images/gallery/fleet-branding.jpg"
-                      alt="Fleet branding"
+                      src="/trailer1.png"
+                      alt="Trailer Signage"
                       fill
                       className="object-cover transition-transform duration-700 hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 300px"
@@ -226,7 +199,7 @@ export default function GalleryPage() {
               {
                 title: "Paint Protection",
                 description: "Shield your vehicle's paintwork from damage with our protective films.",
-                icon: <Filter className="w-8 h-8 text-pink-500" />,
+                icon: <Shield className="w-8 h-8 text-pink-500" />,
                 link: "/services#paint-protection"
               },
               {
