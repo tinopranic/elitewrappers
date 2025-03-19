@@ -248,157 +248,95 @@ export function InstagramFeed() {
   }
 
   return (
-    <div className="relative">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] gap-4 max-w-7xl mx-auto px-4">
-        {posts.map((post, index) => {
-          // Determine if this post should be featured (larger)
-          const isFeatured = index % 7 === 0;
-          const gridClass = isFeatured ? 
-            'col-span-2 row-span-2' : 
-            index % 5 === 0 ? 'col-span-2' : '';
-
-          const imageFailed = failedImages[post.id] && failedImages[post.id] >= 3;
-
-          return (
-            <motion.div
-              key={post.id}
-              layoutId={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative group cursor-pointer ${gridClass}`}
-              onClick={() => setSelectedPost(post.id)}
-            >
-              <div className="absolute inset-0 rounded-xl overflow-hidden">
-                {imageFailed ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900">
-                    <Instagram className="w-16 h-16 text-gray-500 mb-2" />
-                    <p className="text-xs text-gray-400">Image unavailable</p>
-                    <Link
-                      href={post.permalink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 text-xs text-teal-400 hover:text-teal-300"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      View on Instagram
-                    </Link>
-                  </div>
-                ) : (
-                  <>
-                    <Image
-                      src={getMediaUrl(post)}
-                      alt={post.caption || 'Instagram post'}
-                      fill
-                      className="object-cover transition-all duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      onError={() => handleImageError(post.id)}
-                      priority={index < 8}
-                    />
-                    
-                    {/* Retry button if image failed but can retry */}
-                    {failedImages[post.id] && failedImages[post.id] > 0 && canRetryImage(post.id) && (
-                      <button 
-                        onClick={(e) => retryImage(post.id, e)}
-                        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full hover:bg-black/90 z-10"
-                      >
-                        <RefreshCcw className="w-4 h-4 text-white" />
-                      </button>
-                    )}
-                    
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
-                      <p className="text-white text-sm line-clamp-3 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                        {post.caption || 'View on Instagram'}
-                      </p>
-                      <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                        <time className="text-gray-300 text-xs">
-                          {new Date(post.timestamp).toLocaleDateString()}
-                        </time>
-                        <ExternalLink className="w-4 h-4 text-white" />
-                      </div>
-                    </div>
-                  </>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+      {posts.map((post) => (
+        <div key={post.id} className="relative aspect-square">
+          <div
+            onClick={() => setSelectedPost(post.id)}
+            className="cursor-pointer group relative w-full h-full overflow-hidden bg-gray-100 rounded-lg"
+          >
+            {failedImages[post.id] ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-gray-500">
+                <p className="text-sm text-center mb-2">Failed to load image</p>
+                {canRetryImage(post.id) && (
+                  <button
+                    onClick={(e) => retryImage(post.id, e)}
+                    className="text-teal-500 hover:text-teal-600 inline-flex items-center gap-1"
+                  >
+                    <RefreshCcw className="w-4 h-4" />
+                    Retry
+                  </button>
                 )}
               </div>
-            </motion.div>
-          );
-        })}
-      </div>
+            ) : (
+              <Image
+                src={getMediaUrl(post)}
+                alt={post.caption || 'Instagram post'}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                onError={() => handleImageError(post.id)}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                priority={posts.indexOf(post) < 4}
+              />
+            )}
+            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity duration-300" />
+          </div>
+        </div>
+      ))}
 
-      {/* Modal View */}
       <AnimatePresence>
         {selectedPost && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
             onClick={() => setSelectedPost(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4"
           >
             <motion.div
-              layoutId={selectedPost}
-              className="relative w-full max-w-4xl aspect-square rounded-xl overflow-hidden"
-              onClick={e => e.stopPropagation()}
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-lg overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
             >
-              {posts.find(p => p.id === selectedPost) && (
-                <>
-                  {posts.find(p => p.id === selectedPost)!.media_type === 'VIDEO' ? (
-                    <video
-                      src={posts.find(p => p.id === selectedPost)!.media_url}
-                      controls
-                      autoPlay
-                      className="w-full h-full object-contain"
-                    />
-                  ) : (
-                    <div className="relative w-full h-full">
-                      {failedImages[selectedPost] && failedImages[selectedPost] >= 3 ? (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900">
-                          <Instagram className="w-24 h-24 text-gray-500 mb-4" />
-                          <p className="text-gray-400">Image unavailable</p>
-                        </div>
-                      ) : (
-                        <Image
-                          src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
-                          alt="Instagram post"
-                          fill
-                          className="object-contain"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                          onError={() => handleImageError(selectedPost)}
-                        />
-                      )}
-                    </div>
-                  )}
-                  <Link
-                    href={posts.find(p => p.id === selectedPost)!.permalink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute bottom-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm flex items-center gap-2 hover:bg-white/20 transition-colors"
-                  >
-                    <Instagram className="w-4 h-4" />
-                    View on Instagram
-                  </Link>
-                </>
-              )}
+              <div className="relative aspect-[4/3] sm:aspect-[16/9]">
+                {posts.find(p => p.id === selectedPost) && (
+                  <Image
+                    src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
+                    alt={posts.find(p => p.id === selectedPost)?.caption || 'Instagram post'}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 1024px) 100vw, 75vw"
+                  />
+                )}
+              </div>
+              <div className="p-4 bg-white">
+                <p className="text-sm text-gray-600 mb-2">
+                  {posts.find(p => p.id === selectedPost)?.caption}
+                </p>
+                <Link
+                  href={posts.find(p => p.id === selectedPost)?.permalink || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-teal-500 hover:text-teal-600 inline-flex items-center gap-2 text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  View on Instagram
+                </Link>
+              </div>
+              <button
+                onClick={() => setSelectedPost(null)}
+                className="absolute top-2 right-2 text-white bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Instagram branding */}
-      <div className="flex justify-center my-8">
-        <Link
-          href="https://www.instagram.com/elitewrapperssydney/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-white bg-gradient-to-r from-teal-500/20 to-pink-500/20 px-6 py-3 rounded-full hover:from-teal-500/30 hover:to-pink-500/30 transition-all duration-300 backdrop-blur-sm border border-white/10"
-        >
-          <Instagram className="w-5 h-5" />
-          <span>View More on Instagram</span>
-        </Link>
-      </div>
     </div>
   )
 } 
