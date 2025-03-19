@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Instagram, ExternalLink, RefreshCcw } from "lucide-react"
+import { Instagram, ExternalLink, RefreshCcw, Play } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface InstagramPost {
@@ -191,6 +191,72 @@ export function InstagramFeed() {
     return post.media_url || '';
   }
 
+  const renderMedia = (post: InstagramPost, inModal: boolean = false) => {
+    if (failedImages[post.id]) {
+      return (
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-gray-500">
+          <p className="text-sm text-center mb-2">Failed to load media</p>
+          {canRetryImage(post.id) && (
+            <button
+              onClick={(e) => retryImage(post.id, e)}
+              className="text-teal-500 hover:text-teal-600 inline-flex items-center gap-1"
+            >
+              <RefreshCcw className="w-4 h-4" />
+              Retry
+            </button>
+          )}
+        </div>
+      )
+    }
+
+    if (post.media_type === 'VIDEO') {
+      if (inModal) {
+        return (
+          <video
+            src={post.media_url}
+            controls
+            autoPlay
+            playsInline
+            className="w-full h-full object-contain"
+            onError={() => handleImageError(post.id)}
+          />
+        )
+      } else {
+        // In grid view, show thumbnail with play button
+        return (
+          <>
+            <Image
+              src={post.thumbnail_url || post.media_url}
+              alt={post.caption || 'Instagram video'}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+              onError={() => handleImageError(post.id)}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              priority={posts.indexOf(post) < 4}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-black bg-opacity-50 flex items-center justify-center">
+                <Play className="w-6 h-6 text-white fill-current" />
+              </div>
+            </div>
+          </>
+        )
+      }
+    }
+
+    return (
+      <Image
+        src={getMediaUrl(post)}
+        alt={post.caption || 'Instagram post'}
+        fill
+        className={`object-${inModal ? 'contain' : 'cover'} ${!inModal ? 'transition-transform duration-300 group-hover:scale-110' : ''}`}
+        onError={() => handleImageError(post.id)}
+        sizes={inModal ? "(max-width: 1024px) 100vw, 75vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"}
+        priority={!inModal && posts.indexOf(post) < 4}
+      />
+    )
+  }
+
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center min-h-[400px]">
@@ -255,30 +321,7 @@ export function InstagramFeed() {
             onClick={() => setSelectedPost(post.id)}
             className="cursor-pointer group relative w-full h-full overflow-hidden bg-gray-100 rounded-lg"
           >
-            {failedImages[post.id] ? (
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-gray-500">
-                <p className="text-sm text-center mb-2">Failed to load image</p>
-                {canRetryImage(post.id) && (
-                  <button
-                    onClick={(e) => retryImage(post.id, e)}
-                    className="text-teal-500 hover:text-teal-600 inline-flex items-center gap-1"
-                  >
-                    <RefreshCcw className="w-4 h-4" />
-                    Retry
-                  </button>
-                )}
-              </div>
-            ) : (
-              <Image
-                src={getMediaUrl(post)}
-                alt={post.caption || 'Instagram post'}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-                onError={() => handleImageError(post.id)}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                priority={posts.indexOf(post) < 4}
-              />
-            )}
+            {renderMedia(post)}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity duration-300" />
           </div>
         </div>
@@ -301,15 +344,7 @@ export function InstagramFeed() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative aspect-[4/3] sm:aspect-[16/9]">
-                {posts.find(p => p.id === selectedPost) && (
-                  <Image
-                    src={getMediaUrl(posts.find(p => p.id === selectedPost)!)}
-                    alt={posts.find(p => p.id === selectedPost)?.caption || 'Instagram post'}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 1024px) 100vw, 75vw"
-                  />
-                )}
+                {posts.find(p => p.id === selectedPost) && renderMedia(posts.find(p => p.id === selectedPost)!, true)}
               </div>
               <div className="p-4 bg-white">
                 <p className="text-sm text-gray-600 mb-2">
