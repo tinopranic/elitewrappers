@@ -9,7 +9,7 @@ import { Footer } from "@/components/layout/Footer"
 import { RouteChangeTracker } from "@/components/analytics/RouteChangeTracker"
 import { GTM_ID } from "@/lib/gtm"
 import { MetaPixel } from "@/components/analytics/MetaPixel"
-import { CookieConsent } from "@/components/CookieConsent"
+import { CookieConsent } from "@/components/cookie-consent"
 
 const GA_ID = 'G-7VWQRTXFVB'
 
@@ -75,8 +75,16 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              // Check for cookie consent
-              if (localStorage.getItem('cookie-consent') === 'accepted') {
+              function checkConsent() {
+                const consent = localStorage.getItem('cookie-consent');
+                if (consent) {
+                  const { analytics } = JSON.parse(consent);
+                  return analytics;
+                }
+                return false;
+              }
+              
+              if (checkConsent()) {
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
                 var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
                 j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
@@ -98,7 +106,16 @@ export default function RootLayout({
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            if (localStorage.getItem('cookie-consent') === 'accepted') {
+            function checkConsent() {
+              const consent = localStorage.getItem('cookie-consent');
+              if (consent) {
+                const { analytics } = JSON.parse(consent);
+                return analytics;
+              }
+              return false;
+            }
+            
+            if (checkConsent()) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
