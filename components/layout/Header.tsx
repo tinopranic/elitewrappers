@@ -188,16 +188,45 @@ export function Header() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      "text-gray-200 hover:text-pink-500 transition-colors cursor-pointer",
-                    )}
-                  >
-                    About
-                  </NavigationMenuLink>
-                </Link>
+                <NavigationMenuTrigger className="text-gray-200 hover:text-pink-500 transition-colors cursor-pointer">
+                  Company
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-2">
+                      <NavigationMenuLink asChild>
+                        <a
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-cover bg-center p-6 no-underline outline-none focus:shadow-md relative overflow-hidden group"
+                          href="/about"
+                          style={{
+                            backgroundImage:
+                              'url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/_J016683.jpg-gkXuhy9uA0QQzlEV2TT07ngbcGMqqq.jpeg")',
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 transition-opacity group-hover:opacity-75" />
+                          <div className="relative z-20">
+                            <div className="mb-2 mt-4 text-lg font-medium text-white">About Us</div>
+                            <p className="text-sm leading-tight text-gray-100">
+                              Learn about our story, values, and commitment to excellence.
+                            </p>
+                          </div>
+                        </a>
+                      </NavigationMenuLink>
+                    </li>
+                    <ListItem
+                      href="/about"
+                      title="About Us"
+                    >
+                      Discover our story and commitment to excellence in vehicle wrapping.
+                    </ListItem>
+                    <ListItem
+                      href="/sustainability"
+                      title="Sustainability Mission"
+                    >
+                      Our commitment to environmental stewardship and sustainable practices.
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/contact" legacyBehavior passHref>
@@ -270,53 +299,89 @@ export function Header() {
             </button>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
+            <div className="-my-6 divide-y divide-gray-500/25">
               <div className="space-y-2 py-6">
                 <Link
                   href="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-800"
                 >
                   Home
                 </Link>
-                <Link
-                  href="/services"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Services
-                </Link>
+                <div className="space-y-2">
+                  <button
+                    type="button"
+                    className="-mx-3 block w-full rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-800"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Services
+                  </button>
+                  <div className="ml-4 space-y-2">
+                    {services.map((service) => (
+                      <Link
+                        key={service.title}
+                        href={service.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-400 hover:bg-gray-800"
+                        onClick={() => {
+                          setMobileMenuOpen(false)
+                          handleServiceClick
+                        }}
+                      >
+                        {service.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
                 <Link
                   href="/gallery"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-800"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Gallery
                 </Link>
+                <div className="space-y-2">
+                  <button
+                    type="button"
+                    className="-mx-3 block w-full rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-800"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Company
+                  </button>
+                  <div className="ml-4 space-y-2">
+                    <Link
+                      href="/about"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-400 hover:bg-gray-800"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      About Us
+                    </Link>
+                    <Link
+                      href="/sustainability"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-400 hover:bg-gray-800"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Sustainability Mission
+                    </Link>
+                  </div>
+                </div>
                 <Link
-                  href="/about"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:text-pink-500 hover:bg-white/10 cursor-pointer"
+                  href="/contact"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-800"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  About
+                  Contact
                 </Link>
-                <div className="py-6">
-                  <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full">
-                    <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#14B8A6_0%,#EC4899_50%,#14B8A6_100%)]" />
-                    <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black/60 text-xs font-medium backdrop-blur-3xl">
-                      <Link
-                        href="/contact?scroll=contact-form"
-                        className="inline-flex rounded-full text-center group items-center w-full justify-center bg-white/10 text-gray-200 py-2 px-6 text-sm hover:bg-white/20 hover:text-white transition-all cursor-pointer"
-                        onClick={(e) => {
-                          setMobileMenuOpen(false)
-                          handleQuoteClick(e)
-                        }}
-                      >
-                        Get a Quote
-                      </Link>
-                    </div>
-                  </span>
-                </div>
+              </div>
+              <div className="py-6">
+                <Link
+                  href="/contact?scroll=contact-form"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-800"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    handleQuoteClick
+                  }}
+                >
+                  Get a Quote
+                </Link>
               </div>
             </div>
           </div>
