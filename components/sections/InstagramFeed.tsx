@@ -30,7 +30,7 @@ export function InstagramFeed() {
       try {
         setLoading(true)
         setDebugInfo("Fetching posts...")
-        const response = await fetch('/api/instagram')
+        const response = await fetch('/api/instagram', { cache: 'no-store' })
         const data = await response.json()
         setDebugInfo(`Response status: ${response.status}`)
 
