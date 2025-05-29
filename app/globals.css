@@ -280,3 +280,21 @@
   }
 }
 
+/* Instagram Embed Styles */
+.instagram-embed-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 300px;
+}
+
+.instagram-embed-container .instagram-media {
+  position: absolute !important;
+  margin: 0 !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+}
+
