@@ -144,8 +144,9 @@ export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
         position: "top-center",
         style: {
           background: 'linear-gradient(135deg, #14B8A6, #EC4899)',
-          color: 'white',
+          color: 'black',
           border: 'none',
+          fontWeight: '600',
         },
       })
       
@@ -164,8 +165,9 @@ export function ContactForm({ defaultService, defaultPlan }: ContactFormProps) {
         position: "top-center",
         style: {
           background: 'linear-gradient(135deg, #ef4444, #dc2626)',
-          color: 'white',
+          color: 'black',
           border: 'none',
+          fontWeight: '600',
         },
       })
     } finally {
