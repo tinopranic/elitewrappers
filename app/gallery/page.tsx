@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { InstagramFeed } from "@/components/sections/InstagramFeed"
+import { Gallery } from "@/components/sections/Gallery"
 import { Instagram, ChevronRight, ArrowRight, Camera, Shield, Truck } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
@@ -160,7 +160,7 @@ export default function GalleryPage() {
           </div>
           
           <div className="relative mb-16">
-            <InstagramFeed />
+            <Gallery />
           </div>
         </div>
         
@@ -242,8 +242,9 @@ export default function GalleryPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="bg-gradient-to-br from-zinc-900/80 to-black/80 backdrop-blur-lg border border-zinc-800/50 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden"
+            style={{ position: 'relative', zIndex: 1 }}
           >
-            <div className="absolute inset-0 overflow-hidden opacity-20">
+            <div className="absolute inset-0 overflow-hidden opacity-20 -z-10">
               <div className="absolute w-[300px] h-[300px] rounded-full bg-teal-500 blur-[80px] -top-10 -left-10"></div>
               <div className="absolute w-[300px] h-[300px] rounded-full bg-pink-500 blur-[80px] -bottom-10 -right-10"></div>
             </div>
@@ -257,7 +258,7 @@ export default function GalleryPage() {
             
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 px-8 py-4 rounded-lg text-white font-medium shadow-lg shadow-teal-500/20 hover:shadow-teal-500/40 transition-all hover:-translate-y-1"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 px-8 py-4 rounded-lg text-white font-medium shadow-lg shadow-teal-500/20 hover:shadow-teal-500/40 transition-all hover:-translate-y-1 relative z-10"
             >
               Get in Touch
               <ArrowRight className="w-5 h-5" />

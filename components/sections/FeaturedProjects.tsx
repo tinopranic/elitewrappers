@@ -10,64 +10,37 @@ export function FeaturedProjects() {
   const [projects, setProjects] = React.useState<(string | JSX.Element)[]>([])
   const [loading, setLoading] = React.useState(true)
   const [mounted, setMounted] = useState(false)
-  const [instagramAccessToken, setInstagramAccessToken] = useState<string>('')
 
   React.useEffect(() => {
-    async function fetchInstagramPosts() {
-      try {
-        const response = await fetch('/api/instagram')
-        const data = await response.json()
-        if (data.success && data.data) {
-          const instagramPhotos = data.data.map((post: any) => 
-            post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url
-          ).filter(Boolean)
-
-          setProjects([
-            ...instagramPhotos,
-            <div key="custom-1" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
-              <h3 className="text-2xl font-bold text-white text-center">Premium Vehicle Wraps</h3>
-            </div>,
-            <div key="custom-2" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
-              <h3 className="text-2xl font-bold text-white text-center">Paint Protection</h3>
-            </div>,
-            <div key="custom-3" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
-              <h3 className="text-2xl font-bold text-white text-center">Commercial Fleet Wraps</h3>
-            </div>,
-          ])
-        }
-      } catch (error) {
-        console.error('Error fetching Instagram posts:', error)
-        // Fallback to default projects if Instagram fetch fails
-        setProjects([
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/luxury-sedan-after.jpg",
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/sports-car-after.jpg",
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/suv-after.jpg",
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/van-after.jpg",
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/metallic-sports-car.jpg",
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/partial-hood-wrap.jpg",
-          "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projects/fleet-branding.jpg",
-          <div key="custom-1" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
-            <h3 className="text-2xl font-bold text-white text-center">Premium Vehicle Wraps</h3>
-          </div>,
-          <div key="custom-2" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
-            <h3 className="text-2xl font-bold text-white text-center">Paint Protection</h3>
-          </div>,
-          <div key="custom-3" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
-            <h3 className="text-2xl font-bold text-white text-center">Commercial Fleet Wraps</h3>
-          </div>,
-        ])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchInstagramPosts()
+    // Use local images instead of Instagram API
+    setProjects([
+      "/images/gallery/luxury-sedan-after.jpg",
+      "/images/gallery/sports-car-after.jpg",
+      "/images/gallery/van-after.jpg",
+      "/images/gallery/fleet-branding.jpg",
+      "/commercial1.jpg",
+      "/commercial2.jpg",
+      "/commercial3.jpg",
+      "/custom1.jpg",
+      "/custom2.jpg",
+      "/custom3.jpg",
+      "/premiumwraps.jpg",
+      "/ppf.jpg",
+      <div key="custom-1" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
+        <h3 className="text-2xl font-bold text-white text-center">Premium Vehicle Wraps</h3>
+      </div>,
+      <div key="custom-2" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
+        <h3 className="text-2xl font-bold text-white text-center">Paint Protection</h3>
+      </div>,
+      <div key="custom-3" className="bg-black/80 backdrop-blur-sm p-6 h-full flex items-center justify-center">
+        <h3 className="text-2xl font-bold text-white text-center">Commercial Fleet Wraps</h3>
+      </div>,
+    ])
+    setLoading(false)
   }, [])
 
   useEffect(() => {
     setMounted(true)
-    // Get the Instagram access token from environment variable
-    setInstagramAccessToken(process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN || '')
   }, [])
 
   if (!mounted) return null
@@ -105,7 +78,6 @@ export function FeaturedProjects() {
             items={projects} 
             gradientColor="rgba(20, 20, 20, 0.8)" 
             className="relative z-20"
-            instagramAccessToken={instagramAccessToken}
           />
         )}
       </div>

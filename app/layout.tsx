@@ -10,6 +10,7 @@ import { RouteChangeTracker } from "@/components/analytics/RouteChangeTracker"
 import { GTM_ID } from "@/lib/gtm"
 import { MetaPixel } from "@/components/analytics/MetaPixel"
 import { CookieConsent } from "@/components/cookie-consent"
+import { Toaster } from "@/components/ui/sonner"
 
 const GA_ID = 'G-7VWQRTXFVB'
 
@@ -142,6 +143,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <CookieConsent />
+        <Toaster />
       </body>
     </html>
   )
