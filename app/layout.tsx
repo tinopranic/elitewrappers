@@ -70,31 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${serpentine.variable}`}>
       <head>
-        {/* Google Tag Manager - Load only after consent */}
-        <Script
-          id="gtm-script"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              function checkConsent() {
-                const consent = localStorage.getItem('cookie-consent');
-                if (consent) {
-                  const { analytics } = JSON.parse(consent);
-                  return analytics;
-                }
-                return false;
-              }
-              
-              if (checkConsent()) {
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-                j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-5745RZDP');
-              }
-            `,
-          }}
-        />
+        {/* Google Tag Manager - Will be loaded dynamically after consent */}
       </head>
       {/* Google Analytics - Load only after consent */}
       <Script
@@ -122,6 +98,57 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', '${GA_ID}');
             }
+          `,
+        }}
+      />
+      <Script
+        id="gtm-loader"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            function loadGTM() {
+              const consent = localStorage.getItem('cookie-consent');
+              if (consent) {
+                try {
+                  const { analytics } = JSON.parse(consent);
+                  if (analytics) {
+                    // Initialize dataLayer if it doesn't exist
+                    window.dataLayer = window.dataLayer || [];
+                    
+                    // Load GTM
+                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+                    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+                    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                    f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-5745RZDP');
+                    
+                    console.log('GTM loaded successfully');
+                  }
+                } catch (e) {
+                  console.error('Error parsing cookie consent:', e);
+                }
+              }
+            }
+            
+            // Check immediately
+            loadGTM();
+            
+            // Also listen for storage changes (when consent is updated)
+            window.addEventListener('storage', function(e) {
+              if (e.key === 'cookie-consent') {
+                loadGTM();
+              }
+            });
+            
+            // Check every 2 seconds for the first 10 seconds (fallback)
+            let attempts = 0;
+            const interval = setInterval(() => {
+              attempts++;
+              loadGTM();
+              if (attempts >= 5) {
+                clearInterval(interval);
+              }
+            }, 2000);
           `,
         }}
       />
