@@ -10,11 +10,18 @@ export function MetaPixel() {
   useEffect(() => {
     // Check consent only on client side
     const consent = localStorage.getItem('cookie-consent')
-    if (consent === 'accepted') {
-      setHasConsent(true)
-      // Track PageView after initialization
-      if (window.fbq) {
-        window.fbq('track', 'PageView')
+    if (consent) {
+      try {
+        const { marketing } = JSON.parse(consent)
+        if (marketing) {
+          setHasConsent(true)
+          // Track PageView after initialization
+          if (window.fbq) {
+            window.fbq('track', 'PageView')
+          }
+        }
+      } catch (e) {
+        console.error('Error parsing cookie consent for Meta Pixel:', e)
       }
     }
   }, [])
